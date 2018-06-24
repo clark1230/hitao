@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.gateway.GatewayApiDefineMapper">
+    <!--gateway_api_define表中的列-->
+    <sql id="gatewayApiDefineBaseColumn">
+         id,
+         path,
+         service_id,
+         url,
+         retryable,
+         enabled,
+         strip_prefix,
+         api_name
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addGatewayApiDefine" parameterType="com.hzitxx.hitao.system.pojo.GatewayApiDefine">
+        INSERT INTO gateway_api_define(
+            <include refid="gatewayApiDefineBaseColumn"/>
+        ) VALUES(
+                #{id},
+                #{path},
+                #{serviceId},
+                #{url},
+                #{retryable},
+                #{enabled},
+                #{stripPrefix},
+                #{apiName}
+        )
+    </insert>
+    <insert id="addGatewayApiDefineSelective" parameterType="com.hzitxx.hitao.system.pojo.GatewayApiDefine">
+        insert into gateway_api_define
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="serviceId != null">
+                service_id,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="retryable != null">
+                retryable,
+            </if>
+            <if test="enabled != null">
+                enabled,
+            </if>
+            <if test="stripPrefix != null">
+                strip_prefix,
+            </if>
+            <if test="apiName != null">
+                api_name,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="path != null">
+                #{path},
+            </if>
+            <if test="serviceId != null">
+                #{serviceId},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="retryable != null">
+                #{retryable},
+            </if>
+            <if test="enabled != null">
+                #{enabled},
+            </if>
+            <if test="stripPrefix != null">
+                #{stripPrefix},
+            </if>
+            <if test="apiName != null">
+                #{apiName},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  gateway_api_define WHERE
+        id = #{id}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  gateway_api_define WHERE id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.GatewayApiDefine">
+        UPDATE gateway_api_define
+        <set>
+          id=#{id},
+          path=#{path},
+          service_id=#{serviceId},
+          url=#{url},
+          retryable=#{retryable},
+          enabled=#{enabled},
+          strip_prefix=#{stripPrefix},
+          api_name=#{apiName}
+        </set>
+        WHERE
+           id = #{id}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.GatewayApiDefine">
+        UPDATE gateway_api_define
+        <set>
+    <if test="id != null">
+          id = #{id},
+    </if>
+    <if test="path != null">
+          path = #{path},
+    </if>
+    <if test="serviceId != null">
+          service_id = #{serviceId},
+    </if>
+    <if test="url != null">
+          url = #{url},
+    </if>
+    <if test="retryable != null">
+          retryable = #{retryable},
+    </if>
+    <if test="enabled != null">
+          enabled = #{enabled},
+    </if>
+    <if test="stripPrefix != null">
+          strip_prefix = #{stripPrefix},
+    </if>
+    <if test="apiName != null">
+          api_name = #{apiName},
+    </if>
+    </set>
+        WHERE
+      id = #{id}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="gatewayApiDefineMap" parameterType="integer">
+        select
+        <include refid="gatewayApiDefineBaseColumn"/>
+        from
+            gateway_api_define
+        WHERE
+          id = #{id}
+    </select>
+    <!--查询数据-->
+    <select id="searchGatewayApiDefine" parameterType="map" resultMap="gatewayApiDefineMap">
+        SELECT
+        <include refid="gatewayApiDefineBaseColumn"/>
+        FROM gateway_api_define
+        <include refid="gatewayApiDefineBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="gatewayApiDefineBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.id !=null">
+                    AND id = #{map.id}
+                </if>
+                <if test="map.path !=null">
+                    AND path = #{map.path}
+                </if>
+                <if test="map.serviceId !=null">
+                    AND service_id = #{map.serviceId}
+                </if>
+                <if test="map.url !=null">
+                    AND url = #{map.url}
+                </if>
+                <if test="map.retryable !=null">
+                    AND retryable = #{map.retryable}
+                </if>
+                <if test="map.enabled !=null">
+                    AND enabled = #{map.enabled}
+                </if>
+                <if test="map.stripPrefix !=null">
+                    AND strip_prefix = #{map.stripPrefix}
+                </if>
+                <if test="map.apiName !=null">
+                    AND api_name = #{map.apiName}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="gatewayApiDefineMap" type="com.hzitxx.hitao.system.pojo.GatewayApiDefine">
+            <id column="id" property="id"/>
+            <result column="path" property="path"/>
+            <result column="service_id" property="serviceId"/>
+            <result column="url" property="url"/>
+            <result column="retryable" property="retryable"/>
+            <result column="enabled" property="enabled"/>
+            <result column="strip_prefix" property="stripPrefix"/>
+            <result column="api_name" property="apiName"/>
+     </resultMap>
+</mapper>

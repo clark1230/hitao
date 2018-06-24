@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.permission.ShopPermissionRouteMapper">
+    <!--shop_permission_route表中的列-->
+    <sql id="shopPermissionRouteBaseColumn">
+         route_id,
+         parent_id,
+         path,
+         component,
+         name,
+         redirect,
+         meta
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopPermissionRoute" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopPermissionRoute">
+        INSERT INTO shop_permission_route(
+            <include refid="shopPermissionRouteBaseColumn"/>
+        ) VALUES(
+                #{routeId},
+                #{parentId},
+                #{path},
+                #{component},
+                #{name},
+                #{redirect},
+                #{meta}
+        )
+    </insert>
+    <insert id="addShopPermissionRouteSelective" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopPermissionRoute">
+        insert into shop_permission_route
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">
+                route_id,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="component != null">
+                component,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="redirect != null">
+                redirect,
+            </if>
+            <if test="meta != null">
+                meta,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="routeId != null">
+                #{routeId},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="path != null">
+                #{path},
+            </if>
+            <if test="component != null">
+                #{component},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="redirect != null">
+                #{redirect},
+            </if>
+            <if test="meta != null">
+                #{meta},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_permission_route WHERE
+        route_id = #{routeId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_permission_route WHERE route_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopPermissionRoute">
+        UPDATE shop_permission_route
+        <set>
+          route_id=#{routeId},
+          parent_id = #{parentId},
+          path=#{path},
+          component=#{component},
+          name=#{name},
+          redirect=#{redirect},
+          meta=#{meta}
+        </set>
+        WHERE
+           route_id = #{routeId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopPermissionRoute">
+        UPDATE shop_permission_route
+        <set>
+    <if test="routeId != null">
+          route_id = #{routeId},
+    </if>
+    <if test="parentId != null">
+        parent_id = #{parentId},
+    </if>
+    <if test="path != null">
+          path = #{path},
+    </if>
+    <if test="component != null">
+          component = #{component},
+    </if>
+    <if test="name != null">
+          name = #{name},
+    </if>
+    <if test="redirect != null">
+          redirect = #{redirect},
+    </if>
+    <if test="meta != null">
+          meta = #{meta},
+    </if>
+    </set>
+        WHERE
+      route_id = #{routeId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopPermissionRouteMap" parameterType="integer">
+        select
+        <include refid="shopPermissionRouteBaseColumn"/>
+        from
+            shop_permission_route
+        WHERE
+          route_id = #{routeId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopPermissionRoute" parameterType="map" resultMap="shopPermissionRouteMap">
+        SELECT
+        <include refid="shopPermissionRouteBaseColumn"/>
+        FROM shop_permission_route
+        <include refid="shopPermissionRouteBaseWhereSql"/>
+    </select>
+    <!--根据父级编号查询数据-->
+    <select id="findByParentId" resultMap="shopPermissionRouteMap" parameterType="integer">
+        select
+        <include refid="shopPermissionRouteBaseColumn"/>
+        from
+        shop_permission_route
+        WHERE
+        parent_id = #{parentId}
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopPermissionRouteBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.routeId !=null">
+                    AND route_id = #{map.routeId}
+                </if>
+                <if test="map.parentId !=null">
+                    AND parent_id = #{map.parenId}
+                </if>
+                <if test="map.path !=null">
+                    AND path = #{map.path}
+                </if>
+                <if test="map.component !=null">
+                    AND component = #{map.component}
+                </if>
+                <if test="map.name !=null">
+                    AND name = #{map.name}
+                </if>
+                <if test="map.redirect !=null">
+                    AND redirect = #{map.redirect}
+                </if>
+                <if test="map.meta !=null">
+                    AND meta = #{map.meta}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="shopPermissionRouteMap" type="com.hzitxx.hitao.system.pojo.permission.ShopPermissionRoute">
+            <id column="route_id" property="routeId"/>
+            <id column="parent_id" property="parentId"/>
+            <result column="path" property="path"/>
+            <result column="component" property="component"/>
+            <result column="name" property="name"/>
+            <result column="redirect" property="redirect"/>
+            <result column="meta" property="meta"/>
+     </resultMap>
+</mapper>

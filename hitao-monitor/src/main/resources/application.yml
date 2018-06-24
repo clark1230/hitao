@@ -1,0 +1,70 @@
+server:
+  port: 8094
+spring:
+  application:
+    name: minitor-service
+  boot:
+    admin:
+      notify:
+        hipchat:
+          enabled: true
+        mail:
+          from: xianyaoji@hzitxx.com #邮件发送账号
+          to: 1552089240@qq.com # 邮件接收账号
+      monitor:
+        connect-timeout: 30000 # 30秒
+        read-timeout: 30000 # 30秒
+        period:  30000 # 30秒
+      turbine:
+        location: http://localhost:9443/hystrix.stream
+        clusters: default
+      routes:
+        endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,activiti
+          #ignore-changes: [":"]
+  mail: # 邮件配置
+    host: smtp.exmail.qq.com
+    username: xianyaoji@hzitxx.com # 邮件发送账号
+    password: ClarkXyj123016 # 授权密码
+    protocol: smtp
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: false
+            required: false
+    test-connection: true
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+  instance:
+    metadata-map:
+      management.port: ${management.port:8094}
+management:
+  security:
+    enabled: false
+hystrix:
+  metrics:
+    enabled: true
+turbine:
+  aggregator:
+    cluster-config: SYSTEM,USER
+  app-config: customers,stores,ui,admin
+  cluster-name-expression: metadata['cluster']
+# 加密配置
+encrypt:
+  key-store:
+    alias: mytestkey
+    password: letmein
+    secret: changeme
+    location: classpath:/server.jks
+zuul:
+  host:
+    connect-timeout-millis: 20000
+    socket-timeout-millis: 20000
+
+
+
+

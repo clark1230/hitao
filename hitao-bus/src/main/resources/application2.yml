@@ -1,0 +1,93 @@
+# kafka的配置
+spring:
+  cloud:
+    # spring cloud config 的配置
+    config:
+      profile: dev
+      discovery:
+        enabled: true  # 允许自动发现
+        service-id:  config-service  # 配置spring cloud config服务
+      label: master
+  rabbitmq:
+    port: 5672
+    host: localhost
+    username: guest
+    password: guest
+
+  application:
+      name: bus-service  #消息总线服务
+
+management:
+  security:
+    enabled: false
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-server}  # 从spring cloud config 中动态获取信息
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    hostname: localhost
+    lease-expiration-duration-in-seconds: 90 # 续约到期时间(默认90秒)
+    lease-renewal-interval-in-seconds: 30  # 续约更新时间 (默认30秒)
+# 高可用消息总线的配置
+
+---
+
+server:
+  port: 8400
+spring:
+  profiles: bus-producer
+  application:
+    index: 1  # 用来唯一标识content_id ,bus会根据上下文id的唯一性来避免处理event的逻辑被重复执行两次
+  cloud:
+    stream:
+      bindings:  # spring cloud bus topic 是默认值可以不配,对应的input,ouput 分别是springCloudBusInput,SpringCloudOutput,需要对bus stream 定制的话可以配置这两个channel
+#        springCloudBusOutput:
+#          destination: springCloudBus
+#          # 指定消费组,避免每次随机group
+#          group: cloud-bus-group:${spring.application.index}
+        message_output:
+          destination: test
+          producer:
+            exchangeType:
+              fanout
+      default-binder: boss
+      binders:
+        boss:
+          type: rabbit
+          environment:
+            spring:
+              rabbitmq:
+                virtual-hosts: boss
+
+    config:
+          label: master # 对应的是git的分支，如果胚子中心使用的是本地存储，则该参数无用
+          #uri: http://localhost:8888 # 配置中心的具体地址
+          discovery:
+            enabled: true  # 开启config服务发现支持
+            service-id: config-service  # 指定server端的name，也就是 spring cloud config server端的spring.application.name的值
+          # git 仓库配置文件的名称 test-config-dev.properties   test-config 就是指application   dev就是指profile
+          profile: dev
+          name: test-config
+
+---
+
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8001/eureka/  # 从spring cloud config 中动态获取信息
+
+server:
+  port: 8401
+spring:
+  profiles: bus-consumer
+  application:
+    index: 2
+  cloud:
+    stream:
+      bindings:
+        springCloudBusInput:
+          destination: springCloudBus
+          group: cloud-bus-group:${spring.application.index}

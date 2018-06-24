@@ -1,0 +1,53 @@
+server:
+  port: 8095
+spring:
+  application:
+    name: product-service
+  rabbitmq:
+    port: 5672
+    host: localhost
+    username: guest
+    password: guest
+  #jackson:
+    #date-format: yyyy-MM-dd HH:mm:ss
+    #time-zone: GMT+8
+  zipkin:
+    base-url: http://localhost:9411
+  # 配置数据源
+  datasource:
+    url: jdbc:mysql:///hitao
+    username: root
+    password: root
+    driver-class-name: com.mysql.jdbc.Driver
+  boot:
+    admin:
+      url: http://localhost:8094/
+  cloud:
+    config:
+        label: master # 对应的是git的分支，如果胚子中心使用的是本地存储，则该参数无用
+        #uri: http://localhost:8888 # 配置中心的具体地址
+        discovery:
+          enabled: true  # 开启config服务发现支持
+          service-id: config-service  # 指定server端的name，也就是 spring cloud config server端的spring.application.name的值
+        # git 仓库配置文件的名称 test-config-dev.properties   test-config 就是指application   dev就是指profile
+        profile: dev
+        name: test-config
+#    stream:
+#      default-binder: kafka  # 使用 kafka stream 来作为默认消息中间件
+#      kafka:
+#        binder:
+#          zkNodes: 127.0.0.1:2181 # zookeeper 服务地址
+#          brokers: 127.0.0.1:9092
+  redis:
+    host: localhost
+    port: 6379
+    database: 0
+    pool:
+      max-active: 8
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${eureka-server}
+    register-with-eureka: true
+    fetch-registry: true
+

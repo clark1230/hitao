@@ -1,0 +1,59 @@
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://eureka2:8002/eureka/,http://eureka2:8002/eureka/,http://eureka3:8003/eureka/
+      register-with-eureka: true
+      fetch-registry: true
+      registry-fetch-interval-seconds: 5 # erueka 客户端每隔5秒拉取注册信息
+  instance:
+    hostname: localhost
+    lease-expiration-duration-in-seconds: 30 # 续约到期时间(默认90秒)
+    lease-renewal-interval-in-seconds: 30 # 续约更新时间 (默认30秒)
+server:
+  port: 8888
+spring:
+  application:
+    name: config-service
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/clark1230/config_resp
+          username: clark1230
+          password: Xyj123016
+          default-label: master
+
+      label: master
+#    stream:
+#      default-binder: kafka  # 使用 kafka stream 来作为默认消息中间件
+#      kafka:
+#        binder:
+#          zkNodes: 127.0.0.1:2181 # zookeeper 服务地址
+#          brokers: 127.0.0.1:9092  # kafka服务地址
+#          minPartitionCont: 1
+#          autoCreateTopics: true
+#          autoAddPartitions: true
+
+  zipkin:
+    base-url: http://localhost:9411
+  rabbitmq:
+    port: 5672
+    host: localhost
+    username: guest
+    password: guest
+    publisher-confirms: true
+    publisher-returns: true
+
+    template:
+      retry:
+        enabled: true
+security:
+  basic:
+    enabled: false
+# 取消安全限制
+management:
+  security:
+    enabled: false
+
+
+#https://github.com/clark1230/config_resp

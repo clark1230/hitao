@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.product.ShopBrandMapper">
+    <!--shop_brand表中的列-->
+    <sql id="shopBrandBaseColumn">
+         brand_id,
+         brand_name,
+         brand_class,
+         brand_pic,
+         brand_sort,
+         brand_recommend,
+         brand_apply,
+         class_id,
+         is_del,
+         created_time,
+         updated_time
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopBrand" parameterType="com.hzitxx.hitao.system.pojo.product.ShopBrand">
+        INSERT INTO shop_brand(
+            <include refid="shopBrandBaseColumn"/>
+        ) VALUES(
+                #{brandId},
+                #{brandName},
+                #{brandClass},
+                #{brandPic},
+                #{brandSort},
+                #{brandRecommend},
+                #{brandApply},
+                #{classId},
+                #{isDel},
+                #{createdTime},
+                #{updatedTime}
+        )
+    </insert>
+    <insert id="addShopBrandSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopBrand">
+        insert into shop_brand
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="brandName != null">
+                brand_name,
+            </if>
+            <if test="brandClass != null">
+                brand_class,
+            </if>
+            <if test="brandPic != null">
+                brand_pic,
+            </if>
+            <if test="brandSort != null">
+                brand_sort,
+            </if>
+            <if test="brandRecommend != null">
+                brand_recommend,
+            </if>
+            <if test="brandApply != null">
+                brand_apply,
+            </if>
+            <if test="classId != null">
+                class_id,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="brandId != null">
+                #{brandId},
+            </if>
+            <if test="brandName != null">
+                #{brandName},
+            </if>
+            <if test="brandClass != null">
+                #{brandClass},
+            </if>
+            <if test="brandPic != null">
+                #{brandPic},
+            </if>
+            <if test="brandSort != null">
+                #{brandSort},
+            </if>
+            <if test="brandRecommend != null">
+                #{brandRecommend},
+            </if>
+            <if test="brandApply != null">
+                #{brandApply},
+            </if>
+            <if test="classId != null">
+                #{classId},
+            </if>
+            <if test="isDel != null">
+                #{isDel},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_brand WHERE
+        brand_id = #{brandId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_brand WHERE brand_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopBrand">
+        UPDATE shop_brand
+        <set>
+          brand_id=#{brandId},
+          brand_name=#{brandName},
+          brand_class=#{brandClass},
+          brand_pic=#{brandPic},
+          brand_sort=#{brandSort},
+          brand_recommend=#{brandRecommend},
+          brand_apply=#{brandApply},
+          class_id=#{classId},
+          is_del=#{isDel},
+          created_time=#{createdTime},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           brand_id = #{brandId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopBrand">
+        UPDATE shop_brand
+        <set>
+    <if test="brandId != null">
+          brand_id = #{brandId},
+    </if>
+    <if test="brandName != null">
+          brand_name = #{brandName},
+    </if>
+    <if test="brandClass != null">
+          brand_class = #{brandClass},
+    </if>
+    <if test="brandPic != null">
+          brand_pic = #{brandPic},
+    </if>
+    <if test="brandSort != null">
+          brand_sort = #{brandSort},
+    </if>
+    <if test="brandRecommend != null">
+          brand_recommend = #{brandRecommend},
+    </if>
+    <if test="brandApply != null">
+          brand_apply = #{brandApply},
+    </if>
+    <if test="classId != null">
+          class_id = #{classId},
+    </if>
+    <if test="isDel != null">
+          is_del = #{isDel},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      brand_id = #{brandId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopBrandMap" parameterType="integer">
+        select
+        <include refid="shopBrandBaseColumn"/>
+        from
+            shop_brand
+        WHERE
+          brand_id = #{brandId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopBrand" parameterType="map" resultMap="shopBrandMap">
+        SELECT
+        <include refid="shopBrandBaseColumn"/>
+        FROM shop_brand
+        <include refid="shopBrandBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopBrandBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.brandId !=null">
+                    AND brand_id = #{map.brandId}
+                </if>
+                <if test="map.brandName !=null">
+                    AND brand_name = #{map.brandName}
+                </if>
+                <if test="map.brandClass !=null">
+                    AND brand_class = #{map.brandClass}
+                </if>
+                <if test="map.brandPic !=null">
+                    AND brand_pic = #{map.brandPic}
+                </if>
+                <if test="map.brandSort !=null">
+                    AND brand_sort = #{map.brandSort}
+                </if>
+                <if test="map.brandRecommend !=null">
+                    AND brand_recommend = #{map.brandRecommend}
+                </if>
+                <if test="map.brandApply !=null">
+                    AND brand_apply = #{map.brandApply}
+                </if>
+                <if test="map.classId !=null">
+                    AND class_id = #{map.classId}
+                </if>
+                <if test="map.isDel !=null">
+                    AND is_del = #{map.isDel}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopBrandMap" type="com.hzitxx.hitao.system.pojo.product.ShopBrand">
+            <id column="brand_id" property="brandId"/>
+            <result column="brand_name" property="brandName"/>
+            <result column="brand_class" property="brandClass"/>
+            <result column="brand_pic" property="brandPic"/>
+            <result column="brand_sort" property="brandSort"/>
+            <result column="brand_recommend" property="brandRecommend"/>
+            <result column="brand_apply" property="brandApply"/>
+            <result column="class_id" property="classId"/>
+            <result column="is_del" property="isDel"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>

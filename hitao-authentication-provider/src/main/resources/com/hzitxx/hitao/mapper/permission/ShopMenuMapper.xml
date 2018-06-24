@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.permission.ShopMenuMapper">
+    <!--shop_menu表中的列-->
+    <sql id="shopMenuBaseColumn">
+         id,
+         name,
+         url,
+         parent_id,
+         sort,
+         level,
+         path,
+         description,
+         created_by,
+         created_time,
+         updated_by,
+         updated_time
+    </sql>
+
+    <!--添加-->
+    <insert id="addShopMenu" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopMenu">
+        INSERT INTO shop_menu(
+            <include refid="shopMenuBaseColumn"/>
+        ) VALUES(
+                #{id},
+                #{name},
+                #{url},
+                #{parentId},
+                #{sort},
+                #{level},
+                #{path},
+                #{description},
+                #{createdBy},
+                #{createdTime},
+                #{updatedBy},
+                #{updatedTime}
+        )
+    </insert>
+
+    <insert id="addShopMenuSelective" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopMenu">
+        insert into shop_menu
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="path != null">
+                path,
+            </if>
+            <if test="description != null">
+                description,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="sort != null">
+                #{sort},
+            </if>
+            <if test="level != null">
+                #{level},
+            </if>
+            <if test="path != null">
+                #{path},
+            </if>
+            <if test="description != null">
+                #{description},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_menu WHERE
+        id = #{id}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_menu WHERE id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopMenu">
+        UPDATE shop_menu
+        <set>
+          id=#{id},
+          name=#{name},
+          url=#{url},
+          parent_id=#{parentId},
+          sort=#{sort},
+          level=#{level},
+          path=#{path},
+          description=#{description},
+          created_by=#{createdBy},
+          created_time=#{createdTime},
+          updated_by=#{updatedBy},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           id = #{id}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopMenu">
+        UPDATE shop_menu
+        <set>
+    <if test="id != null">
+          id = #{id},
+    </if>
+    <if test="name != null">
+          name = #{name},
+    </if>
+    <if test="url != null">
+          url = #{url},
+    </if>
+    <if test="parentId != null">
+          parent_id = #{parentId},
+    </if>
+    <if test="sort != null">
+          sort = #{sort},
+    </if>
+    <if test="level != null">
+          level = #{level},
+    </if>
+    <if test="path != null">
+          path = #{path},
+    </if>
+    <if test="description != null">
+          description = #{description},
+    </if>
+    <if test="createdBy != null">
+          created_by = #{createdBy},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedBy != null">
+          updated_by = #{updatedBy},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      id = #{id}
+    </update>
+
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopMenuMap" parameterType="integer">
+        select
+        <include refid="shopMenuBaseColumn"/>
+        from
+            shop_menu
+        WHERE
+          id = #{id}
+    </select>
+
+    <!--查询数据-->
+    <select id="searchShopMenu" parameterType="map" resultMap="shopMenuVOMap">
+        SELECT
+        men.id,men.name,men.url,men.parent_id,men.sort,men.level,men.path,
+        men.description,cre.`admin_name` AS created_by,
+        men.created_time, upd.`admin_name` AS updated_by, men.updated_time
+        FROM
+        shop_menu men
+        LEFT JOIN
+        shop_admin cre
+        ON men.created_by = cre.`admin_id`
+        LEFT JOIN
+        shop_admin upd
+        ON
+        men.updated_by = upd.`admin_id`
+    </select>
+
+    <!--根据父级编号查询数据-->
+    <select id="searchByParentId" resultMap="shopMenuMap" parameterType="int">
+        select
+        <include refid="shopMenuBaseColumn"/>
+        from
+        shop_menu
+        where  parent_id = #{parentId}
+    </select>
+
+    <!--根据id查询数据-->
+    <select id="searchById" resultMap="shopMenuMap" parameterType="int">
+        select
+        <include refid="shopMenuBaseColumn"/>
+        from
+        shop_menu
+        where  id = #{id}
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopMenuBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.id !=null">
+                    AND id = #{map.id}
+                </if>
+                <if test="map.name !=null">
+                    AND name = #{map.name}
+                </if>
+                <if test="map.url !=null">
+                    AND url = #{map.url}
+                </if>
+                <if test="map.parentId !=null">
+                    AND parent_id = #{map.parentId}
+                </if>
+                <if test="map.sort !=null">
+                    AND sort = #{map.sort}
+                </if>
+                <if test="map.level !=null">
+                    AND level = #{map.level}
+                </if>
+                <if test="map.path !=null">
+                    AND path = #{map.path}
+                </if>
+                <if test="map.description !=null">
+                    AND description = #{map.description}
+                </if>
+                <if test="map.createdBy !=null">
+                    AND created_by = #{map.createdBy}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedBy !=null">
+                    AND updated_by = #{map.updatedBy}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="shopMenuMap" type="com.hzitxx.hitao.system.pojo.permission.ShopMenu">
+            <id column="id" property="id"/>
+            <result column="name" property="name"/>
+            <result column="url" property="url"/>
+            <result column="parent_id" property="parentId"/>
+            <result column="sort" property="sort"/>
+            <result column="level" property="level"/>
+            <result column="path" property="path"/>
+            <result column="description" property="description"/>
+            <result column="created_by" property="createdBy"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_by" property="updatedBy"/>
+            <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+    <resultMap id="shopMenuVOMap" type="com.hzitxx.hitao.vo.ShopMenuVO">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="sort" property="sort"/>
+        <result column="level" property="level"/>
+        <result column="path" property="path"/>
+        <result column="description" property="description"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+</mapper>

@@ -1,0 +1,16 @@
+server:
+  port: 8096
+spring:
+  application:
+    name: fileupload-service
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,fileupload:D:/hitao_images2/
+eureka:
+  instance:
+    hostname: localhost
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:8001/eureka/,http://${eureka.instance.hostname}:8002/eureka/,http://${eureka.instance.hostname}:8003/eureka.
+

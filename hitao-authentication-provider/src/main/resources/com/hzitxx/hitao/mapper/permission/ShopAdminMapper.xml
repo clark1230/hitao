@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.permission.ShopAdminMapper">
+    <!--shop_admin表中的列-->
+    <sql id="shopAdminBaseColumn">
+         admin_id,
+         admin_name,
+         admin_password,
+         admin_login_num,
+         login_ip,
+         login_status,
+         email,
+         is_del,
+         login_time,
+         action_list,
+         nav_list,
+         created_by,
+         created_time,
+         updated_by,
+         updated_time
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopAdmin" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
+        INSERT INTO shop_admin(
+            <include refid="shopAdminBaseColumn"/>
+        ) VALUES(
+                #{adminId},
+                #{adminName},
+                #{adminPassword},
+                #{adminLoginNum},
+                #{loginIp},
+                #{loginStatus},
+                #{email},
+                #{isDel},
+                #{loginTime},
+                #{actionList},
+                #{navList},
+                #{createdBy},
+                #{createdTime},
+                #{updatedBy},
+                #{updatedTime}
+        )
+    </insert>
+    <insert id="addShopAdminSelective" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
+        insert into shop_admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="adminId != null">
+                admin_id,
+            </if>
+            <if test="adminName != null">
+                admin_name,
+            </if>
+            <if test="adminPassword != null">
+                admin_password,
+            </if>
+            <if test="adminLoginNum != null">
+                admin_login_num,
+            </if>
+            <if test="loginIp != null">
+                login_ip,
+            </if>
+            <if test="loginStatus != null">
+                login_status,
+            </if>
+            <if test="email != null">
+                email,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="loginTime != null">
+                login_time,
+            </if>
+            <if test="actionList != null">
+                action_list,
+            </if>
+            <if test="navList != null">
+                nav_list,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="adminId != null">
+                #{adminId},
+            </if>
+            <if test="adminName != null">
+                #{adminName},
+            </if>
+            <if test="adminPassword != null">
+                #{adminPassword},
+            </if>
+            <if test="adminLoginNum != null">
+                #{adminLoginNum},
+            </if>
+            <if test="loginIp != null">
+                #{loginIp},
+            </if>
+            <if test="loginStatus != null">
+                #{loginStatus},
+            </if>
+            <if test="email != null">
+                #{email},
+            </if>
+            <if test="isDel != null">
+                #{isDel},
+            </if>
+            <if test="loginTime != null">
+                #{loginTime},
+            </if>
+            <if test="actionList != null">
+                #{actionList},
+            </if>
+            <if test="navList != null">
+                #{navList},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_admin WHERE
+        admin_id = #{adminId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_admin WHERE admin_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
+        UPDATE shop_admin
+        <set>
+          admin_id=#{adminId},
+          admin_name=#{adminName},
+          admin_password=#{adminPassword},
+          admin_login_num=#{adminLoginNum},
+          login_ip=#{loginIp},
+          login_status=#{loginStatus},
+          email=#{email},
+          is_del=#{isDel},
+          login_time=#{loginTime},
+          action_list=#{actionList},
+          nav_list=#{navList},
+          created_by=#{createdBy},
+          created_time=#{createdTime},
+          updated_by=#{updatedBy},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           admin_id = #{adminId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
+        UPDATE shop_admin
+        <set>
+    <if test="adminId != null">
+          admin_id = #{adminId},
+    </if>
+    <if test="adminName != null">
+          admin_name = #{adminName},
+    </if>
+    <if test="adminPassword != null">
+          admin_password = #{adminPassword},
+    </if>
+    <if test="adminLoginNum != null">
+          admin_login_num = #{adminLoginNum},
+    </if>
+    <if test="loginIp != null">
+          login_ip = #{loginIp},
+    </if>
+    <if test="loginStatus != null">
+          login_status = #{loginStatus},
+    </if>
+    <if test="email != null">
+          email = #{email},
+    </if>
+    <if test="isDel != null">
+          is_del = #{isDel},
+    </if>
+    <if test="loginTime != null">
+          login_time = #{loginTime},
+    </if>
+    <if test="actionList != null">
+          action_list = #{actionList},
+    </if>
+    <if test="navList != null">
+          nav_list = #{navList},
+    </if>
+    <if test="createdBy != null">
+          created_by = #{createdBy},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedBy != null">
+          updated_by = #{updatedBy},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      admin_id = #{adminId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopAdminMap" parameterType="integer">
+        select
+        <include refid="shopAdminBaseColumn"/>
+        from
+            shop_admin
+        WHERE
+          admin_id = #{adminId}
+    </select>
+    <!--检查该用户是否存在-->
+    <select id="checkAdminNameExists" parameterType="string" resultMap="shopAdminMap">
+        select
+        <include refid="shopAdminBaseColumn"/>
+        from
+        shop_admin
+        WHERE
+        admin_name = #{adminName}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopAdmin" parameterType="map" resultMap="showAdminVOMap">
+        SELECT
+            adm.`admin_id`,adm.`admin_name`,adm.`admin_login_num`,adm.`admin_login_num`,
+            adm.`login_ip`,adm.`login_status`,adm.`email`,adm.`is_del`,adm.`login_time`,
+            adm.`action_list`,adm.`created_time`,cre.`admin_name` AS created_by,
+            adm.`updated_time`,upd.`admin_name` AS updated_by
+        FROM
+            shop_admin adm
+        LEFT JOIN
+            shop_admin cre
+        ON
+            adm.created_by = cre.`admin_id`
+        LEFT JOIN
+            shop_admin upd
+        ON
+            adm.`updated_by` = upd.`admin_id`
+    </select>
+
+    <!--系统登陆-->
+    <select id="login"  parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin" resultMap="shopAdminMap">
+           SELECT
+            <include refid="shopAdminBaseColumn"/>
+           FROM
+           shop_admin WHERE
+           admin_name = #{adminName} AND  admin_password= #{adminPassword}
+    </select>
+
+    <!--系统登陆-->
+    <select id="loginByAdminName"  parameterType="string"
+            resultMap="shopAdminMap">
+        SELECT
+        <include refid="shopAdminBaseColumn"/>
+        FROM
+        shop_admin WHERE
+        admin_name = #{adminName}
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopAdminBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.adminId !=null">
+                    AND admin_id = #{map.adminId}
+                </if>
+                <if test="map.adminName !=null">
+                    AND admin_name = #{map.adminName}
+                </if>
+                <if test="map.adminPassword !=null">
+                    AND admin_password = #{map.adminPassword}
+                </if>
+                <if test="map.adminLoginNum !=null">
+                    AND admin_login_num = #{map.adminLoginNum}
+                </if>
+                <if test="map.loginIp !=null">
+                    AND login_ip = #{map.loginIp}
+                </if>
+                <if test="map.loginStatus !=null">
+                    AND login_status = #{map.loginStatus}
+                </if>
+                <if test="map.email !=null">
+                    AND email = #{map.email}
+                </if>
+                <if test="map.isDel !=null">
+                    AND is_del = #{map.isDel}
+                </if>
+                <if test="map.loginTime !=null">
+                    AND login_time = #{map.loginTime}
+                </if>
+                <if test="map.actionList !=null">
+                    AND action_list = #{map.actionList}
+                </if>
+                <if test="map.navList !=null">
+                    AND nav_list = #{map.navList}
+                </if>
+                <if test="map.createdBy !=null">
+                    AND created_by = #{map.createdBy}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedBy !=null">
+                    AND updated_by = #{map.updatedBy}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="shopAdminMap" type="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
+        <id column="admin_id" property="adminId"/>
+        <result column="admin_name" property="adminName"/>
+        <result column="admin_password" property="adminPassword"/>
+        <result column="admin_login_num" property="adminLoginNum"/>
+        <result column="login_ip" property="loginIp"/>
+        <result column="login_status" property="loginStatus"/>
+        <result column="email" property="email"/>
+        <result column="is_del" property="isDel"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="action_list" property="actionList"/>
+        <result column="nav_list" property="navList"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+    
+    <resultMap id="showAdminVOMap" type="com.hzitxx.hitao.vo.ShopAdminVO">
+        <id column="admin_id" property="adminId"/>
+        <result column="admin_name" property="adminName"/>
+        <result column="admin_password" property="adminPassword"/>
+        <result column="admin_login_num" property="adminLoginNum"/>
+        <result column="login_ip" property="loginIp"/>
+        <result column="login_status" property="loginStatus"/>
+        <result column="email" property="email"/>
+        <result column="is_del" property="isDel"/>
+        <result column="login_time" property="loginTime"/>
+        <result column="action_list" property="actionList"/>
+        <result column="nav_list" property="navList"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+    </resultMap>
+</mapper>

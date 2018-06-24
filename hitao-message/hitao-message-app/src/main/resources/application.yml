@@ -1,0 +1,77 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+
+spring:
+  application:
+    name: quartz-config-cluster
+  zipkin:
+    base-url: http://localhost:9411
+
+#####################################################################################################
+# mysql
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql:///hitao-job?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true
+    username: root
+    password: root
+jpa:
+  hibernate:
+    #ddl-auto: create #
+    ddl-auto: update #
+  show-sql: true
+#####################################################################################################
+#feign
+feign:
+  client:
+    enabled: true
+  hystrix:
+    enabled: true
+  compression:
+    request:
+      enabled: true
+    response:
+      enabled: true
+
+
+# fallback
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 50000
+
+
+
+#####################################################################################################
+
+logging:
+  level:
+    root: INFO
+    org.hibernate: INFO
+    org.hibernate.type.descriptor.sql.BasicBinder: TRACE
+    org.hibernate.type.descriptor.sql.BasicExtractor: TRACE
+    com.springms: DEBUG
+#####################################################################################################
+
+
+---
+server:
+  port: 8142
+spring:
+  profiles: quartzjob2
+---
+server:
+  port: 8143
+spring:
+  profiles: quartzjob3
+---
+server:
+  port: 8141
+spring:
+    profiles: quartzjob1
