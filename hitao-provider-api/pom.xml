@@ -77,21 +77,21 @@
             <version>${feign-httpclient}</version>
         </dependency>
         <!--httpClient-->
-        <!--<dependency>-->
-            <!--<groupId>org.apache.httpcomponents</groupId>-->
-            <!--<artifactId>httpclient</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+        </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>com.netflix.feign</groupId>-->
-            <!--<artifactId>feign-httpclient</artifactId>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+        </dependency>
         <!-- https://mvnrepository.com/artifact/com.netflix.feign/feign-httpclient -->
-        <!--<dependency>-->
-            <!--<groupId>com.netflix.feign</groupId>-->
-            <!--<artifactId>feign-httpclient</artifactId>-->
-            <!--<version>8.17.0</version>-->
-        <!--</dependency>-->
+        <dependency>
+            <groupId>com.netflix.feign</groupId>
+            <artifactId>feign-httpclient</artifactId>
+            <version>8.17.0</version>
+        </dependency>
 
     </dependencies>
 

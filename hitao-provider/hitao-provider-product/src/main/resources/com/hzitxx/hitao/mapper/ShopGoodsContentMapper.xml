@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.ShopGoodsContentMapper">
+    <!--shop_goods_content表中的列-->
+    <sql id="shopGoodsContentBaseColumn">
+         goods_id,
+         content,
+         created_time,
+         updated_time
+    </sql>
+
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopGoodsContentMap" parameterType="integer">
+        select
+        <include refid="shopGoodsContentBaseColumn"/>
+        from
+            shop_goods_content
+        WHERE
+          goods_id = #{goodsId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopGoodsContent" parameterType="map" resultMap="shopGoodsContentMap">
+        SELECT
+        <include refid="shopGoodsContentBaseColumn"/>
+        FROM shop_goods_content
+        <include refid="shopGoodsContentBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopGoodsContentBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.goodsId !=null">
+                    AND goods_id = #{map.goodsId}
+                </if>
+                <if test="map.content !=null">
+                    AND content = #{map.content}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopGoodsContentMap" type="com.hzitxx.hitao.front.product.ShopGoodsContent">
+            <id column="goods_id" property="goodsId"/>
+            <result column="content" property="content"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>

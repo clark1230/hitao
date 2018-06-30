@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.ShopAreaMapper">
+    <!--shop_area表中的列-->
+    <sql id="shopAreaBaseColumn">
+         area_id,
+         area_name,
+         area_parent_id,
+         area_sort,
+         post_code,
+         area_deep,
+         is_del,
+         created_time,
+         updated_time
+    </sql>
+
+    <!--查询数据-->
+    <select id="searchShopArea" parameterType="map" resultMap="shopAreaMap">
+        SELECT
+        <include refid="shopAreaBaseColumn"/>
+        FROM shop_area
+        <include refid="shopAreaBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopAreaBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.areaId !=null">
+                    AND area_id = #{map.areaId}
+                </if>
+                <if test="map.areaName !=null">
+                    AND area_name = #{map.areaName}
+                </if>
+                <if test="map.areaParentId !=null">
+                    AND area_parent_id = #{map.areaParentId}
+                </if>
+                <if test="map.areaSort !=null">
+                    AND area_sort = #{map.areaSort}
+                </if>
+                <if test="map.postCode !=null">
+                    AND post_code = #{map.postCode}
+                </if>
+                <if test="map.areaDeep !=null">
+                    AND area_deep = #{map.areaDeep}
+                </if>
+                <if test="map.isDel !=null">
+                    AND is_del = #{map.isDel}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopAreaMap" type="com.hzitxx.hitao.front.member.ShopArea">
+            <id column="area_id" property="areaId"/>
+            <result column="area_name" property="areaName"/>
+            <result column="area_parent_id" property="areaParentId"/>
+            <result column="area_sort" property="areaSort"/>
+            <result column="post_code" property="postCode"/>
+            <result column="area_deep" property="areaDeep"/>
+            <result column="is_del" property="isDel"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>

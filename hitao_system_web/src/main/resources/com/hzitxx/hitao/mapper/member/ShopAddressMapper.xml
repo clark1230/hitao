@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.member.ShopAddressMapper">
+    <!--shop_address表中的列-->
+    <sql id="shopAddressBaseColumn">
+         id,
+         member_id,
+         member_name,
+         province_id,
+         city_id,
+         district_id,
+         full_region,
+         address,
+         tel_number,
+         post_code,
+         is_default
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopAddress" parameterType="com.hzitxx.hitao.system.pojo.member.ShopAddress">
+        INSERT INTO shop_address(
+            <include refid="shopAddressBaseColumn"/>
+        ) VALUES(
+                #{id},
+                #{memberId},
+                #{memberName},
+                #{provinceId},
+                #{cityId},
+                #{districtId},
+                #{fullRegion},
+                #{address},
+                #{telNumber},
+                #{postCode},
+                #{isDefault}
+        )
+    </insert>
+    <insert id="addShopAddressSelective" parameterType="com.hzitxx.hitao.system.pojo.member.ShopAddress">
+        insert into shop_address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            <if test="memberName != null">
+                member_name,
+            </if>
+            <if test="provinceId != null">
+                province_id,
+            </if>
+            <if test="cityId != null">
+                city_id,
+            </if>
+            <if test="districtId != null">
+                district_id,
+            </if>
+            <if test="fullRegion != null">
+                full_region,
+            </if>
+            <if test="address != null">
+                address,
+            </if>
+            <if test="telNumber != null">
+                tel_number,
+            </if>
+            <if test="postCode != null">
+                post_code,
+            </if>
+            <if test="isDefault != null">
+                is_default,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="memberId != null">
+                #{memberId},
+            </if>
+            <if test="memberName != null">
+                #{memberName},
+            </if>
+            <if test="provinceId != null">
+                #{provinceId},
+            </if>
+            <if test="cityId != null">
+                #{cityId},
+            </if>
+            <if test="districtId != null">
+                #{districtId},
+            </if>
+            <if test="fullRegion != null">
+                #{fullRegion},
+            </if>
+            <if test="address != null">
+                #{address},
+            </if>
+            <if test="telNumber != null">
+                #{telNumber},
+            </if>
+            <if test="postCode != null">
+                #{postCode},
+            </if>
+            <if test="isDefault != null">
+                #{isDefault},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_address WHERE
+        id = #{id}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_address WHERE id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.member.ShopAddress">
+        UPDATE shop_address
+        <set>
+          id=#{id},
+          member_id=#{memberId},
+          member_name=#{memberName},
+          province_id=#{provinceId},
+          city_id=#{cityId},
+          district_id=#{districtId},
+          full_region=#{fullRegion},
+          address=#{address},
+          tel_number=#{telNumber},
+          post_code=#{postCode},
+          is_default=#{isDefault}
+        </set>
+        WHERE
+           id = #{id}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.member.ShopAddress">
+        UPDATE shop_address
+        <set>
+    <if test="id != null">
+          id = #{id},
+    </if>
+    <if test="memberId != null">
+          member_id = #{memberId},
+    </if>
+    <if test="memberName != null">
+          member_name = #{memberName},
+    </if>
+    <if test="provinceId != null">
+          province_id = #{provinceId},
+    </if>
+    <if test="cityId != null">
+          city_id = #{cityId},
+    </if>
+    <if test="districtId != null">
+          district_id = #{districtId},
+    </if>
+    <if test="fullRegion != null">
+          full_region = #{fullRegion},
+    </if>
+    <if test="address != null">
+          address = #{address},
+    </if>
+    <if test="telNumber != null">
+          tel_number = #{telNumber},
+    </if>
+    <if test="postCode != null">
+          post_code = #{postCode},
+    </if>
+    <if test="isDefault != null">
+          is_default = #{isDefault},
+    </if>
+    </set>
+        WHERE
+      id = #{id}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopAddressMap" parameterType="integer">
+        select
+        <include refid="shopAddressBaseColumn"/>
+        from
+            shop_address
+        WHERE
+          id = #{id}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopAddress" parameterType="map" resultMap="shopAddressMap">
+        SELECT
+        <include refid="shopAddressBaseColumn"/>
+        FROM shop_address
+        <include refid="shopAddressBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopAddressBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.id !=null">
+                    AND id = #{map.id}
+                </if>
+                <if test="map.memberId !=null">
+                    AND member_id = #{map.memberId}
+                </if>
+                <if test="map.memberName !=null">
+                    AND member_name like concat({map.memberName},'%')
+                </if>
+                <if test="map.provinceId !=null">
+                    AND province_id = #{map.provinceId}
+                </if>
+                <if test="map.cityId !=null">
+                    AND city_id = #{map.cityId}
+                </if>
+                <if test="map.districtId !=null">
+                    AND district_id = #{map.districtId}
+                </if>
+                <if test="map.fullRegion !=null">
+                    AND full_region = #{map.fullRegion}
+                </if>
+                <if test="map.address !=null">
+                    AND address = #{map.address}
+                </if>
+                <if test="map.telNumber !=null">
+                    AND tel_number = #{map.telNumber}
+                </if>
+                <if test="map.postCode !=null">
+                    AND post_code = #{map.postCode}
+                </if>
+                <if test="map.isDefault !=null">
+                    AND is_default = #{map.isDefault}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopAddressMap" type="com.hzitxx.hitao.system.pojo.member.ShopAddress">
+            <id column="id" property="id"/>
+            <result column="member_id" property="memberId"/>
+            <result column="member_name" property="memberName"/>
+            <result column="province_id" property="provinceId"/>
+            <result column="city_id" property="cityId"/>
+            <result column="district_id" property="districtId"/>
+            <result column="full_region" property="fullRegion"/>
+            <result column="address" property="address"/>
+            <result column="tel_number" property="telNumber"/>
+            <result column="post_code" property="postCode"/>
+            <result column="is_default" property="isDefault"/>
+     </resultMap>
+</mapper>

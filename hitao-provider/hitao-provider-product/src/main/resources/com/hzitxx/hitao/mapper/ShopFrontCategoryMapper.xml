@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.ShopFrontCategoryMapper">
+    <!--shop_front_category表中的列-->
+    <sql id="shopFrontCategoryBaseColumn">
+         front_cat_id,
+         cat_id,
+         cat_name,
+         level,
+         parent_id,
+         sort,
+         icon_image,
+         url,
+         adv_image,
+         adv_link
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopFrontCategory" parameterType="com.hzitxx.hitao.entity.ShopFrontCategory">
+        INSERT INTO shop_front_category(
+            <include refid="shopFrontCategoryBaseColumn"/>
+        ) VALUES(
+                #{frontCatId},
+                #{catId},
+                #{catName},
+                #{level},
+                #{parentId},
+                #{sort},
+                #{iconImage},
+                #{url},
+                #{advImage},
+                #{advLink}
+        )
+    </insert>
+    <insert id="addShopFrontCategorySelective" parameterType="com.hzitxx.hitao.entity.ShopFrontCategory">
+        insert into shop_front_category
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="frontCatId != null">
+                front_cat_id,
+            </if>
+            <if test="catId != null">
+                cat_id,
+            </if>
+            <if test="catName != null">
+                cat_name,
+            </if>
+            <if test="level != null">
+                level,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="sort != null">
+                sort,
+            </if>
+            <if test="iconImage != null">
+                icon_image,
+            </if>
+            <if test="url != null">
+                url,
+            </if>
+            <if test="advImage != null">
+                adv_image,
+            </if>
+            <if test="advLink != null">
+                adv_link,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="frontCatId != null">
+                #{frontCatId},
+            </if>
+            <if test="catId != null">
+                #{catId},
+            </if>
+            <if test="catName != null">
+                #{catName},
+            </if>
+            <if test="level != null">
+                #{level},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="sort != null">
+                #{sort},
+            </if>
+            <if test="iconImage != null">
+                #{iconImage},
+            </if>
+            <if test="url != null">
+                #{url},
+            </if>
+            <if test="advImage != null">
+                #{advImage},
+            </if>
+            <if test="advLink != null">
+                #{advLink},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_front_category WHERE
+        front_cat_id = #{frontCatId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_front_category WHERE front_cat_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.entity.ShopFrontCategory">
+        UPDATE shop_front_category
+        <set>
+          front_cat_id=#{frontCatId},
+          cat_id=#{catId},
+          cat_name=#{catName},
+          level=#{level},
+          parent_id=#{parentId},
+          sort=#{sort},
+          icon_image=#{iconImage},
+          url=#{url},
+          adv_image=#{advImage},
+          adv_link=#{advLink}
+        </set>
+        WHERE
+           front_cat_id = #{frontCatId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.entity.ShopFrontCategory">
+        UPDATE shop_front_category
+        <set>
+    <if test="frontCatId != null">
+          front_cat_id = #{frontCatId},
+    </if>
+    <if test="catId != null">
+          cat_id = #{catId},
+    </if>
+    <if test="catName != null">
+          cat_name = #{catName},
+    </if>
+    <if test="level != null">
+          level = #{level},
+    </if>
+    <if test="parentId != null">
+          parent_id = #{parentId},
+    </if>
+    <if test="sort != null">
+          sort = #{sort},
+    </if>
+    <if test="iconImage != null">
+          icon_image = #{iconImage},
+    </if>
+    <if test="url != null">
+          url = #{url},
+    </if>
+    <if test="advImage != null">
+          adv_image = #{advImage},
+    </if>
+    <if test="advLink != null">
+          adv_link = #{advLink},
+    </if>
+    </set>
+        WHERE
+      front_cat_id = #{frontCatId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopFrontCategoryMap" parameterType="integer">
+        select
+        <include refid="shopFrontCategoryBaseColumn"/>
+        from
+            shop_front_category
+        WHERE
+          front_cat_id = #{frontCatId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopFrontCategory" parameterType="map" resultMap="shopFrontCategoryMap">
+        SELECT
+        <include refid="shopFrontCategoryBaseColumn"/>
+        FROM shop_front_category
+        <include refid="shopFrontCategoryBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopFrontCategoryBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.frontCatId !=null">
+                    AND front_cat_id = #{map.frontCatId}
+                </if>
+                <if test="map.catId !=null">
+                    AND cat_id = #{map.catId}
+                </if>
+                <if test="map.catName !=null">
+                    AND cat_name = #{map.catName}
+                </if>
+                <if test="map.level !=null">
+                    AND level = #{map.level}
+                </if>
+                <if test="map.parentId !=null">
+                    AND parent_id = #{map.parentId}
+                </if>
+                <if test="map.sort !=null">
+                    AND sort = #{map.sort}
+                </if>
+                <if test="map.iconImage !=null">
+                    AND icon_image = #{map.iconImage}
+                </if>
+                <if test="map.url !=null">
+                    AND url = #{map.url}
+                </if>
+                <if test="map.advImage !=null">
+                    AND adv_image = #{map.advImage}
+                </if>
+                <if test="map.advLink !=null">
+                    AND adv_link = #{map.advLink}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopFrontCategoryMap" type="com.hzitxx.hitao.entity.ShopFrontCategory">
+            <id column="front_cat_id" property="frontCatId"/>
+            <result column="cat_id" property="catId"/>
+            <result column="cat_name" property="catName"/>
+            <result column="level" property="level"/>
+            <result column="parent_id" property="parentId"/>
+            <result column="sort" property="sort"/>
+            <result column="icon_image" property="iconImage"/>
+            <result column="url" property="url"/>
+            <result column="adv_image" property="advImage"/>
+            <result column="adv_link" property="advLink"/>
+     </resultMap>
+</mapper>

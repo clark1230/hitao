@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.ShopGoodsAttrMapper">
+    <!--shop_goods_attr表中的列-->
+    <sql id="shopGoodsAttrBaseColumn">
+         goods_id,
+         cat_id,
+         attr_id,
+         attr_value,
+         is_del,
+         created_time,
+         updated_tiime
+    </sql>
+
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopGoodsAttrMap" parameterType="integer">
+        select
+        <include refid="shopGoodsAttrBaseColumn"/>
+        from
+            shop_goods_attr
+        WHERE
+          goods_id = #{goodsId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopGoodsAttr" parameterType="map" resultMap="shopGoodsAttrMap">
+        SELECT
+        <include refid="shopGoodsAttrBaseColumn"/>
+        FROM shop_goods_attr
+        <include refid="shopGoodsAttrBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopGoodsAttrBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.goodsId !=null">
+                    AND goods_id = #{map.goodsId}
+                </if>
+                <if test="map.catId !=null">
+                    AND cat_id = #{map.catId}
+                </if>
+                <if test="map.attrId !=null">
+                    AND attr_id = #{map.attrId}
+                </if>
+                <if test="map.attrValue !=null">
+                    AND attr_value = #{map.attrValue}
+                </if>
+                <if test="map.isDel !=null">
+                    AND is_del = #{map.isDel}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedTiime !=null">
+                    AND updated_tiime = #{map.updatedTiime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopGoodsAttrMap" type="com.hzitxx.hitao.front.product.ShopGoodsAttr">
+            <id column="goods_id" property="goodsId"/>
+            <result column="cat_id" property="catId"/>
+            <result column="attr_id" property="attrId"/>
+            <result column="attr_value" property="attrValue"/>
+            <result column="is_del" property="isDel"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_tiime" property="updatedTiime"/>
+     </resultMap>
+</mapper>

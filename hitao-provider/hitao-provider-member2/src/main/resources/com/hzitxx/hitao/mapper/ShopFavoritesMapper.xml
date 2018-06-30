@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.ShopFavoritesMapper">
+    <!--shop_favorites表中的列-->
+    <sql id="shopFavoritesBaseColumn">
+         fav_id,
+         member_id,
+         goods_id,
+         fav_type,
+         goods_name,
+         goods_jingle,
+         main_image,
+         fav_time
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopFavorites" parameterType="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
+        INSERT INTO shop_favorites(
+            <include refid="shopFavoritesBaseColumn"/>
+        ) VALUES(
+                #{favId},
+                #{memberId},
+                #{goodsId},
+                #{favType},
+                #{goodsName},
+                #{goodsJingle},
+                #{mainImage},
+                #{favTime}
+        )
+    </insert>
+    <insert id="addShopFavoritesSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
+        insert into shop_favorites
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="favId != null">
+                fav_id,
+            </if>
+            <if test="memberId != null">
+                member_id,
+            </if>
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="favType != null">
+                fav_type,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsJingle != null">
+                goods_jingle,
+            </if>
+            <if test="mainImage != null">
+                main_image,
+            </if>
+            <if test="favTime != null">
+                fav_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="favId != null">
+                #{favId},
+            </if>
+            <if test="memberId != null">
+                #{memberId},
+            </if>
+            <if test="goodsId != null">
+                #{goodsId},
+            </if>
+            <if test="favType != null">
+                #{favType},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName},
+            </if>
+            <if test="goodsJingle != null">
+                #{goodsJingle},
+            </if>
+            <if test="mainImage != null">
+                #{mainImage},
+            </if>
+            <if test="favTime != null">
+                #{favTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_favorites WHERE
+        fav_id = #{favId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_favorites WHERE fav_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
+        UPDATE shop_favorites
+        <set>
+          fav_id=#{favId},
+          member_id=#{memberId},
+          goods_id=#{goodsId},
+          fav_type=#{favType},
+          goods_name=#{goodsName},
+          goods_jingle=#{goodsJingle},
+          main_image=#{mainImage},
+          fav_time=#{favTime}
+        </set>
+        WHERE
+           fav_id = #{favId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
+        UPDATE shop_favorites
+        <set>
+    <if test="favId != null">
+          fav_id = #{favId},
+    </if>
+    <if test="memberId != null">
+          member_id = #{memberId},
+    </if>
+    <if test="goodsId != null">
+        goods_id = #{goodsId},
+    </if>
+    <if test="favType != null">
+          fav_type = #{favType},
+    </if>
+    <if test="goodsName != null">
+          goods_name = #{goodsName},
+    </if>
+    <if test="goodsJingle != null">
+          goods_jingle = #{goodsJingle},
+    </if>
+    <if test="mainImage != null">
+          main_image = #{mainImage},
+    </if>
+    <if test="favTime != null">
+          fav_time = #{favTime},
+    </if>
+    </set>
+        WHERE
+      fav_id = #{favId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopFavoritesMap" parameterType="integer">
+        select
+        <include refid="shopFavoritesBaseColumn"/>
+        from
+            shop_favorites
+        WHERE
+          fav_id = #{favId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopFavorites" parameterType="map" resultMap="shopFavoritesMap">
+        SELECT
+        <include refid="shopFavoritesBaseColumn"/>
+        FROM shop_favorites
+        <include refid="shopFavoritesBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopFavoritesBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.favId !=null">
+                    AND fav_id = #{map.favId}
+                </if>
+                <if test="map.memberId !=null">
+                    AND member_id = #{map.memberId}
+                </if>
+                <if test="map.goodsId !=null">
+                    AND goods_id = #{map.goodsId}
+                </if>
+                <if test="map.favType !=null">
+                    AND fav_type = #{map.favType}
+                </if>
+                <if test="map.goodsName !=null">
+                    AND goods_name = #{map.goodsName}
+                </if>
+                <if test="map.goodsJingle !=null">
+                    AND goods_jingle = #{map.goodsJingle}
+                </if>
+                <if test="map.mainImage !=null">
+                    AND main_image = #{map.mainImage}
+                </if>
+                <if test="map.favTime !=null">
+                    AND fav_time = #{map.favTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopFavoritesMap" type="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
+            <id column="fav_id" property="favId"/>
+            <result column="member_id" property="memberId"/>
+            <result column="goods_id" property="goodsId"/>
+            <result column="fav_type" property="favType"/>
+            <result column="goods_name" property="goodsName"/>
+            <result column="goods_jingle" property="goodsJingle"/>
+            <result column="main_image" property="mainImage"/>
+            <result column="fav_time" property="favTime"/>
+     </resultMap>
+</mapper>

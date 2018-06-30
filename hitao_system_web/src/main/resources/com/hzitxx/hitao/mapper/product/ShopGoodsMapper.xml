@@ -1,0 +1,528 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.product.ShopGoodsMapper">
+    <!--shop_goods表中的列-->
+    <sql id="shopGoodsBaseColumn">
+         goods_id,
+         goods_name,
+         goods_jingle,
+         gc_id,
+         brand_id,
+         goods_price,
+         goods_marketprice,
+         goods_serial,
+         goods_click,
+         goods_salenum,
+         goods_collect,
+         goods_spec,
+         goods_storage,
+         main_image,
+         goods_state,
+         goods_verify,
+         areaid_1,
+         areaid_2,
+         color_id,
+         transport_id,
+         goods_freight,
+         goods_vat,
+         goods_commend,
+         evaluation_good_star,
+         evaluation_count,
+         is_del,
+         created_time,
+         updated_time
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopGoods" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoods">
+        INSERT INTO shop_goods(
+            <include refid="shopGoodsBaseColumn"/>
+        ) VALUES(
+                #{goodsId},
+                #{goodsName},
+                #{goodsJingle},
+                #{gcId},
+                #{brandId},
+                #{goodsPrice},
+                #{goodsMarketprice},
+                #{goodsSerial},
+                #{goodsClick},
+                #{goodsSalenum},
+                #{goodsCollect},
+                #{goodsSpec},
+                #{goodsStorage},
+                #{mainImage},
+                #{goodsState},
+                #{goodsVerify},
+                #{areaid1},
+                #{areaid2},
+                #{colorId},
+                #{transportId},
+                #{goodsFreight},
+                #{goodsVat},
+                #{goodsCommend},
+                #{evaluationGoodStar},
+                #{evaluationCount},
+                #{isDel},
+                #{createdTime},
+                #{updatedTime}
+        )
+    </insert>
+    <insert id="addShopGoodsSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoods">
+        insert into shop_goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="goodsName != null">
+                goods_name,
+            </if>
+            <if test="goodsJingle != null">
+                goods_jingle,
+            </if>
+            <if test="gcId != null">
+                gc_id,
+            </if>
+            <if test="brandId != null">
+                brand_id,
+            </if>
+            <if test="goodsPrice != null">
+                goods_price,
+            </if>
+            <if test="goodsMarketprice != null">
+                goods_marketprice,
+            </if>
+            <if test="goodsSerial != null">
+                goods_serial,
+            </if>
+            <if test="goodsClick != null">
+                goods_click,
+            </if>
+            <if test="goodsSalenum != null">
+                goods_salenum,
+            </if>
+            <if test="goodsCollect != null">
+                goods_collect,
+            </if>
+            <if test="goodsSpec != null">
+                goods_spec,
+            </if>
+            <if test="goodsStorage != null">
+                goods_storage,
+            </if>
+            <if test="mainImage != null">
+                main_image,
+            </if>
+            <if test="goodsState != null">
+                goods_state,
+            </if>
+            <if test="goodsVerify != null">
+                goods_verify,
+            </if>
+            <if test="areaid1 != null">
+                areaid_1,
+            </if>
+            <if test="areaid2 != null">
+                areaid_2,
+            </if>
+            <if test="colorId != null">
+                color_id,
+            </if>
+            <if test="transportId != null">
+                transport_id,
+            </if>
+            <if test="goodsFreight != null">
+                goods_freight,
+            </if>
+            <if test="goodsVat != null">
+                goods_vat,
+            </if>
+            <if test="goodsCommend != null">
+                goods_commend,
+            </if>
+            <if test="evaluationGoodStar != null">
+                evaluation_good_star,
+            </if>
+            <if test="evaluationCount != null">
+                evaluation_count,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId},
+            </if>
+            <if test="goodsName != null">
+                #{goodsName},
+            </if>
+            <if test="goodsJingle != null">
+                #{goodsJingle},
+            </if>
+            <if test="gcId != null">
+                #{gcId},
+            </if>
+            <if test="brandId != null">
+                #{brandId},
+            </if>
+            <if test="goodsPrice != null">
+                #{goodsPrice},
+            </if>
+            <if test="goodsMarketprice != null">
+                #{goodsMarketprice},
+            </if>
+            <if test="goodsSerial != null">
+                #{goodsSerial},
+            </if>
+            <if test="goodsClick != null">
+                #{goodsClick},
+            </if>
+            <if test="goodsSalenum != null">
+                #{goodsSalenum},
+            </if>
+            <if test="goodsCollect != null">
+                #{goodsCollect},
+            </if>
+            <if test="goodsSpec != null">
+                #{goodsSpec},
+            </if>
+            <if test="goodsStorage != null">
+                #{goodsStorage},
+            </if>
+            <if test="mainImage != null">
+                #{mainImage},
+            </if>
+            <if test="goodsState != null">
+                #{goodsState},
+            </if>
+            <if test="goodsVerify != null">
+                #{goodsVerify},
+            </if>
+            <if test="areaid1 != null">
+                #{areaid1},
+            </if>
+            <if test="areaid2 != null">
+                #{areaid2},
+            </if>
+            <if test="colorId != null">
+                #{colorId},
+            </if>
+            <if test="transportId != null">
+                #{transportId},
+            </if>
+            <if test="goodsFreight != null">
+                #{goodsFreight},
+            </if>
+            <if test="goodsVat != null">
+                #{goodsVat},
+            </if>
+            <if test="goodsCommend != null">
+                #{goodsCommend},
+            </if>
+            <if test="evaluationGoodStar != null">
+                #{evaluationGoodStar},
+            </if>
+            <if test="evaluationCount != null">
+                #{evaluationCount},
+            </if>
+            <if test="isDel != null">
+                #{isDel},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_goods WHERE
+        goods_id = #{goodsId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_goods WHERE goods_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoods">
+        UPDATE shop_goods
+        <set>
+          goods_id=#{goodsId},
+          goods_name=#{goodsName},
+          goods_jingle=#{goodsJingle},
+          gc_id=#{gcId},
+          brand_id=#{brandId},
+          goods_price=#{goodsPrice},
+          goods_marketprice=#{goodsMarketprice},
+          goods_serial=#{goodsSerial},
+          goods_click=#{goodsClick},
+          goods_salenum=#{goodsSalenum},
+          goods_collect=#{goodsCollect},
+          goods_spec=#{goodsSpec},
+          goods_storage=#{goodsStorage},
+          main_image=#{mainImage},
+          goods_state=#{goodsState},
+          goods_verify=#{goodsVerify},
+          areaid_1=#{areaid1},
+          areaid_2=#{areaid2},
+          color_id=#{colorId},
+          transport_id=#{transportId},
+          goods_freight=#{goodsFreight},
+          goods_vat=#{goodsVat},
+          goods_commend=#{goodsCommend},
+          evaluation_good_star=#{evaluationGoodStar},
+          evaluation_count=#{evaluationCount},
+          is_del=#{isDel},
+          created_time=#{createdTime},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           goods_id = #{goodsId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoods">
+        UPDATE shop_goods
+        <set>
+    <if test="goodsId != null">
+          goods_id = #{goodsId},
+    </if>
+    <if test="goodsName != null">
+          goods_name = #{goodsName},
+    </if>
+    <if test="goodsJingle != null">
+          goods_jingle = #{goodsJingle},
+    </if>
+    <if test="gcId != null">
+          gc_id = #{gcId},
+    </if>
+    <if test="brandId != null">
+          brand_id = #{brandId},
+    </if>
+    <if test="goodsPrice != null">
+          goods_price = #{goodsPrice},
+    </if>
+    <if test="goodsMarketprice != null">
+          goods_marketprice = #{goodsMarketprice},
+    </if>
+    <if test="goodsSerial != null">
+          goods_serial = #{goodsSerial},
+    </if>
+    <if test="goodsClick != null">
+          goods_click = #{goodsClick},
+    </if>
+    <if test="goodsSalenum != null">
+          goods_salenum = #{goodsSalenum},
+    </if>
+    <if test="goodsCollect != null">
+          goods_collect = #{goodsCollect},
+    </if>
+    <if test="goodsSpec != null">
+          goods_spec = #{goodsSpec},
+    </if>
+    <if test="goodsStorage != null">
+          goods_storage = #{goodsStorage},
+    </if>
+    <if test="mainImage != null">
+          main_image = #{mainImage},
+    </if>
+    <if test="goodsState != null">
+          goods_state = #{goodsState},
+    </if>
+    <if test="goodsVerify != null">
+          goods_verify = #{goodsVerify},
+    </if>
+    <if test="areaid1 != null">
+          areaid_1 = #{areaid1},
+    </if>
+    <if test="areaid2 != null">
+          areaid_2 = #{areaid2},
+    </if>
+    <if test="colorId != null">
+          color_id = #{colorId},
+    </if>
+    <if test="transportId != null">
+          transport_id = #{transportId},
+    </if>
+    <if test="goodsFreight != null">
+          goods_freight = #{goodsFreight},
+    </if>
+    <if test="goodsVat != null">
+          goods_vat = #{goodsVat},
+    </if>
+    <if test="goodsCommend != null">
+          goods_commend = #{goodsCommend},
+    </if>
+    <if test="evaluationGoodStar != null">
+          evaluation_good_star = #{evaluationGoodStar},
+    </if>
+    <if test="evaluationCount != null">
+          evaluation_count = #{evaluationCount},
+    </if>
+    <if test="isDel != null">
+          is_del = #{isDel},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      goods_id = #{goodsId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopGoodsMap" parameterType="integer">
+        select
+        <include refid="shopGoodsBaseColumn"/>
+        from
+            shop_goods
+        WHERE
+          goods_id = #{goodsId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopGoods" parameterType="map" resultMap="shopGoodsMap">
+        SELECT
+        <include refid="shopGoodsBaseColumn"/>
+        FROM shop_goods
+        <include refid="shopGoodsBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopGoodsBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.goodsId !=null">
+                    AND goods_id = #{map.goodsId}
+                </if>
+                <if test="map.goodsName !=null">
+                    AND goods_name = #{map.goodsName}
+                </if>
+                <if test="map.goodsJingle !=null">
+                    AND goods_jingle = #{map.goodsJingle}
+                </if>
+                <if test="map.gcId !=null">
+                    AND gc_id = #{map.gcId}
+                </if>
+                <if test="map.brandId !=null">
+                    AND brand_id = #{map.brandId}
+                </if>
+                <if test="map.goodsPrice !=null">
+                    AND goods_price = #{map.goodsPrice}
+                </if>
+                <if test="map.goodsMarketprice !=null">
+                    AND goods_marketprice = #{map.goodsMarketprice}
+                </if>
+                <if test="map.goodsSerial !=null">
+                    AND goods_serial = #{map.goodsSerial}
+                </if>
+                <if test="map.goodsClick !=null">
+                    AND goods_click = #{map.goodsClick}
+                </if>
+                <if test="map.goodsSalenum !=null">
+                    AND goods_salenum = #{map.goodsSalenum}
+                </if>
+                <if test="map.goodsCollect !=null">
+                    AND goods_collect = #{map.goodsCollect}
+                </if>
+                <if test="map.goodsSpec !=null">
+                    AND goods_spec = #{map.goodsSpec}
+                </if>
+                <if test="map.goodsStorage !=null">
+                    AND goods_storage = #{map.goodsStorage}
+                </if>
+                <if test="map.mainImage !=null">
+                    AND main_image = #{map.mainImage}
+                </if>
+                <if test="map.goodsState !=null">
+                    AND goods_state = #{map.goodsState}
+                </if>
+                <if test="map.goodsVerify !=null">
+                    AND goods_verify = #{map.goodsVerify}
+                </if>
+                <if test="map.areaid1 !=null">
+                    AND areaid_1 = #{map.areaid1}
+                </if>
+                <if test="map.areaid2 !=null">
+                    AND areaid_2 = #{map.areaid2}
+                </if>
+                <if test="map.colorId !=null">
+                    AND color_id = #{map.colorId}
+                </if>
+                <if test="map.transportId !=null">
+                    AND transport_id = #{map.transportId}
+                </if>
+                <if test="map.goodsFreight !=null">
+                    AND goods_freight = #{map.goodsFreight}
+                </if>
+                <if test="map.goodsVat !=null">
+                    AND goods_vat = #{map.goodsVat}
+                </if>
+                <if test="map.goodsCommend !=null">
+                    AND goods_commend = #{map.goodsCommend}
+                </if>
+                <if test="map.evaluationGoodStar !=null">
+                    AND evaluation_good_star = #{map.evaluationGoodStar}
+                </if>
+                <if test="map.evaluationCount !=null">
+                    AND evaluation_count = #{map.evaluationCount}
+                </if>
+                <if test="map.isDel !=null">
+                    AND is_del = #{map.isDel}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopGoodsMap" type="com.hzitxx.hitao.system.pojo.product.ShopGoods">
+            <id column="goods_id" property="goodsId"/>
+            <result column="goods_name" property="goodsName"/>
+            <result column="goods_jingle" property="goodsJingle"/>
+            <result column="gc_id" property="gcId"/>
+            <result column="brand_id" property="brandId"/>
+            <result column="goods_price" property="goodsPrice"/>
+            <result column="goods_marketprice" property="goodsMarketprice"/>
+            <result column="goods_serial" property="goodsSerial"/>
+            <result column="goods_click" property="goodsClick"/>
+            <result column="goods_salenum" property="goodsSalenum"/>
+            <result column="goods_collect" property="goodsCollect"/>
+            <result column="goods_spec" property="goodsSpec"/>
+            <result column="goods_storage" property="goodsStorage"/>
+            <result column="main_image" property="mainImage"/>
+            <result column="goods_state" property="goodsState"/>
+            <result column="goods_verify" property="goodsVerify"/>
+            <result column="areaid_1" property="areaid1"/>
+            <result column="areaid_2" property="areaid2"/>
+            <result column="color_id" property="colorId"/>
+            <result column="transport_id" property="transportId"/>
+            <result column="goods_freight" property="goodsFreight"/>
+            <result column="goods_vat" property="goodsVat"/>
+            <result column="goods_commend" property="goodsCommend"/>
+            <result column="evaluation_good_star" property="evaluationGoodStar"/>
+            <result column="evaluation_count" property="evaluationCount"/>
+            <result column="is_del" property="isDel"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>
