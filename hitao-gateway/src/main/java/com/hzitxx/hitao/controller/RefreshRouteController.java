@@ -27,7 +27,7 @@ public class RefreshRouteController {
      * 刷新路由
      * @return
      */
-    @GetMapping("/refreshRoute")
+    @GetMapping("/gateway/refreshRoute")
     public ServerResponse<String> refresh() {
         return refreshRouteService.refreshRoute();
     }

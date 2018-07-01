@@ -41,7 +41,7 @@
         <dependency>
             <groupId>com.marcosbarbero.cloud</groupId>
             <artifactId>spring-cloud-zuul-ratelimit</artifactId>
-            <version>1.7.2.RELEASE</version>
+            <version>1.6.0.RELEASE</version>
         </dependency>
 
         <!-- fastjson组件 -->
