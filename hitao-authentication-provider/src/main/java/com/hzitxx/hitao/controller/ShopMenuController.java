@@ -7,14 +7,11 @@ import com.hzitxx.hitao.service.IShopMenuService;
 import com.hzitxx.hitao.system.pojo.permission.ShopMenu;
 import com.hzitxx.hitao.utils.LayuiEntity;
 import com.hzitxx.hitao.vo.ShopMenuVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
 
-@Api(value = "系统菜单Controller",tags = "系统菜单控制器")
 @RestController
 @RequestMapping("/shopMenu")
 public class ShopMenuController {
@@ -29,7 +26,6 @@ public class ShopMenuController {
      * 获取菜单信息
      * @return
      */
-    @ApiOperation(value = "获取菜单数据",notes = "获取菜单数据")
     @GetMapping("/menuData")
     public Object menuData(){
         return shopMenuService.menuData();
@@ -40,7 +36,6 @@ public class ShopMenuController {
      * @param id
      * @return
      */
-    @ApiOperation(value = "根据id查询菜单信息",notes = "根据id查询菜单信息")
     @GetMapping("/findOne")
     public Object findOne(@RequestParam("id") Integer id){
         return  this.shopMenuService.findOne(id);

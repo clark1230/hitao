@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
 import java.util.Map;
 
-//@Api(value = "前台类目控制器",tags = "前台类目接口")
 @RestController
 public class FronCategoryController {
     @Autowired
@@ -24,8 +23,6 @@ public class FronCategoryController {
      * 获取一级类目
      * @return
      */
-//    @ApiOperation(value = "获取前台类目",notes = "获取前台类目")
-//    @ApiImplicitParam
     @GetMapping(value = "/frontCate",produces = "application/json")
     public ServerResponse forntCate(){
         Map<String,Object> paramsMap = new HashMap<>();
@@ -38,8 +35,6 @@ public class FronCategoryController {
      * @param frontCatId
      * @return
      */
-//    @ApiOperation(value = "获取当前前台类目",notes = "获取当前前台类目")
-//    @ApiImplicitParam(name = "frontCatId",value = "类目编号",paramType = "query",required = true,dataType = "int")
     @GetMapping(value = "/currentCate",produces = "application/json")
     public ServerResponse currentCate(@RequestParam("frontCatId") Integer frontCatId){
         return frontCategoryService.currentCategory(frontCatId);

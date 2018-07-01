@@ -22,7 +22,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/shopAddress")
-//@Api(value = "收货地址Controller",tags = "收货地址控制器")
 public class ShopAddressController  {
 
     @Autowired
@@ -33,8 +32,6 @@ public class ShopAddressController  {
      * 分页
      * @return
      */
-//    @ApiOperation(value = "获取收货地址信息",notes = "获取收货地址信息")
-    //@ApiImplicitParams(@ApiImplicitParam(value = "page",name = "第几页",required = true,paramType = "query",dataType = "int"))
     @GetMapping(value="shopAddressAjax")
     @ResponseBody
     public LayuiEntity<ShopAddress> shopAddressAjax(@RequestParam(value = "page",defaultValue = "1") int page,
@@ -54,7 +51,6 @@ public class ShopAddressController  {
      * @param
      * @return
      */
-    //@ApiOperation(value = "添加收货地址")
     @PostMapping(value = "addShopAddress")
     public ServerResponse addShopAddress(ShopAddress shopAddress, Model model){
        return shopAddressService.addShopAddressSelective(shopAddress);

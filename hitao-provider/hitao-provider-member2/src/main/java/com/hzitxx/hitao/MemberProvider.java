@@ -6,9 +6,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
-import org.springframework.cloud.netflix.feign.EnableFeignClients;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.Bean;
-import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 
 import java.util.Properties;
@@ -18,7 +17,6 @@ import java.util.Properties;
 @EnableDiscoveryClient
 @EnableFeignClients
 @MapperScan("com.hzitxx.hitao.mapper") //mybatis 映射扫描注解
-@EnableSwagger2
 public class MemberProvider {
 
     public static void main(String[] args) {

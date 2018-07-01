@@ -23,7 +23,7 @@
                 </exclusion>
             </exclusions>
         </dependency> <!--<!– https://mvnrepository.com/artifact/de.codecentric/spring-boot-admin-server-ui-turbine –>--> <!--<dependency>--> <!--<groupId>de.codecentric</groupId>--> <!--<artifactId>spring-boot-admin-server-ui-activiti</artifactId>--> <!--<version>1.5.7</version>--> <!--</dependency>-->
-        <dependency>
+        <!--<dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server-ui-turbine</artifactId>
             <version>1.5.7</version>
@@ -40,7 +40,7 @@
         <dependency>
             <groupId>org.jolokia</groupId>
             <artifactId>jolokia-core</artifactId>
-        </dependency>
+        </dependency>-->
         <!--<dependency>-->
         <!--<groupId>org.springframework.cloud</groupId>-->
         <!--<artifactId>spring-cloud-starter-netflix-zuul</artifactId>-->
@@ -50,7 +50,7 @@
             <!--<artifactId>spring-cloud-starter-zuul</artifactId>-->
         <!--</dependency>-->
 
-        <dependency>
+        <!--<dependency>
             <groupId>de.codecentric</groupId>
             <artifactId>spring-boot-admin-server-ui-activiti</artifactId>
             <version>1.5.7</version>
@@ -70,8 +70,8 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
-        <dependency>
+        </dependency>-->
+        <!--<dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
         </dependency>
@@ -83,7 +83,7 @@
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-netflix-turbine</artifactId>
             <version>1.4.3.RELEASE</version>
-        </dependency>
+        </dependency>-->
        <!-- <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-config-server</artifactId>

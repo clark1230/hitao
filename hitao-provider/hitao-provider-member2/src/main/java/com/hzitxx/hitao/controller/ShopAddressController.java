@@ -13,7 +13,6 @@ import  java.util.Map;
  * 收货地址控制器
  */
 @RestController
-//@Api(value = "ShopAddressController",tags = "收货地址控制器")
 @RequestMapping("/shopAddress")
 public class ShopAddressController {
 
@@ -26,8 +25,6 @@ public class ShopAddressController {
      * @return
      */
     @PostMapping("/addShopAddress")
-//    @ApiOperation(value = "添加收货地址",notes = "添加收货地址")
-//    @ApiImplicitParam(name = "shopAddress",value = "收货地址封装实体",required = true,dataTypeClass = ShopAddress.class)
     public ServerResponse addShopAddress(@RequestBody  ShopAddress shopAddress){
         return this.shopAddressService.addShopAddressSelective(shopAddress);
     }
@@ -37,8 +34,6 @@ public class ShopAddressController {
      * @return
      */
     @GetMapping("/list")
-//    @ApiOperation(value = "获取收货地址",notes = "获取收货地址")
-//    @ApiImplicitParam(name = "memberId",value = "会员编号",required = true,dataType = "int",paramType = "query")
     public ServerResponse list(@RequestParam("memberId") int memberId){
         System.out.println("添加收货地址...");
         Map<String,Object> paramsMap = new HashMap<>();
@@ -52,8 +47,6 @@ public class ShopAddressController {
      * @return
      */
     @DeleteMapping("/delete")
-//    @ApiOperation(value = "删除收货地址",notes = "删除收货地址")
-//    @ApiImplicitParam(name = "id",value="收货地址编号",required = true,paramType = "query",dataType = "int")
     public ServerResponse delete(@RequestParam("id") int id){
         return this.shopAddressService.deleteById(id);
     }
@@ -64,8 +57,6 @@ public class ShopAddressController {
      * @return
      */
     @GetMapping("/detail")
-//    @ApiOperation(value = "获取收货地址详情",notes = "获取收货地址详情")
-//    @ApiImplicitParam(name="id",value = "收货地址编号",required = true,paramType = "query",dataType = "int")
     public ServerResponse detail(@RequestParam("id") int id){
         return this.shopAddressService.findOne(id);
     }
@@ -76,8 +67,6 @@ public class ShopAddressController {
      * @return
      */
     @PostMapping("/updateShopAddress")
-//    @ApiOperation(value = "编辑收货地址",notes = "编辑收货地址")
-//    @ApiImplicitParam(name="shopAddress",value = "收货实体",required = true,dataType = "ShopAddress")
     public ServerResponse update(@RequestBody ShopAddress shopAddress){
         System.out.println("编辑收货地址");
         return this.shopAddressService.updateSelectiveById(shopAddress);

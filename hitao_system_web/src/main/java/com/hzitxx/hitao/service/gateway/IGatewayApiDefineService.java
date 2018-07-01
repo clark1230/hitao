@@ -47,4 +47,5 @@ public interface IGatewayApiDefineService  {
      */
     ServerResponse findOne(Integer id);
 
+
 }

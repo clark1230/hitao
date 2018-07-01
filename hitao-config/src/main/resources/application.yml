@@ -1,7 +1,7 @@
 eureka:
   client:
     serviceUrl:
-      defaultZone: http://eureka2:8002/eureka/,http://eureka2:8002/eureka/,http://eureka3:8003/eureka/
+      defaultZone: http://localhost:8001/eureka/
       register-with-eureka: true
       fetch-registry: true
       registry-fetch-interval-seconds: 5 # erueka 客户端每隔5秒拉取注册信息
@@ -34,8 +34,7 @@ spring:
 #          autoCreateTopics: true
 #          autoAddPartitions: true
 
-  zipkin:
-    base-url: http://localhost:9411
+
   rabbitmq:
     port: 5672
     host: localhost
@@ -47,13 +46,13 @@ spring:
     template:
       retry:
         enabled: true
-security:
-  basic:
-    enabled: false
+#security:
+#  basic:
+#    enabled: false
 # 取消安全限制
-management:
-  security:
-    enabled: false
+#management:
+#  security:
+#    enabled: false
 
 
 #https://github.com/clark1230/config_resp

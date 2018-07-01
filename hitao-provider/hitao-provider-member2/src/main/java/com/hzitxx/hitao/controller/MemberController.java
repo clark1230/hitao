@@ -8,7 +8,6 @@ import com.hzitxx.hitao.utils.Md5Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-//@Api(value = "会员Controller",tags = "会员接口")
 @RestController
 public class MemberController {
 
@@ -19,8 +18,6 @@ public class MemberController {
      * 用户登陆
      * @return
      */
-   /* @ApiOperation(value = "用户登陆",notes = "用户登陆")
-    @ApiImplicitParam(name="shopMember",value = "会员实体",required = true,dataType = "ShopMember")*/
     @PostMapping("/login")
     public ServerResponse login(@RequestBody  ShopMember shopMember) throws Exception {
         shopMember.setMemberPassword(Md5Util.getMD5(shopMember.getMemberPassword()));
@@ -31,8 +28,6 @@ public class MemberController {
      * 用户注册
      * @return
      */
-    /*@ApiOperation(value="用户注册",notes = "用户注册")
-    @ApiImplicitParam(name="shopMember",value = "会员实体",required = true,dataType = "ShopMember")*/
     @PostMapping("/register")
     public ServerResponse register(@RequestBody  ShopMember shopMember) throws Exception {
         shopMember.setMemberPassword(Md5Util.getMD5(shopMember.getMemberPassword()));
@@ -43,8 +38,6 @@ public class MemberController {
      * @param memberId
      * @return
      */
-    /*@ApiOperation(value = "检查用户是否存在",notes = "检查用户是否存在!")
-    @ApiImplicitParam(name = "memberId",value = "会员编号",required = true,paramType = "query",dataType = "int")*/
     @GetMapping("/checkUserExists")
     public ServerResponse checkUseExists(@RequestParam("memberId") int memberId){
         return this.memberService.findOne(memberId);

@@ -26,10 +26,6 @@ public class CartController {
     /**
      * 添加购物车之前的库存检查
      */
-//    @ApiOperation(value = "库存检查",notes = "库存检查")
-//    @ApiImplicitParams({
-//            @ApiImplicitParam(value = "商品编号",name = "goodsId",paramType = "query",required = true,dataType = "int"),
-//            @ApiImplicitParam(value = "数量",name = "number",paramType = "query",required = true,dataType = "int")})
     @GetMapping("/checkout")
     public Object checkout(@RequestParam("goodsId")int goodsId,@RequestParam("number")int number){
         return this.shopGoodsService.checkout(goodsId,number);

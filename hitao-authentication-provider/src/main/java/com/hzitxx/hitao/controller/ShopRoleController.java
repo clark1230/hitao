@@ -8,8 +8,6 @@ import com.hzitxx.hitao.jwt.JwtHelper;
 import com.hzitxx.hitao.service.IShopRoleService;
 import com.hzitxx.hitao.utils.LayuiEntity;
 import com.hzitxx.hitao.vo.AdminRoleVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,7 +23,6 @@ import java.util.Map;
  * @author xianyaoji
  * @since 2018-03-14
  */
-@Api(value = "系统角色Controller",tags = "系统角色控制器")
 @RestController
 @RequestMapping("/shopRole")
 public class ShopRoleController  {
@@ -39,7 +36,6 @@ public class ShopRoleController  {
      * 分页
      * @return
      */
-    @ApiOperation(value = "获取角色信息",notes = "获取角色信息")
     @GetMapping(value="shopRoleAjax")
     public LayuiEntity<AdminRoleVO> shopRoleAjax(@RequestParam(value = "page",defaultValue = "1") int page,
                                                  @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
@@ -52,7 +48,6 @@ public class ShopRoleController  {
      * 添加角色信息
      * @return
      */
-    @ApiOperation(value = "添加角色信息",tags = "添加角色信息")
     @PostMapping("addShopRole")
     public Object addShopRole(@RequestBody ShopRole shopRole,
                               @RequestHeader("token") String token){
@@ -67,7 +62,6 @@ public class ShopRoleController  {
      * @param roleId
      * @return
      */
-    @ApiOperation(value = "根据roleId获取角色信息",notes = "根据roleId获取角色信息")
     @GetMapping("findOne")
     public Object findOne(@RequestParam("roleId") Integer roleId){
         return this.shopRoleService.findOne(roleId);
@@ -78,7 +72,6 @@ public class ShopRoleController  {
      * @param shopRole
      * @return
      */
-    @ApiOperation(value = "编辑角色信息",notes = "编辑角色信息")
     @PostMapping("updateShopRole")
     public Object updateShopRole(@RequestBody ShopRole shopRole,
                                  @RequestHeader("token")String token){
@@ -94,7 +87,6 @@ public class ShopRoleController  {
      * @param roleId 角色编号
      * @return 操作结果
      */
-    @ApiOperation(value = "删除角色信息",notes = "删除角色信息")
     @GetMapping(value = "/remove")
     public ServerResponse remove(@RequestParam("roleId")int roleId){
         return this.shopRoleService.deleteById(roleId);
@@ -104,7 +96,6 @@ public class ShopRoleController  {
      * 批量删除角色信息
      * @return
      */
-    @ApiOperation(value = "批量删除角色信息",notes = "批量删除角色信息")
     @GetMapping(value = "/removeBatch")
     public ServerResponse removeBatch(@RequestParam("ids")String ids){
         String[] idsArr = ids.split(",");

@@ -1,6 +1,9 @@
 package com.hzitxx.hitao.config;
 
+import com.alibaba.fastjson.JSON;
+import com.hzitxx.hitao.commons.ServerResponse;
 import com.netflix.hystrix.exception.HystrixTimeoutException;
+import org.apache.catalina.Server;
 import org.springframework.cloud.netflix.zuul.filters.route.FallbackProvider;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
@@ -14,61 +17,47 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
 
-@Configuration
-@Component
-public class CustomZuulFallbackHandler implements FallbackProvider {
-    @Override
-    public ClientHttpResponse fallbackResponse(Throwable cause) {
-        System.out.println(cause.getMessage());
-        if (cause instanceof HystrixTimeoutException) {
-            return response(HttpStatus.GATEWAY_TIMEOUT);
-        } else {
-            return this.fallbackResponse();
-        }
-    }
 
+public class CustomZuulFallbackHandler  implements FallbackProvider {
     @Override
     public String getRoute() {
         return "*";
     }
 
     @Override
-    public ClientHttpResponse fallbackResponse() {
-        return this.response(HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-
-    private ClientHttpResponse response(final HttpStatus status) {
+    public ClientHttpResponse fallbackResponse(String route, Throwable throwable) {
         return new ClientHttpResponse() {
             @Override
             public HttpStatus getStatusCode() throws IOException {
-                return status;
+                return HttpStatus.OK;
             }
 
             @Override
             public int getRawStatusCode() throws IOException {
-                return status.value();
+                return 200;
             }
 
             @Override
             public String getStatusText() throws IOException {
-                return status.getReasonPhrase();
+                return "OK";
             }
 
             @Override
             public void close() {
+
             }
 
             @Override
             public InputStream getBody() throws IOException {
-                return new ByteArrayInputStream("服务不可用，请稍后再试。".getBytes());
+                String json = JSON.toJSONString(
+                        ServerResponse.createByErrorMessage("微服务调用失败!请稍后再尝试!"));
+                return new ByteArrayInputStream(json.getBytes());
             }
 
             @Override
             public HttpHeaders getHeaders() {
-                // headers设定
                 HttpHeaders headers = new HttpHeaders();
-                MediaType mt = new MediaType("application", "json", Charset.forName("UTF-8"));
-                headers.setContentType(mt);
+                headers.setContentType(MediaType.APPLICATION_JSON);
                 return headers;
             }
         };

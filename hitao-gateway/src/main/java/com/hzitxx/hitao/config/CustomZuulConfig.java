@@ -28,7 +28,8 @@ public class CustomZuulConfig {
     @Bean
     public CustomRouteLocator routeLocator() {
         System.out.println("路由定位器");
-        CustomRouteLocator routeLocator = new CustomRouteLocator(this.server.getServletPrefix(),
+        System.out.println(this.server.getServlet().getServletPrefix());
+        CustomRouteLocator routeLocator = new CustomRouteLocator("/",
                 this.zuulProperties);
         return routeLocator;
     }

@@ -12,13 +12,10 @@ import java.util.HashMap;
 import  java.util.Map;
 @RestController
 @RequestMapping("/shopArea")
-//@Api(value = "ShopAreaController",tags = "省市区接口")
 public class ShopAreaController {
 
     @Autowired
     private IShopAreaService shopAreaService;
-//    @ApiOperation(value = "获取省市区信息",notes = "获取省市区信息")
-//    @ApiImplicitParam(name = "parentId",value="父级编号",required = true,paramType = "query",dataType = "int",defaultValue = "0")
     @GetMapping("/getShopArea")
     public ServerResponse getShopArea(@RequestParam(value = "parentId",defaultValue = "0")int parentId){
         Map<String,Object> map = new HashMap<>();

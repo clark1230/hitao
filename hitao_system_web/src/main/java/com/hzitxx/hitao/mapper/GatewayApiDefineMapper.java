@@ -3,6 +3,7 @@ package com.hzitxx.hitao.mapper;
 
 import com.hzitxx.hitao.system.pojo.GatewayApiDefine;
 import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -14,7 +15,7 @@ import java.util.Map;
  * @author xianyaoji
  * @since 2018-06-07
  */
-public interface GatewayApiDefineMapper{
+public interface GatewayApiDefineMapper {
 
     int addGatewayApiDefine(GatewayApiDefine obj);
 

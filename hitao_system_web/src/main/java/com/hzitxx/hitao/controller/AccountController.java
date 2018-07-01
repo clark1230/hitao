@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/account")
-//@Api(value = "账号Controller",tags = "账号控制器")
 public class AccountController {
 
     @Autowired(required = false)
@@ -27,8 +26,6 @@ public class AccountController {
      * 处理登陆请求
      * @return
      */
-//    @ApiOperation(value = "系统登陆",notes = "系统登陆")
-//    @ApiImplicitParam(name="shopAdmin",value = "管理员实体",required = true,dataType = "ShopAdmin")
     @PostMapping("/login")
     public ServerResponse login(@Validated @RequestBody ShopAdmin shopAdmin,
                                 BindingResult bindingResult){
@@ -53,8 +50,6 @@ public class AccountController {
      * 系统注销
      * @return
 //     */
-//    @ApiOperation(value = "系统注销",notes = "系统注销")
-//    @ApiImplicitParam()
     @PostMapping("/logout")
     public ServerResponse logout(){
         return ServerResponse.createBySuccessMessage("注销成功!");

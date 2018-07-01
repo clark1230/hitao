@@ -23,7 +23,6 @@ import java.util.Map;
  */
 @RestController
 @RequestMapping("/shopArea")
-//@Api(value = "区域Controller",tags = "区域控制器")
 public class ShopAreaController  {
     @Autowired
     private IShopAreaService shopAreaService;
@@ -53,7 +52,6 @@ public class ShopAreaController  {
      * @param
      * @return
      */
-//    @ApiOperation(value = "添加区域信息",notes = "添加区域信息")
     @PostMapping(value = "addShopArea")
     public ServerResponse addShopArea(ShopArea shopArea, Model model){
         shopArea.setCreatedTime(new Date());
@@ -65,7 +63,6 @@ public class ShopAreaController  {
      * @param areaId
      * @return
      */
-//    @ApiOperation(value="根据areaId获取区域信息",notes = "根据areaId获取区域信息")
     @GetMapping(value = "findOne")
     public ServerResponse findOne(@RequestParam("areaId") int areaId){
         return  shopAreaService.findOne(areaId);
@@ -75,7 +72,6 @@ public class ShopAreaController  {
      * 处理修改数据表单提交
      * @return
      */
-//    @ApiOperation(value = "编辑区域信息",notes = "编辑区域信息")
     @PostMapping("editShopArea")
     public ServerResponse editShopArea(ShopArea shopArea,Model model){
         shopArea.setUpdatedTime(new Date());
@@ -87,7 +83,6 @@ public class ShopAreaController  {
     * @param ids
     * @return
     */
-//    @ApiOperation(value = "批量删除区域信息",notes = "批量删除区域信息")
     @GetMapping("deleteByIds")
     public ServerResponse deleteByIds(String[] ids){
         return shopAreaService.deleteByIds(ids);

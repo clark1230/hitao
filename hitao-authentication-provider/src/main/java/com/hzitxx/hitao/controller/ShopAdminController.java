@@ -7,22 +7,15 @@ import com.hzitxx.hitao.jwt.JwtHelper;
 import com.hzitxx.hitao.service.IShopAdminService;
 import com.hzitxx.hitao.service.IShopPermissionRouteService;
 import com.hzitxx.hitao.system.pojo.permission.ShopAdmin;
-import com.hzitxx.hitao.utils.JwtTokenUtil;
 import com.hzitxx.hitao.utils.LayuiEntity;
 import com.hzitxx.hitao.vo.ShopAdminVO;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-@Api(value = "系统管理员Controller",tags = "系统管理员控制器")
 @RestController
 @RequestMapping("/shopAdmin")
 public class ShopAdminController {
@@ -40,7 +33,6 @@ public class ShopAdminController {
      * 获取系统管理员信息
      * @return
      */
-    @ApiOperation(value = "获取管理员信息",notes = "获取管理员信息")
     @GetMapping("/shopAdminData")
     public LayuiEntity<ShopAdminVO> shopAdminData(@RequestParam(value = "page",defaultValue = "1")int page,
                                                   @RequestParam(value = "limit",defaultValue = "20")int limit){
@@ -51,7 +43,6 @@ public class ShopAdminController {
      * 获取后台用户信息
      * @return
      */
-    @ApiOperation(value = "获取管理员信息",notes = "获取管理员信息")
     @GetMapping("/info")
     public ServerResponse info(@RequestHeader("token")String token){
         JSONObject jsonObject = new JSONObject();

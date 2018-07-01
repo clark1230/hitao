@@ -1,7 +1,5 @@
 package com.hzitxx.hitao.system.pojo;
 
-import org.hibernate.validator.constraints.NotBlank;
-
 import  java.io.Serializable;
 /**
  * <p>
@@ -20,17 +18,14 @@ public class GatewayApiDefine implements Serializable {
     /**
      * 请求匹配路径
      */
-    @NotBlank(message = "服务访问规则不能为null!")
     private String path;
     /**
      * 注册服务的名称
      */
-    @NotBlank(message = "服务名称不能为null!")
     private String serviceId;
     /**
      * 代理服务地址
      */
-    @NotBlank(message = "服务地址不能为null!")
     private String url;
     /**
      * 是否可以重试
@@ -47,7 +42,6 @@ public class GatewayApiDefine implements Serializable {
     /**
      * api名称
      */
-    @NotBlank(message = "网关名称不能为null!")
     private String apiName;
 
     public String getId() {

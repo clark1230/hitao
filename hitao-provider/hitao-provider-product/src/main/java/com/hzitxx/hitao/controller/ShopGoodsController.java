@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-//@Api(value = "ShopGoodsController",tags = "商品接口")
 @RestController
 public class ShopGoodsController {
     @Autowired
@@ -21,7 +20,6 @@ public class ShopGoodsController {
      * 获取商品信息
      * @return
      */
-//    @ApiOperation(value = "获取商品信息",notes = "获取商品信息")
     @GetMapping("/findGoods")
     public Object findGoods(){
         return this.goodsService.findGoods();
@@ -32,8 +30,6 @@ public class ShopGoodsController {
      * @param goodsId
      * @return
      */
-//    @ApiOperation(value = "获取商品详情",notes = "获取商品详情")
-//    @ApiImplicitParam(value = "商品编号",name = "id",paramType = "query",required = true,dataType = "Integer")
     @GetMapping("/goods/details")
     public Object details(@RequestParam("goodsId")Integer goodsId,@RequestParam("memberId") Integer memberId){
         return this.goodsService.findOne(goodsId,memberId);

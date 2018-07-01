@@ -16,18 +16,18 @@ public class RefreshRouteServiceImpl implements RefreshRouteService {
 
     @Autowired
     ApplicationEventPublisher publisher;
-
-    @Autowired
-    RouteLocator routeLocator;
+//
+//    @Autowired
+//    RouteLocator routeLocator;
 
     /**
      * 刷新路由
      * @return
      */
     public ServerResponse<String> refreshRoute() {
-        RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(routeLocator);
+       // RoutesRefreshedEvent routesRefreshedEvent = new RoutesRefreshedEvent(routeLocator);
         try{
-            publisher.publishEvent(routesRefreshedEvent);
+          //  publisher.publishEvent(routesRefreshedEvent);
             return  ServerResponse.createBySuccessMessage("路由刷新成功!");
         }catch (Exception e){
             return ServerResponse.createByErrorMessage("路由刷新失败!");

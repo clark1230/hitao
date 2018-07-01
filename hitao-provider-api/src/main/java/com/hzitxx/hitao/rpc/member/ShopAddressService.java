@@ -3,7 +3,7 @@ package com.hzitxx.hitao.rpc.member;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.front.member.ShopAddress;
 import com.hzitxx.hitao.rpc.member.fallback.ShopAddressServiceFallback;
-import org.springframework.cloud.netflix.feign.FeignClient;
+import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

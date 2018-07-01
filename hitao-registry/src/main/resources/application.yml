@@ -1,8 +1,6 @@
 spring:
   application:
     name: registry-service
-  zipkin:
-    base-url: http://localhost:9411
   cloud:
     config:
         label: master # 对应的是git的分支，如果胚子中心使用的是本地存储，则该参数无用
@@ -23,40 +21,17 @@ eureka:
     eviction-interval-timer-in-ms: 40000  # eureka server 清理无效节点的时间间隔,默认是60000毫秒 即60秒
     enable-self-preservation: true  # 开启自我保护功能，默认为true
 
----
+
 #  配置高可用的eureka
 server:
   port: 8001
-spring:
-  profiles: eureka1
 eureka:
   instance:
     hostname: eureka1
   client:
     service-url:
-      defaultZone: http://eureka2:8002/eureka/,http://eureka3:8003/eureka/
+      defaultZone: http://eureka1:8001/eureka/
 
----
-server:
-  port: 8002
-spring:
-  profiles: eureka2
-eureka:
-  instance:
-    hostname: eureka2
-  client:
-    service-url:
-      defaultZone: http://eureka1:8001/eureka/,http://eureka3:8003/eureka/
----
-server:
-  port: 8003
-spring:
-  profiles: eureka3
-eureka:
-  instance:
-    hostname: eureka3
-  client:
-    service-url:
-      defaultZone: http://eureka1:8001/eureka/,http://eureka2:8002/eureka/
+
 
 

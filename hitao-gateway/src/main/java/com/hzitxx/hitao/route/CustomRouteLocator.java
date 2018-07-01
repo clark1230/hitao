@@ -1,6 +1,6 @@
 package com.hzitxx.hitao.route;
 
-import com.hzitxx.hitao.service.GatewayApiDefineService;
+import com.hzitxx.hitao.rpc.GatewayApiDefineService;
 import com.hzitxx.hitao.system.pojo.GatewayApiDefine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +19,7 @@ import java.util.LinkedHashMap;
 /**
  * 自定义路由器
  */
-public class CustomRouteLocator extends SimpleRouteLocator implements RefreshableRouteLocator {
+public class CustomRouteLocator extends SimpleRouteLocator  implements RefreshableRouteLocator{
 
     public final static Logger logger = LoggerFactory.getLogger(CustomRouteLocator.class);
 
@@ -43,10 +43,10 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
     //    }
 
 
-    @Override
-    public void refresh() {
-        doRefresh();
-    }
+//    @Override
+//    public void refresh() {
+//        super.doRefresh();
+//    }
 
     @Override
     protected Map<String, ZuulProperties.ZuulRoute> locateRoutes() {
@@ -82,9 +82,8 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
         // 准备一个map集合存放路由信息
         Map<String, ZuulProperties.ZuulRoute> routes = new HashMap<>();
         //从数据库中获取路由信息
-        Map<String,Object> map = new HashMap<>();
-        map.put("enabled",1);
-        List<GatewayApiDefine> gatewayApiDefines = this.gatewayApiDefineService.searchGatewayApiDefine(map);
+        List<GatewayApiDefine> gatewayApiDefines = gatewayApiDefineService
+               .searchGatewayApiDefine(1).getData();
         for (GatewayApiDefine result : gatewayApiDefines) {
             if (StringUtils.isEmpty(result.getPath())) {
                 continue;
@@ -103,4 +102,12 @@ public class CustomRouteLocator extends SimpleRouteLocator implements Refreshabl
         }
         return routes;
     }
+
+    @Override
+    public void refresh() {
+        System.out.println("刷新路由！");
+        super.doRefresh();
+    }
+
+
 }

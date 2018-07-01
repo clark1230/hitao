@@ -1,4 +1,4 @@
-${AnsiColor.CYAN}
+${AnsiColor.BRIGHT_MAGENTA}
 
 		##     ## ######## #### ######## ##     ## ##     ##
 		##     ##      ##   ##     ##     ##   ##   ##   ##

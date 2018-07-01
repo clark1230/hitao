@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletRequest;
 
-@Component
+//@Component
 public class MyRateLimit  implements RateLimitKeyGenerator {
     @Override
     public String key(HttpServletRequest httpServletRequest, Route route, RateLimitProperties.Policy policy) {

@@ -6,10 +6,10 @@ import com.hzitxx.hitao.service.gateway.IGatewayApiDefineService;
 import com.hzitxx.hitao.system.pojo.GatewayApiDefine;
 import com.hzitxx.hitao.util.LayuiEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 /**
  * <p>
@@ -22,6 +22,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/gatewayApiDefine")
 public class GatewayApiDefineController  {
+
     @Autowired(required = false)
     private IGatewayApiDefineService gatewayApiDefineService;
 
@@ -78,5 +79,18 @@ public class GatewayApiDefineController  {
     @GetMapping("/findOne")
     public ServerResponse findOne(Integer id){
         return this.gatewayApiDefineService.findOne(id);
+    }
+
+
+    /**
+     * 获取网关信息
+     * @param enabled
+     * @return
+     */
+    @GetMapping("/searchGatewayApi")
+    public ServerResponse<List<GatewayApiDefine>> searchGatewayApi(@RequestParam("enabled") Integer enabled){
+        Map<String,Object> paramsMap = new HashMap<>();
+        paramsMap.put("enabled",enabled);
+        return this.gatewayApiDefineService.searchGatewayApiDefine(paramsMap);
     }
 }

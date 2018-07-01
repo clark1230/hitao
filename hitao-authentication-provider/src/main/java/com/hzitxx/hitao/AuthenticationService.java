@@ -11,7 +11,6 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootApplication
 @EnableEurekaClient
 @MapperScan("com.hzitxx.hitao.mapper.*")
-@EnableCircuitBreaker
 public class AuthenticationService {
 
     public static void main(String[] args) {

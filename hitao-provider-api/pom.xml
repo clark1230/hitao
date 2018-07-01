@@ -17,51 +17,13 @@
             <artifactId>hitao-commons</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-feign</artifactId>
-        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-zipkin</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-actuator</artifactId>
-        </dependency>
 
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-test</artifactId>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-hystrix</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
         <!--spring cloud bus-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
@@ -71,11 +33,7 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpclient</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.netflix.feign</groupId>
-            <artifactId>feign-httpclient</artifactId>
-            <version>${feign-httpclient}</version>
-        </dependency>
+
         <!--httpClient-->
         <dependency>
             <groupId>org.apache.httpcomponents</groupId>
@@ -86,13 +44,15 @@
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-httpclient</artifactId>
         </dependency>
-        <!-- https://mvnrepository.com/artifact/com.netflix.feign/feign-httpclient -->
         <dependency>
             <groupId>com.netflix.feign</groupId>
             <artifactId>feign-httpclient</artifactId>
             <version>8.17.0</version>
         </dependency>
-
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-openfeign</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

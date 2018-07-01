@@ -20,5 +20,9 @@ public class FilterConfiguration {
         return new TokenFilter();
     }
 
+    @Bean
+    public CustomZuulFallbackHandler zuulFallbackHandler(){
+        return new CustomZuulFallbackHandler();
+    }
 
 }
