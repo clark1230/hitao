@@ -1,0 +1,65 @@
+server:
+  port: 8203
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+#spring:
+#  application:
+#      name: aoho-gateway
+#  cloud:
+#    consul:
+#      host: 192.168.1.204
+#      port: 8500
+#      discovery:
+#        ip-address: ${HOST_ADDRESS:localhost}
+#        port: ${SERVER_PORT:${server.port}}
+##        healthCheckPath: /health
+#        healthCheckInterval: 15s
+#        instance-id: gateway-server-${server.port}
+#        service-name: gateway-server
+
+
+
+spring:
+  cloud:
+    gateway:
+      locator:
+        enabled: true
+      default-filters:
+      - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+      routes:
+      # =====================================
+      - id: authc
+        uri: lb://authc
+        order: 1
+        predicates:
+        - Path=/authc/**
+        filters:
+        - StripPrefix=1
+      - id: product
+        uri: lb://product
+        order: 1
+        predicates:
+        - Path=/product/**
+        filters:
+      - id: user
+        uri: lb://user
+        order: 1
+        predicates:
+        - Path=/user/**
+        filters:
+
+
+  application:
+    name: gateway3-service
+
+
+#logging:
+#  level:
+#    org.springframework.cloud.gateway: TRACE
+#    org.springframework.http.server.reactive: DEBUG
+#    org.springframework.web.reactive: DEBUG
+#    reactor.ipc.netty: DEBUG
+
+management.endpoints.web.exposure.include: '*'

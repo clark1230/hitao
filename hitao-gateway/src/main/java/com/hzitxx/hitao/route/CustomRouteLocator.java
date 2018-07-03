@@ -9,12 +9,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.netflix.zuul.filters.RefreshableRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.SimpleRouteLocator;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
+import org.springframework.cloud.netflix.zuul.filters.ZuulProperties.ZuulRoute;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.LinkedHashMap;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 自定义路由器
@@ -23,13 +25,13 @@ public class CustomRouteLocator extends SimpleRouteLocator  implements Refreshab
 
     public final static Logger logger = LoggerFactory.getLogger(CustomRouteLocator.class);
 
+    private AtomicReference<Map<String,ZuulRoute>>
+            routes = new AtomicReference<>();
 
-    @Autowired
+    @Autowired(required = false)
     private GatewayApiDefineService gatewayApiDefineService;
 
-
     private ZuulProperties properties;
-
 
     public CustomRouteLocator(String servletPath, ZuulProperties properties) {
         super(servletPath, properties);
@@ -42,35 +44,30 @@ public class CustomRouteLocator extends SimpleRouteLocator  implements Refreshab
     //        super.doRefresh();
     //    }
 
-
-//    @Override
-//    public void refresh() {
-//        super.doRefresh();
-//    }
-
     @Override
     protected Map<String, ZuulProperties.ZuulRoute> locateRoutes() {
         LinkedHashMap<String, ZuulProperties.ZuulRoute> routesMap = new LinkedHashMap<>();
         //从application.properties中加载路由信息
-        routesMap.putAll(super.locateRoutes());
+        //routesMap.putAll(super.locateRoutes());
         //从db中加载路由信息
         routesMap.putAll(locateRoutesFromDB());
-        LinkedHashMap<String, ZuulProperties.ZuulRoute> values = new LinkedHashMap<>();
-        for (Map.Entry<String, ZuulProperties.ZuulRoute> entry : routesMap.entrySet()) {
-            String path = entry.getKey();
-            // Prepend with slash if not already present.
-            if (!path.startsWith("/")) {
-                path = "/" + path;
-            }
-            if (StringUtils.hasText(this.properties.getPrefix())) {
-                path = this.properties.getPrefix() + path;
-                if (!path.startsWith("/")) {
-                    path = "/" + path;
-                }
-            }
-            values.put(path, entry.getValue());
-        }
-        return values;
+//        LinkedHashMap<String, ZuulProperties.ZuulRoute> values = new LinkedHashMap<>();
+//        for (Map.Entry<String, ZuulProperties.ZuulRoute> entry : routesMap.entrySet()) {
+//            String path = entry.getKey();
+//            // Prepend with slash if not already present.
+//            if (!path.startsWith("/")) {
+//                path = "/" + path;
+//            }
+//            if (StringUtils.hasText(this.properties.getPrefix())) {
+//                path = this.properties.getPrefix() + path;
+//                if (!path.startsWith("/")) {
+//                    path = "/" + path;
+//                }
+//            }
+//            values.put(path, entry.getValue());
+//        }
+       // return values;
+        return routesMap;
     }
 
     /**
@@ -106,7 +103,7 @@ public class CustomRouteLocator extends SimpleRouteLocator  implements Refreshab
     @Override
     public void refresh() {
         System.out.println("刷新路由！");
-        super.doRefresh();
+        //super.doRefresh();
     }
 
 

@@ -117,7 +117,12 @@
             <!--<version>${spring-boot.version}</version>-->
             <optional>true</optional>
         </dependency>
-
+        <!-- druid的starter -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>druid-spring-boot-starter</artifactId>
+            <version>1.1.9</version>
+        </dependency>
     </dependencies>
 
     <build>

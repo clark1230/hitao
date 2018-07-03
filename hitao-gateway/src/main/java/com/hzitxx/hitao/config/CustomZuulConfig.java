@@ -10,27 +10,27 @@ import org.springframework.context.annotation.Configuration;
 /**
  * 路由配置
  */
-@Configuration
+//@Configuration
 public class CustomZuulConfig {
 
-    @Autowired
-    ZuulProperties zuulProperties;
-
-    @Autowired
-    ServerProperties server;
-
-
-
-    /**
-     * 路由定位器
-     * @return
-     */
-    @Bean
-    public CustomRouteLocator routeLocator() {
-        System.out.println("路由定位器");
-        System.out.println(this.server.getServlet().getServletPrefix());
-        CustomRouteLocator routeLocator = new CustomRouteLocator("/",
-                this.zuulProperties);
-        return routeLocator;
-    }
+//    @Autowired
+//    ZuulProperties zuulProperties;
+//
+//    @Autowired
+//    ServerProperties server;
+//
+//
+//
+//    /**
+//     * 路由定位器
+//     * @return
+//     */
+//    @Bean
+//    public CustomRouteLocator routeLocator() {
+//        System.out.println("路由定位器");
+//        System.out.println(this.server.getServlet().getServletPrefix());
+//        CustomRouteLocator routeLocator = new CustomRouteLocator(this.server.getServlet().getServletPrefix(),
+//                this.zuulProperties);
+//        return routeLocator;
+//    }
 }

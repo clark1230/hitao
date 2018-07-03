@@ -11,8 +11,7 @@ spring:
   #jackson:
     #date-format: yyyy-MM-dd HH:mm:ss
     #time-zone: GMT+8
-  zipkin:
-    base-url: http://localhost:9411
+
   # 配置数据源
   datasource:
     url: jdbc:mysql:///hitao
@@ -32,22 +31,16 @@ spring:
         # git 仓库配置文件的名称 test-config-dev.properties   test-config 就是指application   dev就是指profile
         profile: dev
         name: test-config
-#    stream:
-#      default-binder: kafka  # 使用 kafka stream 来作为默认消息中间件
-#      kafka:
-#        binder:
-#          zkNodes: 127.0.0.1:2181 # zookeeper 服务地址
-#          brokers: 127.0.0.1:9092
   redis:
     host: localhost
     port: 6379
     database: 0
-    pool:
-      max-active: 8
+
 eureka:
   client:
     serviceUrl:
-      defaultZone: ${eureka-server}
+      defaultZone: http://localhost:8001/eureka/
     register-with-eureka: true
     fetch-registry: true
-
+  instance:
+    health-check-url-path: /actuator/health

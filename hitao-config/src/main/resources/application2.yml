@@ -9,6 +9,10 @@ eureka:
     hostname: localhost
     lease-expiration-duration-in-seconds: 30 # 续约到期时间(默认90秒)
     lease-renewal-interval-in-seconds: 30 # 续约更新时间 (默认30秒)
+    metadata-map:
+      user:
+        name: admin
+        password: admin
 server:
   port: 8888
 spring:
@@ -24,15 +28,6 @@ spring:
           default-label: master
 
       label: master
-#    stream:
-#      default-binder: kafka  # 使用 kafka stream 来作为默认消息中间件
-#      kafka:
-#        binder:
-#          zkNodes: 127.0.0.1:2181 # zookeeper 服务地址
-#          brokers: 127.0.0.1:9092  # kafka服务地址
-#          minPartitionCont: 1
-#          autoCreateTopics: true
-#          autoAddPartitions: true
 
 
   rabbitmq:
@@ -46,6 +41,28 @@ spring:
     template:
       retry:
         enabled: true
+  boot:
+    admin:
+      client:
+        url: "http://localhost:8094"
+        username: admin
+        password: admin
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+
+management:
+  endpoint:
+    health:
+      enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+
+
 #security:
 #  basic:
 #    enabled: false

@@ -22,11 +22,11 @@
         <module>hitao-fileservice</module>
         <module>hitao_system_web</module>
         <module>hitao-monitor</module>
-        <module>hitao-message</module>
-        <module>hitao-message/hitao-message-app</module>
-        <module>hitao-fileservice</module>
+        <module>hitao-message-app</module>
         <module>hitao-search</module>
         <module>hitao-authentication-provider</module>
+        <module>hitao-order-provider</module>
+        <module>hitao-gateway3</module>
     </modules>
 
     <parent>
@@ -50,10 +50,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-config</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-eureka</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.cloud</groupId>

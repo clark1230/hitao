@@ -17,8 +17,8 @@ public class AuthenticationService {
         SpringApplication.run(AuthenticationService.class,args);
     }
 
-    @LoadBalanced
-    RestTemplate restTemplate() {
-        return new RestTemplate();
-    }
+//    @LoadBalanced
+//    RestTemplate restTemplate() {
+//        return new RestTemplate();
+//    }
 }

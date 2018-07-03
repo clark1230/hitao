@@ -10,13 +10,15 @@ spring:
           enabled: true
         mail:
           from: xianyaoji@hzitxx.com #邮件发送账号
-          to: 1552089240@qq.com # 邮件接收账号
+          to: 1552089240@qq.com
+        pagerduty:
+      client:
+        username: admin
+        password: admin
       monitor:
         connect-timeout: 30000 # 30秒
         read-timeout: 30000 # 30秒
         period:  30000 # 30秒
-      turbine:
-        location: http://localhost:9443/hystrix.stream
         clusters: default
       routes:
         endpoints: env,metrics,dump,jolokia,info,configprops,trace,logfile,refresh,flyway,liquibase,heapdump,activiti
@@ -39,20 +41,15 @@ eureka:
   client:
     service-url:
       defaultZone: http://localhost:8001/eureka/
-  instance:
-    metadata-map:
-      management.port: ${management.port:8094}
-management:
-  security:
-    enabled: false
+#  instance:
+#    metadata-map:
+#      user:
+#        name: admin
+#        password: admin
 hystrix:
   metrics:
     enabled: true
-turbine:
-  aggregator:
-    cluster-config: SYSTEM,USER
-  app-config: customers,stores,ui,admin
-  cluster-name-expression: metadata['cluster']
+
 # 加密配置
 encrypt:
   key-store:
@@ -68,3 +65,5 @@ zuul:
 
 
 
+#eureka:instance.metadata-map.user.name=admin
+#eureka.instance.metadata-map.user.password=admin
