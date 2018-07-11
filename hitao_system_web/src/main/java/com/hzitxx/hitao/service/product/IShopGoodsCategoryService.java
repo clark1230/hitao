@@ -38,7 +38,7 @@ public interface IShopGoodsCategoryService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopGoodsCategory> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopGoodsCategory>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据
@@ -51,5 +51,13 @@ public interface IShopGoodsCategoryService  {
      * @return
      */
     ServerResponse ajaxCate();
+
+
+    /**
+     * 根据父级编号查询类目信息
+     * @param parentId
+     * @return
+     */
+    ServerResponse findByPId(Integer parentId);
 
 }

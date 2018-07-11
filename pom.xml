@@ -15,6 +15,7 @@
         <module>hitao-provider</module>
         <module>hitao-provider/hitao-provider-product</module>
         <module>hitao-provider/hitao-provider-member2</module>
+        <module>hitao-provider/hitao-base-provider</module>
         <module>hitao-gateway</module>
         <module>hitao-config</module>
         <module>hitao-bus</module>
@@ -27,6 +28,7 @@
         <module>hitao-authentication-provider</module>
         <module>hitao-order-provider</module>
         <module>hitao-gateway3</module>
+
     </modules>
 
     <parent>
@@ -67,4 +69,15 @@
             </snapshots>
         </repository>
     </repositories>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

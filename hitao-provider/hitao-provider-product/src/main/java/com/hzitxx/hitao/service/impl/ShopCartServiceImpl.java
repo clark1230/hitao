@@ -1,4 +1,4 @@
-package com.hzitxx.hitao.rpc.product.impl;
+package com.hzitxx.hitao.service.impl;
 
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.dao.CartDao;
@@ -6,7 +6,7 @@ import com.hzitxx.hitao.front.product.ShopGoods;
 import com.hzitxx.hitao.entity.ShopGoodsCart;
 import com.hzitxx.hitao.mapper.ShopGoodsMapper;
 import com.hzitxx.hitao.rpc.member.MemberService;
-import com.hzitxx.hitao.rpc.product.ShopCartService;
+import com.hzitxx.hitao.service.ShopCartService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

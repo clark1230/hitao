@@ -32,6 +32,7 @@ public class GatewayService {
     public RestTemplate template(){
         return  new RestTemplate();
     }
+
     @Bean
     public RouteLocator productRouteLocator(RouteLocatorBuilder builder) {
         return builder.routes()

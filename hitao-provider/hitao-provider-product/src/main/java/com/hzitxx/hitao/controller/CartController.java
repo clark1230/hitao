@@ -1,8 +1,8 @@
 package com.hzitxx.hitao.controller;
 
 import com.hzitxx.hitao.entity.ShopGoodsCart;
-import com.hzitxx.hitao.rpc.product.ShopCartService;
-import com.hzitxx.hitao.rpc.product.ShopGoodsService;
+import com.hzitxx.hitao.service.ShopCartService;
+import com.hzitxx.hitao.service.ShopGoodsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

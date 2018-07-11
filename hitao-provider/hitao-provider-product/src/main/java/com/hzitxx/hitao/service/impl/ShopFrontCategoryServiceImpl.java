@@ -1,10 +1,10 @@
-package com.hzitxx.hitao.rpc.product.impl;
+package com.hzitxx.hitao.service.impl;
 
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.entity.ShopFrontCategory;
 import com.hzitxx.hitao.front.product.CategoryVo;
 import com.hzitxx.hitao.mapper.ShopFrontCategoryMapper;
-import com.hzitxx.hitao.rpc.product.ShopFrontCategoryService;
+import com.hzitxx.hitao.service.ShopFrontCategoryService;
 import com.hzitxx.hitao.rpc.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

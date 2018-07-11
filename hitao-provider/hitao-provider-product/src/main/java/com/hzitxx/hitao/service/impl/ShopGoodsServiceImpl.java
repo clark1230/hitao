@@ -1,4 +1,4 @@
-package com.hzitxx.hitao.rpc.product.impl;
+package com.hzitxx.hitao.service.impl;
 
 import com.alibaba.fastjson.JSONArray;
 import com.hzitxx.hitao.commons.ServerResponse;
@@ -11,7 +11,7 @@ import com.hzitxx.hitao.mapper.ShopGoodsAttrMapper;
 import com.hzitxx.hitao.mapper.ShopGoodsContentMapper;
 import com.hzitxx.hitao.mapper.ShopGoodsMapper;
 import com.hzitxx.hitao.rpc.member.ShopFavoritesService;
-import com.hzitxx.hitao.rpc.product.ShopGoodsService;
+import com.hzitxx.hitao.service.ShopGoodsService;
 import com.hzitxx.hitao.system.pojo.product.ShopFavorites;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class ShopGoodsServiceImpl  implements ShopGoodsService {
+public class ShopGoodsServiceImpl implements ShopGoodsService {
     @Autowired(required = false)
     private ShopGoodsMapper goodsMapper;
 

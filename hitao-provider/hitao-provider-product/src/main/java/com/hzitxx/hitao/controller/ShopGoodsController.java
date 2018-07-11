@@ -2,7 +2,7 @@ package com.hzitxx.hitao.controller;
 
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.front.product.ShopGoods;
-import com.hzitxx.hitao.rpc.product.ShopGoodsService;
+import com.hzitxx.hitao.service.ShopGoodsService;
 //import io.swagger.annotations.Api;
 //import io.swagger.annotations.ApiImplicitParam;
 //import io.swagger.annotations.ApiOperation;

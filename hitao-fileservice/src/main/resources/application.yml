@@ -6,11 +6,11 @@ spring:
   mvc:
     static-path-pattern: /static/**
   resources:
-    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,fileupload:D:/hitao_images2/
+    static-locations: classpath:/META-INF/resources/,classpath:/resources/,classpath:/static/,classpath:/public/,file:D:/hitao_images2/
 eureka:
   instance:
     hostname: localhost
   client:
     service-url:
-      defaultZone: http://${eureka.instance.hostname}:8001/eureka/,http://${eureka.instance.hostname}:8002/eureka/,http://${eureka.instance.hostname}:8003/eureka.
+      defaultZone: http://localhost:8001/eureka/
 

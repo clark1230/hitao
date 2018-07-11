@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.product.ShopGoodsAttrGroupMapper">
+    <!--shop_goods_attr_group表中的列-->
+    <sql id="shopGoodsAttrGroupBaseColumn">
+         group_id,
+         group_name,
+         is_del,
+         created_time,
+         updated_time
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopGoodsAttrGroup" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrGroup">
+        INSERT INTO shop_goods_attr_group(
+            <include refid="shopGoodsAttrGroupBaseColumn"/>
+        ) VALUES(
+                #{groupId},
+                #{groupName},
+                #{isDel},
+                #{createdTime},
+                #{updatedTime}
+        )
+    </insert>
+    <insert id="addShopGoodsAttrGroupSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrGroup">
+        insert into shop_goods_attr_group
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                group_id,
+            </if>
+            <if test="groupName != null">
+                group_name,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="groupId != null">
+                #{groupId},
+            </if>
+            <if test="groupName != null">
+                #{groupName},
+            </if>
+            <if test="isDel != null">
+                #{isDel},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_goods_attr_group WHERE
+        group_id = #{groupId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_goods_attr_group WHERE group_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrGroup">
+        UPDATE shop_goods_attr_group
+        <set>
+          group_id=#{groupId},
+          group_name=#{groupName},
+          is_del=#{isDel},
+          created_time=#{createdTime},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           group_id = #{groupId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrGroup">
+        UPDATE shop_goods_attr_group
+        <set>
+    <if test="groupId != null">
+          group_id = #{groupId},
+    </if>
+    <if test="groupName != null">
+          group_name = #{groupName},
+    </if>
+    <if test="isDel != null">
+          is_del = #{isDel},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      group_id = #{groupId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopGoodsAttrGroupMap" parameterType="integer">
+        select
+        <include refid="shopGoodsAttrGroupBaseColumn"/>
+        from
+            shop_goods_attr_group
+        WHERE
+          group_id = #{groupId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopGoodsAttrGroup" parameterType="map" resultMap="shopGoodsAttrGroupMap">
+        SELECT
+        <include refid="shopGoodsAttrGroupBaseColumn"/>
+        FROM shop_goods_attr_group
+        <include refid="shopGoodsAttrGroupBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopGoodsAttrGroupBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.groupId !=null">
+                    AND group_id = #{map.groupId}
+                </if>
+                <if test="map.groupName !=null">
+                    AND group_name = #{map.groupName}
+                </if>
+                <if test="map.isDel !=null">
+                    AND is_del = #{map.isDel}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopGoodsAttrGroupMap" type="com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrGroup">
+            <id column="group_id" property="groupId"/>
+            <result column="group_name" property="groupName"/>
+            <result column="is_del" property="isDel"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>

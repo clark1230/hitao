@@ -31,4 +31,11 @@ public interface ShopBrandMapper{
     ShopBrand findOne(Integer brandId);
                                             
     List<ShopBrand> searchShopBrand(@Param("map") Map<String, Object> map);
+
+    /**
+     * 批量逻辑删除数据
+     * @param brandIds
+     * @return
+     */
+    int removeBatch(Integer[] brandIds);
 }

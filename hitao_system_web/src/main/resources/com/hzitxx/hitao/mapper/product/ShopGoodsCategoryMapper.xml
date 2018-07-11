@@ -35,6 +35,7 @@
                 #{updatedTime}
         )
     </insert>
+    <!--添加-->
     <insert id="addShopGoodsCategorySelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsCategory">
         insert into shop_goods_category
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -206,6 +207,7 @@
         FROM shop_goods_category
         <include refid="shopGoodsCategoryBaseWhereSql"/>
     </select>
+
     <!--基础查询条件-->
     <sql id="shopGoodsCategoryBaseWhereSql">
         <if test="map!=null">
@@ -247,7 +249,7 @@
         </if>
     </sql>
 
-         <!-- 通用查询映射结果 -->
+    <!-- 通用查询映射结果 -->
     <resultMap id="shopGoodsCategoryMap" type="com.hzitxx.hitao.system.pojo.product.ShopGoodsCategory">
             <id column="cat_id" property="catId"/>
             <result column="cat_name" property="catName"/>

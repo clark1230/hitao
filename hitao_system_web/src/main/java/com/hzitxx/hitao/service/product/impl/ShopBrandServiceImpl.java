@@ -32,9 +32,9 @@ public class ShopBrandServiceImpl implements IShopBrandService {
     public ServerResponse addShopBrand(ShopBrand shopBrand){
         int result = this.mapper.addShopBrand(shopBrand);
         if(result !=1){
-            return ServerResponse.createByErrorMessage("添加商品信息失败!");
+            return ServerResponse.createByErrorMessage("添加品牌信息失败!");
         }
-        return ServerResponse.createBySuccessMessage("添加商品信息成功!");
+        return ServerResponse.createBySuccessMessage("添加品牌信息成功!");
     }
 
     @Override
@@ -98,7 +98,7 @@ public class ShopBrandServiceImpl implements IShopBrandService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopBrand> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopBrand>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopBrand>  obj=mapper.searchShopBrand(map);
         PageInfo<ShopBrand> pageInfo=new PageInfo<>(obj);
@@ -107,7 +107,7 @@ public class ShopBrandServiceImpl implements IShopBrandService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**
@@ -123,5 +123,19 @@ public class ShopBrandServiceImpl implements IShopBrandService {
         }
         return ServerResponse.createBySuccess(shopBrand);
      }
+
+    /**
+     * 批量逻辑删除数据
+     * @param brandIds  品牌编号数组
+     * @return  响应数据封装对象
+     */
+    @Override
+    public ServerResponse removeBatch(Integer[] brandIds) {
+        int result =  this.mapper.removeBatch(brandIds);
+        if(result == 0){
+            return ServerResponse.createByErrorMessage("逻辑删除品牌信息失败!");
+        }
+        return ServerResponse.createBySuccessMessage("逻辑删除品牌信息成功!");
+    }
 }
 

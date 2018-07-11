@@ -1,7 +1,7 @@
 package com.hzitxx.hitao.controller;
 
 import com.hzitxx.hitao.commons.ServerResponse;
-import com.hzitxx.hitao.rpc.product.ShopFrontCategoryService;
+import com.hzitxx.hitao.service.ShopFrontCategoryService;
 import com.hzitxx.hitao.rpc.member.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;

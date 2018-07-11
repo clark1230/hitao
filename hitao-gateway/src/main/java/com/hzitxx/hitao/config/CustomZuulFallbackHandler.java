@@ -50,7 +50,7 @@ public class CustomZuulFallbackHandler  implements FallbackProvider {
             @Override
             public InputStream getBody() throws IOException {
                 String json = JSON.toJSONString(
-                        ServerResponse.createByErrorMessage("微服务调用失败!请稍后再尝试!"));
+                        ServerResponse.createByErrorCodeMessage(5000,"微服务调用失败!请稍后再尝试!"));
                 return new ByteArrayInputStream(json.getBytes());
             }
 

@@ -1,6 +1,7 @@
 package com.hzitxx.hitao.controller;
 
 
+import com.hzitxx.hitao.service.IShopPermissionRouteService;
 import com.hzitxx.hitao.system.pojo.permission.ShopPermissionRoute;
 import com.hzitxx.hitao.utils.LayuiEntity;
 import com.hzitxx.hitao.utils.ServerResponse;
@@ -8,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.hzitxx.hitao.service.IShopPermissionRouteService;
 import java.util.HashMap;
 import java.util.Map;
 /**

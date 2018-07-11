@@ -28,11 +28,10 @@ public class ShopGoodsCategoryController {
      */
     @GetMapping(value="shopGoodsCategoryAjax")
     @ResponseBody
-    public LayuiEntity<ShopGoodsCategory> shopGoodsCategoryAjax(@RequestParam(value = "page",defaultValue = "1") int page,
+    public ServerResponse<LayuiEntity<ShopGoodsCategory>> shopGoodsCategoryAjax(@RequestParam(value = "page",defaultValue = "1") int page,
                                                                 @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
         Map<String,Object>  map = new HashMap<>();
-        LayuiEntity<ShopGoodsCategory> layuiEntity = shopGoodsCategoryService.page(page,limit,map);
-        return layuiEntity;
+        return shopGoodsCategoryService.page(page,limit,map);
     }
 
 
@@ -77,4 +76,17 @@ public class ShopGoodsCategoryController {
     public ServerResponse findOne(Integer catId){
         return  this.shopGoodsCategoryService.findOne(catId);
     }
+
+
+    /**
+     * 根据父级编号查询类目信息
+     * @param pId
+     * @return
+     */
+    @GetMapping("/findByPId")
+    public ServerResponse findByPId(@RequestParam Integer pId){
+        return this.shopGoodsCategoryService.findByPId(pId);
+    }
+
+
 }

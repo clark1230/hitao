@@ -1,4 +1,4 @@
-package com.hzitxx.hitao.rpc.product;
+package com.hzitxx.hitao.service;
 
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.front.product.ShopGoods;

@@ -57,7 +57,7 @@ public class ShopGoodsCategory implements Serializable {
      */
     private Date createdTime;
     /**
-     * 更新时间(自更新)
+     * 更新时间
      */
     private Date updatedTime;
 

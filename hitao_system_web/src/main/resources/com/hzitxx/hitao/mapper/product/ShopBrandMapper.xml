@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hzitxx.hitao.mapper.product.ShopBrandMapper">
+
     <!--shop_brand表中的列-->
     <sql id="shopBrandBaseColumn">
          brand_id,
@@ -16,7 +17,6 @@
          created_time,
          updated_time
     </sql>
-
 
     <!--添加-->
     <insert id="addShopBrand" parameterType="com.hzitxx.hitao.system.pojo.product.ShopBrand">
@@ -36,6 +36,7 @@
                 #{updatedTime}
         )
     </insert>
+
     <insert id="addShopBrandSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopBrand">
         insert into shop_brand
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -109,6 +110,7 @@
             </if>
         </trim>
     </insert>
+
     <!--根据id删除数据-->
     <delete id="deleteById" parameterType="integer">
         DELETE FROM  shop_brand WHERE
@@ -122,6 +124,7 @@
             #{idItem}
           </foreach>
     </delete>
+
     <!--根据id修改数据-->
     <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopBrand">
         UPDATE shop_brand
@@ -182,6 +185,21 @@
         WHERE
       brand_id = #{brandId}
     </update>
+
+    <!--批量逻辑删除-->
+    <update id="removeBatch"  parameterType="integer">
+        UPDATE shop_brand
+        <set>
+            is_del = 1
+        </set>
+        WHERE
+        brand_id
+        IN
+        <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+        </foreach>
+    </update>
+
     <!--根据id查询一条数据-->
     <select id="findOne" resultMap="shopBrandMap" parameterType="integer">
         select
@@ -191,6 +209,7 @@
         WHERE
           brand_id = #{brandId}
     </select>
+
     <!--查询数据-->
     <select id="searchShopBrand" parameterType="map" resultMap="shopBrandMap">
         SELECT
@@ -198,6 +217,7 @@
         FROM shop_brand
         <include refid="shopBrandBaseWhereSql"/>
     </select>
+
     <!--基础查询条件-->
     <sql id="shopBrandBaseWhereSql">
         <if test="map!=null">
@@ -206,7 +226,7 @@
                     AND brand_id = #{map.brandId}
                 </if>
                 <if test="map.brandName !=null">
-                    AND brand_name = #{map.brandName}
+                    AND brand_name like concat(#{map.brandName},'%')
                 </if>
                 <if test="map.brandClass !=null">
                     AND brand_class = #{map.brandClass}
@@ -239,7 +259,7 @@
         </if>
     </sql>
 
-         <!-- 通用查询映射结果 -->
+    <!-- 通用查询映射结果 -->
     <resultMap id="shopBrandMap" type="com.hzitxx.hitao.system.pojo.product.ShopBrand">
             <id column="brand_id" property="brandId"/>
             <result column="brand_name" property="brandName"/>

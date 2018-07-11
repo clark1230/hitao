@@ -8,13 +8,13 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 
 @Repository
 public class CartDaoImpl implements CartDao {
+
     @Autowired
     private  RedisTemplate redisTemplate;
+
     @Override
     public boolean addCart(int memberId,ShopGoodsCart shopGoodsCart) {
         HashOperations<byte[],Integer,ShopGoodsCart> hashOperations = this.redisTemplate.opsForHash();

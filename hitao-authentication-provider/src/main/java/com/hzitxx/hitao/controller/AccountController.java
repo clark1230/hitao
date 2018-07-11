@@ -6,7 +6,6 @@ import com.hzitxx.hitao.jwt.Audience;
 import com.hzitxx.hitao.jwt.JwtHelper;
 import com.hzitxx.hitao.service.IShopAdminService;
 import com.hzitxx.hitao.system.pojo.permission.ShopAdmin;
-import com.hzitxx.hitao.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;

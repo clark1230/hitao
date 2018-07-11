@@ -1,16 +1,16 @@
 package com.hzitxx.hitao.service.product.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.front.product.vo.ShopGoodsCategoryVo;
+import com.hzitxx.hitao.mapper.product.ShopGoodsAttrTemplateMapper;
 import com.hzitxx.hitao.mapper.product.ShopGoodsCategoryMapper;
 import com.hzitxx.hitao.service.product.IShopGoodsCategoryService;
 import com.hzitxx.hitao.system.pojo.product.ShopGoodsCategory;
 import com.hzitxx.hitao.util.LayuiEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,9 @@ public class ShopGoodsCategoryServiceImpl implements IShopGoodsCategoryService {
 
     @Autowired(required = false)
     private ShopGoodsCategoryMapper mapper;
+
+    @Autowired(required = false)
+    private ShopGoodsAttrTemplateMapper attrTemplateMapper;
 
     @Override
     public ServerResponse addShopGoodsCategory(ShopGoodsCategory shopGoodsCategory){
@@ -98,7 +101,7 @@ public class ShopGoodsCategoryServiceImpl implements IShopGoodsCategoryService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopGoodsCategory> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopGoodsCategory>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopGoodsCategory>  obj=mapper.searchShopGoodsCategory(map);
         PageInfo<ShopGoodsCategory> pageInfo=new PageInfo<>(obj);
@@ -107,7 +110,7 @@ public class ShopGoodsCategoryServiceImpl implements IShopGoodsCategoryService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**
@@ -137,6 +140,21 @@ public class ShopGoodsCategoryServiceImpl implements IShopGoodsCategoryService {
     }
 
     /**
+     * 根据父级编号查询类目信息
+     * @param parentId
+     * @return
+     */
+    @Override
+    public ServerResponse findByPId(Integer parentId) {
+        List<ShopGoodsCategory> shopGoodsCategories = this.mapper.findByPId(parentId);
+        if(shopGoodsCategories == null){
+            return  ServerResponse.createByErrorMessage("查询失败!");
+        }
+        return ServerResponse.createBySuccess(shopGoodsCategories);
+    }
+
+
+    /**
      * 递归封装类目信息
      * @param list
      * @param parentId
@@ -158,5 +176,7 @@ public class ShopGoodsCategoryServiceImpl implements IShopGoodsCategoryService {
         }
         return list;
     }
+
+
 }
 

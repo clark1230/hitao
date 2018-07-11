@@ -5,9 +5,11 @@ import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.service.product.IShopBrandService;
 import com.hzitxx.hitao.system.pojo.product.ShopBrand;
 import com.hzitxx.hitao.util.LayuiEntity;
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 /**
@@ -31,11 +33,14 @@ public class ShopBrandController  {
      * @return
      */
     @GetMapping(value="shopBrandAjax")
-    public LayuiEntity<ShopBrand> shopBrandAjax(@RequestParam(value = "page",defaultValue = "1") int page,
-                                                @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
+    public ServerResponse<LayuiEntity<ShopBrand>> shopBrandAjax(@RequestParam(value = "page",defaultValue = "1") int page,
+                                                @RequestParam(value = "limit",defaultValue = "20") int  limit,
+                                                                String value){
         Map<String,Object>  map = new HashMap<>();
-        LayuiEntity<ShopBrand> layuiEntity = shopBrandService.page(page,limit,map);
-        return layuiEntity;
+        if(StringUtils.isNotBlank(value)){
+            map.put("brandName",value);
+        }
+        return shopBrandService.page(page,limit,map);
     }
 
 
@@ -45,8 +50,9 @@ public class ShopBrandController  {
      * @param
      * @return
      */
-    @PostMapping(value = "addShopBrand")
-    public ServerResponse addShopBrand(ShopBrand shopBrand){
+    @PostMapping(value = "/save")
+    public ServerResponse save(@RequestBody  ShopBrand shopBrand){
+        shopBrand.setCreatedTime(new Date());
         return shopBrandService.addShopBrandSelective(shopBrand);
     }
 
@@ -56,8 +62,9 @@ public class ShopBrandController  {
      * 处理修改数据表单提交
      * @return
      */
-    @PostMapping("editShopBrand")
-    public ServerResponse editShopBrand(ShopBrand shopBrand){
+    @PostMapping("/update")
+    public ServerResponse update(@RequestBody  ShopBrand shopBrand){
+        shopBrand.setUpdatedTime(new Date());
         return this.shopBrandService.updateSelectiveById(shopBrand);
 
     }
@@ -77,8 +84,28 @@ public class ShopBrandController  {
      * @param brandId
      * @return
      */
-    @GetMapping("findOne")
+    @GetMapping("/findOne")
     public ServerResponse findOne(Integer brandId){
         return  this.shopBrandService.findOne(brandId);
+    }
+
+    /**
+     * 批量逻辑删除数据
+     * @return
+     */
+    @DeleteMapping("/removeBatch")
+    public ServerResponse removeBatch(Integer[] brandIds){
+        return this.shopBrandService.removeBatch(brandIds);
+    }
+
+    /**
+     * 逻辑删除数据
+     * @param shopBrand
+     * @return
+     */
+    @DeleteMapping("/remove")
+    public ServerResponse remove(ShopBrand shopBrand){
+        shopBrand.setIsDel(1);
+        return this.shopBrandService.updateSelectiveById(shopBrand);
     }
 }

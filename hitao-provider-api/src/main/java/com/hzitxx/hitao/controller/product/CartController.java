@@ -18,7 +18,7 @@ public class CartController {
      * @return
      */
     @GetMapping("/checkout")
-    public Object checkout(@RequestParam("goodsId")int goodsId,@RequestParam("number") int number){
+    public Object checkout(@RequestParam("goodsId")int goodsId, @RequestParam("number") int number){
         return this.cartService.checkout(goodsId,number);
     }
 

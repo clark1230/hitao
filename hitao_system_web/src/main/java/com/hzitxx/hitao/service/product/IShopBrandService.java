@@ -38,12 +38,20 @@ public interface IShopBrandService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopBrand> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopBrand>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据
      *
      */
     ServerResponse findOne(Integer brandId);
+
+
+    /**
+     * 批量逻辑删除数据
+     * @param brandIds
+     * @return
+     */
+    ServerResponse removeBatch(Integer[] brandIds);
 
 }

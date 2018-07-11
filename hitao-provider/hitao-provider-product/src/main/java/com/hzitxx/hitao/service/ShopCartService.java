@@ -1,4 +1,4 @@
-package com.hzitxx.hitao.rpc.product;
+package com.hzitxx.hitao.service;
 
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.entity.ShopGoodsCart;
@@ -14,7 +14,7 @@ public interface ShopCartService {
     /**
      * 删除购物车信息
      * @param memberId
-     * @param goodsId
+     * @param goodsIds
      * @return
      */
     ServerResponse deleteCart(int memberId,Long[] goodsIds);

@@ -23,7 +23,7 @@ public class ShopGoodsAttrTemplate implements Serializable {
     /**
      * 所属类型id
      */
-    private Integer typeId;
+    private Integer catId;
     /**
      * 属性值列
      */
@@ -46,7 +46,7 @@ public class ShopGoodsAttrTemplate implements Serializable {
     public String toString() {
         return "ShopGoodsAttrTemplate{" +
         "attrId=" + attrId +
-        ", typeId=" + typeId +
+        ", catId=" + catId +
         ", attrValue=" + attrValue +
         ", isDel=" + isDel +
         ", createdTime=" + createdTime +
