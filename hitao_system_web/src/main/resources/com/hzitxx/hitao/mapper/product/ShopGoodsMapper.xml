@@ -70,7 +70,9 @@
                 #{updatedTime}
         )
     </insert>
-    <insert id="addShopGoodsSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoods">
+
+    <insert id="addShopGoodsSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoods"
+            useGeneratedKeys="true" keyProperty="goodsId" keyColumn="goods_id">
         insert into shop_goods
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="goodsId != null">
@@ -244,6 +246,10 @@
                 #{updatedTime},
             </if>
         </trim>
+
+        <selectKey  keyProperty="goodsId" order="AFTER" resultType="int">
+            select  last_insert_id()
+        </selectKey>
     </insert>
     <!--根据id删除数据-->
     <delete id="deleteById" parameterType="integer">

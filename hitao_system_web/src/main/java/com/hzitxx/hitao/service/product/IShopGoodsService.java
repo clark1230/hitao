@@ -1,6 +1,7 @@
 package com.hzitxx.hitao.service.product;
 
 import com.hzitxx.hitao.commons.ServerResponse;
+import com.hzitxx.hitao.controller.product.ShopGoodsVO;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.util.LayuiEntity;
 
@@ -19,7 +20,7 @@ public interface IShopGoodsService  {
 
     ServerResponse addShopGoods(ShopGoods shopGoods);
 
-    ServerResponse addShopGoodsSelective(ShopGoods obj);
+    ServerResponse addShopGoodsSelective(ShopGoodsVO shopGoodsVO);
 
     ServerResponse deleteById(int goodsId);
 

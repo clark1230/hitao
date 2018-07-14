@@ -2,6 +2,7 @@ package com.hzitxx.hitao.controller.product;
 
 
 import com.hzitxx.hitao.commons.ServerResponse;
+import com.hzitxx.hitao.entity.ShopGoodsContent;
 import com.hzitxx.hitao.service.product.IShopGoodsService;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.util.LayuiEntity;
@@ -44,8 +45,10 @@ public class ShopGoodsController  {
      * @param
      * @return
      */
-    @PostMapping(value = "addShopGoods")
-    public ServerResponse addShopGoods(ShopGoods shopGoods){
+    @PostMapping(value = "save")
+    public ServerResponse save(@RequestBody ShopGoodsVO shopGoods,
+                             //  @RequestBody ShopGoodsAttr shopGoodsAttr,
+                               ShopGoodsContent shopGoodsContent){
        return shopGoodsService.addShopGoodsSelective(shopGoods);
     }
 

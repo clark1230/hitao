@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.product.ShopGoodsContentMapper">
+    <!--shop_goods_content表中的列-->
+    <sql id="shopGoodsContentBaseColumn">
+         goods_id,
+         content,
+         created_time,
+         updated_time
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopGoodsContent" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsContent">
+        INSERT INTO shop_goods_content(
+            <include refid="shopGoodsContentBaseColumn"/>
+        ) VALUES(
+                #{goodsId},
+                #{content},
+                #{createdTime},
+                #{updatedTime}
+        )
+    </insert>
+    <insert id="addShopGoodsContentSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsContent">
+        insert into shop_goods_content
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                goods_id,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="goodsId != null">
+                #{goodsId},
+            </if>
+            <if test="content != null">
+                #{content},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_goods_content WHERE
+        goods_id = #{goodsId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_goods_content WHERE goods_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.entity.ShopGoodsContent">
+        UPDATE shop_goods_content
+        <set>
+          goods_id=#{goodsId},
+          content=#{content},
+          created_time=#{createdTime},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           goods_id = #{goodsId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopGoodsContent">
+        UPDATE shop_goods_content
+        <set>
+    <if test="goodsId != null">
+          goods_id = #{goodsId},
+    </if>
+    <if test="content != null">
+          content = #{content},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      goods_id = #{goodsId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopGoodsContentMap" parameterType="integer">
+        select
+        <include refid="shopGoodsContentBaseColumn"/>
+        from
+            shop_goods_content
+        WHERE
+          goods_id = #{goodsId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopGoodsContent" parameterType="map" resultMap="shopGoodsContentMap">
+        SELECT
+        <include refid="shopGoodsContentBaseColumn"/>
+        FROM shop_goods_content
+        <include refid="shopGoodsContentBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopGoodsContentBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="map.goodsId !=null">
+                    AND goods_id = #{map.goodsId}
+                </if>
+                <if test="map.content !=null">
+                    AND content = #{map.content}
+                </if>
+                <if test="map.createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="map.updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopGoodsContentMap" type="com.hzitxx.hitao.system.pojo.product.ShopGoodsContent">
+            <id column="goods_id" property="goodsId"/>
+            <result column="content" property="content"/>
+            <result column="created_time" property="createdTime"/>
+            <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>

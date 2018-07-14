@@ -7,6 +7,7 @@ import com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -44,9 +45,11 @@ public class ShopGoodsAttrTemplateServiceImpl implements IShopGoodsAttrTemplateS
         ShopGoodsAttrTemplate attrTemplate = this.mapper.findByCatId(shopGoodsAttrTemplate.getCatId());
         int result = 0;
         if(attrTemplate == null){
+            shopGoodsAttrTemplate.setCreatedTime(new Date());
             // 新增
             result =  this.mapper.addShopGoodsAttrTemplateSelective(shopGoodsAttrTemplate);
         }else{
+            shopGoodsAttrTemplate.setUpdatedTime(new Date());
             // 编辑
             result =  this.mapper.updateSelectiveByCatId(shopGoodsAttrTemplate);
         }

@@ -7,10 +7,7 @@ import com.hzitxx.hitao.service.product.IShopGoodsAttrTemplateService;
 import com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrTemplate;
 import com.hzitxx.hitao.vo.AttrTemp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Date;
 
 /**
  * <p>
@@ -38,7 +35,6 @@ public class ShopGoodsAttrTemplateController  {
     public ServerResponse save(@RequestBody AttrTemp attrTemp){
         ShopGoodsAttrTemplate template = new ShopGoodsAttrTemplate();
         template.setAttrValue(JSON.toJSONString(attrTemp.getAttrTemp()));
-        template.setCreatedTime(new Date());
         template.setCatId(attrTemp.getCatId());
         return  shopGoodsAttrTemplateService.addShopGoodsAttrTemplateSelective(template);
     }
@@ -56,20 +52,20 @@ public class ShopGoodsAttrTemplateController  {
      * 处理修改数据表单提交
      * @return
      */
-    @PostMapping("update")
-    public ServerResponse update(ShopGoodsAttrTemplate shopGoodsAttrTemplate,Model model){
-        return shopGoodsAttrTemplateService.updateSelectiveById(shopGoodsAttrTemplate);
-    }
+//    @PostMapping("update")
+//    public ServerResponse update(ShopGoodsAttrTemplate shopGoodsAttrTemplate,Model model){
+//        return shopGoodsAttrTemplateService.updateSelectiveById(shopGoodsAttrTemplate);
+//    }
 
     /**
     * 根据id批量删除数据
     * @param ids
     * @return
     */
-    @GetMapping("removeBatch")
-    public ServerResponse removeBatch(String[] ids){
-       return shopGoodsAttrTemplateService.deleteByIds(ids);
-    }
+//    @GetMapping("removeBatch")
+//    public ServerResponse removeBatch(String[] ids){
+//       return shopGoodsAttrTemplateService.deleteByIds(ids);
+//    }
 
     /**
      * 查询类目信息

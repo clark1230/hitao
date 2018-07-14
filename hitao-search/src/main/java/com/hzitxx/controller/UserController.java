@@ -16,10 +16,13 @@ public class UserController {
     @GetMapping("/test")
     public String test(){
         User user = new User(1,"张三");
-
         userDao.save(user);
         return "test";
+    }
 
+    @GetMapping("/get")
+    public Object get(){
+        return userDao.findAll();
     }
 
 

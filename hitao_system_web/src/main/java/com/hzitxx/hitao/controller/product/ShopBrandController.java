@@ -27,7 +27,6 @@ public class ShopBrandController  {
     @Autowired(required = false)
     private IShopBrandService shopBrandService;
 
-
     /**
      * 分页
      * @return
@@ -43,8 +42,6 @@ public class ShopBrandController  {
         return shopBrandService.page(page,limit,map);
     }
 
-
-
     /**
      * 处理添加表单
      * @param
@@ -55,7 +52,6 @@ public class ShopBrandController  {
         shopBrand.setCreatedTime(new Date());
         return shopBrandService.addShopBrandSelective(shopBrand);
     }
-
 
 
     /**
@@ -107,5 +103,16 @@ public class ShopBrandController  {
     public ServerResponse remove(ShopBrand shopBrand){
         shopBrand.setIsDel(1);
         return this.shopBrandService.updateSelectiveById(shopBrand);
+    }
+
+    /**
+     * 根据类目编号查询品牌信息
+     * @param classId  类目编号
+     */
+    @GetMapping("/findByClassId")
+    public ServerResponse findByClassId(Integer classId){
+        Map<String,Object> params = new HashMap<>();
+        params.put("classId",classId);
+        return this.shopBrandService.searchShopBrand(params);
     }
 }

@@ -1,16 +1,24 @@
 package com.hzitxx.hitao.service.product.impl;
 
+import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
+import com.hzitxx.hitao.controller.product.ShopGoodsVO;
+import com.hzitxx.hitao.mapper.product.ShopGoodsAttrMapper;
+import com.hzitxx.hitao.mapper.product.ShopGoodsContentMapper;
 import com.hzitxx.hitao.mapper.product.ShopGoodsMapper;
 import com.hzitxx.hitao.service.product.IShopGoodsService;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
+import com.hzitxx.hitao.system.pojo.product.ShopGoodsAttr;
+import com.hzitxx.hitao.system.pojo.product.ShopGoodsContent;
 import com.hzitxx.hitao.util.LayuiEntity;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
-
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -28,6 +36,14 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
     @Autowired(required = false)
     private ShopGoodsMapper mapper;
 
+
+    @Autowired(required = false)
+    private ShopGoodsAttrMapper attrMapper;
+
+    @Autowired(required =  false)
+    private ShopGoodsContentMapper goodsContentMapper;
+
+
     @Override
     public ServerResponse addShopGoods(ShopGoods shopGoods){
         int result = this.mapper.addShopGoods(shopGoods);
@@ -37,9 +53,36 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         return ServerResponse.createBySuccessMessage("商品信息添加成功!");
     }
 
+    /**
+     * 添加商品信息
+     * @param shopGoodsVO
+     * @return
+     */
+    @Transactional
     @Override
-    public ServerResponse addShopGoodsSelective(ShopGoods shopGoods){
+    public ServerResponse addShopGoodsSelective(ShopGoodsVO shopGoodsVO){
+        ShopGoods shopGoods = new ShopGoods();
+        shopGoods.setCreatedTime(new Date());
+        BeanUtils.copyProperties(shopGoodsVO,shopGoods);
+        // 添加商品信息
         int result = this.mapper.addShopGoodsSelective(shopGoods);
+        if(result == 0){
+            return ServerResponse.createByErrorMessage("商品信息添加失败!");
+        }else{
+            // 添加商品内容
+            ShopGoodsContent shopGoodsContent = new ShopGoodsContent();
+            BeanUtils.copyProperties(shopGoodsVO,shopGoodsContent);
+            shopGoodsContent.setCreatedTime(new Date());
+            shopGoodsContent.setGoodsId(shopGoods.getGoodsId());
+            this.goodsContentMapper.addShopGoodsContentSelective(shopGoodsContent);
+            // 添加商品属性
+            ShopGoodsAttr shopGoodsAttr = new ShopGoodsAttr();
+            shopGoodsAttr.setCreatedTime(new Date());
+            shopGoodsAttr.setGoodsId(shopGoods.getGoodsId());
+            shopGoodsAttr.setAttrValue(JSON.toJSONString(shopGoodsVO.getAttrValue()));
+            shopGoodsAttr.setCatId(shopGoodsVO.getGcId());
+            this.attrMapper.addShopGoodsAttrSelective(shopGoodsAttr);
+        }
         if(result != 1){
             return ServerResponse.createByErrorMessage("商品信息添加失败!");
         }
