@@ -12,7 +12,6 @@ import com.hzitxx.hitao.service.IShopFavoritesService;
  * <p>
  * 买家收藏表 前端控制器
  * </p>
- *
  * @author xianyaoji
  * @since 2018-06-08
  */

@@ -2,10 +2,12 @@ package com.hzitxx.hitao.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Data
-public class ShopGoodsCart {
+public class ShopGoodsCart implements Serializable{
+
     /**
      * 商品编号
      */

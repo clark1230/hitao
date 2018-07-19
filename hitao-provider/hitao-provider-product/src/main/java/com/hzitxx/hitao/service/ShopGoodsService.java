@@ -16,4 +16,10 @@ public interface ShopGoodsService {
      * @return
      */
     ServerResponse checkout(int goodsId,int number);
+
+    /**
+     * 查询所有非逻辑删除的商品数量
+     * @return
+     */
+    ServerResponse goodsCount();
 }

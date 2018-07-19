@@ -1,7 +1,7 @@
 package com.hzitxx.hitao.service.product;
 
 import com.hzitxx.hitao.commons.ServerResponse;
-import com.hzitxx.hitao.controller.product.ShopGoodsVO;
+import com.hzitxx.hitao.vo.shopGoods.ShopGoodsVO;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.util.LayuiEntity;
 
@@ -28,7 +28,7 @@ public interface IShopGoodsService  {
 
     ServerResponse updateById(ShopGoods shopGoods);
 
-    ServerResponse updateSelectiveById(ShopGoods shopGoods);
+    ServerResponse updateSelectiveById(ShopGoodsVO shopGoodsVO);
 
     ServerResponse searchShopGoods(Map<String, Object> map);
 
@@ -39,7 +39,7 @@ public interface IShopGoodsService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopGoods> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopGoods>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据

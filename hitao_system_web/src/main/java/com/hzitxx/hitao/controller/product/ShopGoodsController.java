@@ -6,6 +6,7 @@ import com.hzitxx.hitao.entity.ShopGoodsContent;
 import com.hzitxx.hitao.service.product.IShopGoodsService;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.util.LayuiEntity;
+import com.hzitxx.hitao.vo.shopGoods.ShopGoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +23,7 @@ import java.util.Map;
 @RestController
 @RequestMapping("/shopGoods")
 public class ShopGoodsController  {
+
     @Autowired
     private IShopGoodsService shopGoodsService;
 
@@ -31,11 +33,11 @@ public class ShopGoodsController  {
      * @return
      */
     @GetMapping(value="shopGoodsAjax")
-    public LayuiEntity<ShopGoods> shopGoodsAjax(@RequestParam(value = "page",defaultValue = "1") int page,
+    public ServerResponse<LayuiEntity<ShopGoods>> shopGoodsAjax(@RequestParam(value = "page",defaultValue = "1") int page,
                                                 @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
         Map<String,Object>  map = new HashMap<>();
-        LayuiEntity<ShopGoods> layuiEntity = shopGoodsService.page(page,limit,map);
-        return layuiEntity;
+        return shopGoodsService.page(page,limit,map);
+
     }
 
 
@@ -57,9 +59,9 @@ public class ShopGoodsController  {
      * 处理修改数据表单提交
      * @return
      */
-    @PostMapping("editShopGoods")
-    public ServerResponse editShopGoods(ShopGoods shopGoods){
-        return  shopGoodsService.updateSelectiveById(shopGoods);
+    @PostMapping("update")
+    public ServerResponse update(@RequestBody ShopGoodsVO shopGoodsVO){
+        return  shopGoodsService.updateSelectiveById(shopGoodsVO);
     }
 
     /**

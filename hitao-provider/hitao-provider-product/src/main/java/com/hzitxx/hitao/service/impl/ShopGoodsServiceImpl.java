@@ -104,4 +104,17 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
         }
         return ServerResponse.createBySuccessMessage("库存充裕!");
     }
+
+    /**
+     * 查询所有非逻辑删除的商品数量
+     * @return
+     */
+    @Override
+    public ServerResponse goodsCount() {
+        int result = this.goodsMapper.goodsCount();
+        if(result == 0){
+            return ServerResponse.createByErrorMessage("查询失败!");
+        }
+        return ServerResponse.createBySuccess(result);
+    }
 }

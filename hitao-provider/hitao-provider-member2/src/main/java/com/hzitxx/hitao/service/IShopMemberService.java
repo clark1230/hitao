@@ -17,7 +17,6 @@ import java.util.Map;
 
 public interface IShopMemberService {
 
-    int addShopMember(ShopMember shopMember);
 
     ServerResponse login(ShopMember shopMember);
 

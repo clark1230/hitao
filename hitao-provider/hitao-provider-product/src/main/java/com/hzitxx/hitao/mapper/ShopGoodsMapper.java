@@ -2,9 +2,7 @@ package com.hzitxx.hitao.mapper;
 
 import com.hzitxx.hitao.front.product.ShopGoods;
 
-import org.apache.ibatis.annotations.Param;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -34,4 +32,10 @@ public interface ShopGoodsMapper{
      * @return
      */
     int checkout(int goodsId);
+
+    /**
+     * 查询所有非逻辑删除商品数量
+     * @return
+     */
+    int goodsCount();
 }

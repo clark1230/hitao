@@ -81,7 +81,7 @@ public class ShopFavoritesServiceImpl implements IShopFavoritesService {
             }
 
         }else{
-            result = this.mapper.deleteById(0);
+            result = this.mapper.deleteById(shopFavorites.getFavId());
             if(result !=1){
                 return  ServerResponse.createByErrorMessage("取消收藏失败!");
             }

@@ -31,7 +31,8 @@ public class ShopGoodsController {
      * @return
      */
     @GetMapping("/goods/details")
-    public Object details(@RequestParam("goodsId")Integer goodsId,@RequestParam("memberId") Integer memberId){
+    public Object details(@RequestParam("goodsId")Integer goodsId,
+                          @RequestParam("memberId") Integer memberId){
         return this.goodsService.findOne(goodsId,memberId);
     }
 
@@ -43,5 +44,14 @@ public class ShopGoodsController {
     @GetMapping("/shopGoods/findById")
     public ServerResponse<ShopGoods> findById(@RequestParam("goodsId") Integer goodsId){
         return this.goodsService.findById(goodsId);
+    }
+
+    /**
+     * 查询商品数量
+     * @return
+     */
+    @GetMapping("/shopGoods/goodsCount")
+    public ServerResponse goodsCount(){
+        return this.goodsService.goodsCount();
     }
 }

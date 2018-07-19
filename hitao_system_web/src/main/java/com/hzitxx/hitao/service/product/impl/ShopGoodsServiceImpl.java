@@ -4,7 +4,8 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
-import com.hzitxx.hitao.controller.product.ShopGoodsVO;
+import com.hzitxx.hitao.vo.shopGoods.ShopGoodsCateVO;
+import com.hzitxx.hitao.vo.shopGoods.ShopGoodsVO;
 import com.hzitxx.hitao.mapper.product.ShopGoodsAttrMapper;
 import com.hzitxx.hitao.mapper.product.ShopGoodsContentMapper;
 import com.hzitxx.hitao.mapper.product.ShopGoodsMapper;
@@ -106,6 +107,7 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         }
         return ServerResponse.createBySuccessMessage("商品信息批量删除成功!");
     }
+
     @Override
     public  ServerResponse updateById(ShopGoods shopGoods){
         int result =  this.mapper.updateById(shopGoods);
@@ -115,13 +117,43 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         return ServerResponse.createBySuccessMessage("商品信息修改成功!");
     }
 
+    /**
+     * 编辑商品信息
+     * @param shopGoodsVO
+     * @return
+     */
+    @Transactional
     @Override
-    public  ServerResponse updateSelectiveById(ShopGoods shopGoods){
-        int result  = this.mapper.updateSelectiveById(shopGoods);
-        if(result != 1){
-            return ServerResponse.createByErrorMessage("商品信息修改失败!");
+    public  ServerResponse updateSelectiveById(ShopGoodsVO shopGoodsVO){
+
+        int goodsId = shopGoodsVO.getGoodsId();
+        ShopGoods shopGoods = new ShopGoods();
+        BeanUtils.copyProperties(shopGoods,shopGoodsVO);
+        shopGoods.setUpdatedTime(new Date());
+
+
+        ShopGoodsAttr shopGoodsAttr = new ShopGoodsAttr();
+        shopGoodsAttr.setGoodsId(goodsId);
+        shopGoodsAttr.setAttrValue(JSON.toJSONString(shopGoodsVO.getAttrValue()));
+        shopGoodsAttr.setUpdatedTiime(new Date());
+
+
+        ShopGoodsContent shopGoodsContent = new ShopGoodsContent();
+        shopGoodsContent.setGoodsId(goodsId);
+        shopGoodsContent.setContent(shopGoodsVO.getContent());
+        shopGoodsContent.setUpdatedTime(new Date());
+        try{
+            // 保存商品基本信息
+            this.mapper.updateSelectiveById(shopGoods);
+            // 保存商品属性
+            this.goodsContentMapper.updateSelectiveById(shopGoodsContent);
+            // 保存商品内容
+            this.attrMapper.updateSelectiveById(shopGoodsAttr);
+            return ServerResponse.createBySuccessMessage("商品信息修改成功!");
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        return ServerResponse.createBySuccessMessage("商品信息修改成功!");
+        return ServerResponse.createByErrorMessage("商品信息编辑失败!");
     }
 
     @Override
@@ -138,7 +170,7 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopGoods> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopGoods>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopGoods>  obj=mapper.searchShopGoods(map);
         PageInfo<ShopGoods> pageInfo=new PageInfo<>(obj);
@@ -147,7 +179,7 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**
@@ -157,11 +189,28 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
      */
     @Override
     public ServerResponse findOne(Integer goodsId){
+        // 查询商品信息
         ShopGoods shopGoods = this.mapper.findOne(goodsId);
+        if(shopGoods == null){
+            return ServerResponse.createByErrorMessage("该商品不存在!");
+        }
+        // 查询商品图片
+
+        // 查询商品内容
+        ShopGoodsContent shopGoodsContent = this.goodsContentMapper.findOne(goodsId);
+        // 查询商品属性
+        ShopGoodsAttr shopGoodsAttr = attrMapper.findOne(goodsId);
+
+        ShopGoodsVO shopGoodsVO = new ShopGoodsVO();
+        BeanUtils.copyProperties(shopGoods,shopGoodsVO);
+        // json反序列化
+        shopGoodsVO.setAttrValue(JSON.parseArray(shopGoodsAttr.getAttrValue(), ShopGoodsCateVO.class));
+        shopGoodsVO.setContent(shopGoodsContent.getContent());
+
         if(shopGoods == null){
             return ServerResponse.createByErrorMessage("该数据不存在!");
         }
-        return ServerResponse.createBySuccess(shopGoods);
+        return ServerResponse.createBySuccess(shopGoodsVO);
      }
 }
 

@@ -33,6 +33,7 @@ public class MemberController {
         shopMember.setMemberPassword(Md5Util.getMD5(shopMember.getMemberPassword()));
         return this.memberService.addShopMemberSelective(shopMember);
     }
+
     /**
      * 检查用户是否存在!
      * @param memberId

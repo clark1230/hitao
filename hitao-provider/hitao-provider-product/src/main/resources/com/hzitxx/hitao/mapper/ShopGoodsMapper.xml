@@ -52,6 +52,11 @@
     <select id="checkout" resultType="int" parameterType="int">
       SELECT  goods_storage FROM  shop_goods where goods_id = #{goodsId} for update
     </select>
+
+    <!--查询所有非逻辑商品数量-->
+    <select id="goodsCount" resultType="int">
+        SELECT  count(*) FROM  shop_goods where is_del = 0
+    </select>
     <!--基础查询条件-->
     <sql id="shopGoodsBaseWhereSql">
         <if test="map!=null">
@@ -146,33 +151,33 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="shopGoodsMap" type="com.hzitxx.hitao.front.product.ShopGoods">
-            <id column="goods_id" property="goodsId"/>
-            <result column="goods_name" property="goodsName"/>
-            <result column="goods_jingle" property="goodsJingle"/>
-            <result column="gc_id" property="gcId"/>
-            <result column="brand_id" property="brandId"/>
-            <result column="goods_price" property="goodsPrice"/>
-            <result column="goods_marketprice" property="goodsMarketprice"/>
-            <result column="goods_serial" property="goodsSerial"/>
-            <result column="goods_click" property="goodsClick"/>
-            <result column="goods_salenum" property="goodsSalenum"/>
-            <result column="goods_collect" property="goodsCollect"/>
-            <result column="goods_spec" property="goodsSpec"/>
-            <result column="goods_storage" property="goodsStorage"/>
-            <result column="main_image" property="mainImage"/>
-            <result column="goods_state" property="goodsState"/>
-            <result column="goods_verify" property="goodsVerify"/>
-            <result column="areaid_1" property="areaid1"/>
-            <result column="areaid_2" property="areaid2"/>
-            <result column="color_id" property="colorId"/>
-            <result column="transport_id" property="transportId"/>
-            <result column="goods_freight" property="goodsFreight"/>
-            <result column="goods_vat" property="goodsVat"/>
-            <result column="goods_commend" property="goodsCommend"/>
-            <result column="evaluation_good_star" property="evaluationGoodStar"/>
-            <result column="evaluation_count" property="evaluationCount"/>
-            <result column="is_del" property="isDel"/>
-            <result column="created_time" property="createdTime"/>
-            <result column="updated_time" property="updatedTime"/>
+        <id column="goods_id" property="goodsId"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="goods_jingle" property="goodsJingle"/>
+        <result column="gc_id" property="gcId"/>
+        <result column="brand_id" property="brandId"/>
+        <result column="goods_price" property="goodsPrice"/>
+        <result column="goods_marketprice" property="goodsMarketprice"/>
+        <result column="goods_serial" property="goodsSerial"/>
+        <result column="goods_click" property="goodsClick"/>
+        <result column="goods_salenum" property="goodsSalenum"/>
+        <result column="goods_collect" property="goodsCollect"/>
+        <result column="goods_spec" property="goodsSpec"/>
+        <result column="goods_storage" property="goodsStorage"/>
+        <result column="main_image" property="mainImage"/>
+        <result column="goods_state" property="goodsState"/>
+        <result column="goods_verify" property="goodsVerify"/>
+        <result column="areaid_1" property="areaid1"/>
+        <result column="areaid_2" property="areaid2"/>
+        <result column="color_id" property="colorId"/>
+        <result column="transport_id" property="transportId"/>
+        <result column="goods_freight" property="goodsFreight"/>
+        <result column="goods_vat" property="goodsVat"/>
+        <result column="goods_commend" property="goodsCommend"/>
+        <result column="evaluation_good_star" property="evaluationGoodStar"/>
+        <result column="evaluation_count" property="evaluationCount"/>
+        <result column="is_del" property="isDel"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
      </resultMap>
 </mapper>

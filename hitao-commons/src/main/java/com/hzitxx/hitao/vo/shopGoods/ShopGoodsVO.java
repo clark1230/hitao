@@ -1,11 +1,13 @@
-package com.hzitxx.hitao.controller.product;
+package com.hzitxx.hitao.vo.shopGoods;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.util.List;
 
 @Data
+@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ShopGoodsVO {
     /**
      * 商品id(SKU)
@@ -39,18 +41,7 @@ public class ShopGoodsVO {
      * 商家编号
      */
     private String goodsSerial;
-    /**
-     * 商品点击数量
-     */
-    private Integer goodsClick;
-    /**
-     * 销售数量
-     */
-    private Integer goodsSalenum;
-    /**
-     * 收藏数量
-     */
-    private Integer goodsCollect;
+
     /**
      * 商品规格序列化
      */
@@ -63,7 +54,6 @@ public class ShopGoodsVO {
      * 商品主图
      */
     private String mainImage;
-
 
     /**
      * 运费模板id
@@ -103,9 +93,6 @@ public class ShopGoodsVO {
                 ", goodsPrice=" + goodsPrice +
                 ", goodsMarketprice=" + goodsMarketprice +
                 ", goodsSerial='" + goodsSerial + '\'' +
-                ", goodsClick=" + goodsClick +
-                ", goodsSalenum=" + goodsSalenum +
-                ", goodsCollect=" + goodsCollect +
                 ", goodsSpec='" + goodsSpec + '\'' +
                 ", goodsStorage=" + goodsStorage +
                 ", mainImage='" + mainImage + '\'' +

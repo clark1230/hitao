@@ -1,4 +1,4 @@
-package com.hzitxx.hitao.controller.product;
+package com.hzitxx.hitao.vo.shopGoods;
 
 import lombok.Data;
 

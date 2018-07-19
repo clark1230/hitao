@@ -1,11 +1,13 @@
 package com.hzitxx.hitao.service.impl;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.entity.ShopMember;
 import com.hzitxx.hitao.jwt.Audience;
 import com.hzitxx.hitao.jwt.JwtHelper;
+import com.hzitxx.hitao.mapper.ShopAddressMapper;
 import com.hzitxx.hitao.mapper.ShopMemberMapper;
-import com.hzitxx.hitao.pojo.MemberInfo;
+import com.hzitxx.hitao.rpc.ShopCartService;
 import com.hzitxx.hitao.service.IShopMemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,17 +27,24 @@ import java.util.Map;
 @Service
 public class ShopMemberServiceImpl implements IShopMemberService {
 
-    @Autowired
+    @Autowired(required =  false)
     private ShopMemberMapper mapper;
 
     @Autowired
     private Audience audience;
 
-    @Override
-    public int addShopMember(ShopMember shopMember){
-        return mapper.addShopMember(shopMember);
-    }
+    @Autowired
+    private ShopCartService shopCartService;
 
+    @Autowired(required = false)
+    private ShopAddressMapper addressMapper;
+
+
+    /**
+     * 系统登陆
+     * @param shopMember
+     * @return
+     */
     @Override
     public ServerResponse login(ShopMember shopMember) {
         shopMember = this.mapper.login(shopMember);
@@ -49,10 +58,17 @@ public class ShopMemberServiceImpl implements IShopMemberService {
                 audience.getName(),
                 audience.getExpiresSecond()*1000,//1000不能省略
                 audience.getBase64Secret());
-        shopMember.setMemberPassword(null);
-        shopMember.setPasswordSalt(null);
-        MemberInfo memberInfo = new MemberInfo(jwtToken,shopMember);
-        return ServerResponse.createBySuccess("登陆成功!",memberInfo);
+        JSONObject jsonObject = new JSONObject();
+        // token令牌
+        jsonObject.put("token",jwtToken);
+        // 会员信息
+        jsonObject.put("shopMember",shopMember);
+        // 购物车数量
+        jsonObject.put("cartCount",this.shopCartService.cartCount(shopMember.getMemberId()).getData());// 获取购物车商品数量
+        // 默认收货地址
+        jsonObject.put("defaultAddress",addressMapper.searchDefaulAddress(shopMember.getMemberId())); // 获取会员的收货地址
+
+        return ServerResponse.createBySuccess("登陆成功!",jsonObject);
     }
 
     @Override
