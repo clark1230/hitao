@@ -26,7 +26,7 @@ public class ShopMenuController {
      * 获取菜单信息
      * @return
      */
-    @GetMapping("/menuData")
+    @GetMapping("/menuTreeData")
     public Object menuData(){
         return shopMenuService.menuData();
     }

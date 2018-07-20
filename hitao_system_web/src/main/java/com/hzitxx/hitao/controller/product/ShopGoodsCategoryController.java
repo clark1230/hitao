@@ -16,8 +16,8 @@ public class ShopGoodsCategoryController {
     @Autowired
     private IShopGoodsCategoryService shopGoodsCategoryService;
 
-    @GetMapping("/ajaxCate")
-    public Object ajaxCate(){
+    @GetMapping("/treeData")
+    public ServerResponse treeData(){
         return shopGoodsCategoryService.ajaxCate();
     }
 
