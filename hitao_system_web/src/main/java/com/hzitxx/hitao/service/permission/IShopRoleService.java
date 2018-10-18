@@ -39,7 +39,7 @@ public interface IShopRoleService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopRole> page(int page, int limit, Map<String,Object> map);
+    ServerResponse<LayuiEntity<ShopRole>> page(int page, int limit, Map<String,Object> map);
 
     /**
      * 根据编号查询数据

@@ -1,5 +1,7 @@
 package com.hzitxx.hitao.service.product.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.mapper.product.ShopBrandMapper;
 import com.hzitxx.hitao.service.product.IShopBrandService;
@@ -7,9 +9,6 @@ import com.hzitxx.hitao.system.pojo.product.ShopBrand;
 import com.hzitxx.hitao.util.LayuiEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 
 import java.util.List;
 import java.util.Map;
@@ -84,7 +83,7 @@ public class ShopBrandServiceImpl implements IShopBrandService {
     @Override
     public  ServerResponse searchShopBrand(Map<String, Object> map){
         List<ShopBrand> shopBrandList = this.mapper.searchShopBrand(map);
-        if(shopBrandList != null && shopBrandList.size() == 0){
+        if(shopBrandList == null || shopBrandList.size() == 0){
             return ServerResponse.createByErrorMessage("查询失败!");
         }
         return ServerResponse.createBySuccess(shopBrandList);
@@ -109,6 +108,7 @@ public class ShopBrandServiceImpl implements IShopBrandService {
         layuiEntity.setData(pageInfo.getList());
         return ServerResponse.createBySuccess(layuiEntity);
     }
+
 
     /**
      * 根据id查询数据

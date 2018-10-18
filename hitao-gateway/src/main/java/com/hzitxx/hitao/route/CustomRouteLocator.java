@@ -1,6 +1,6 @@
 package com.hzitxx.hitao.route;
 
-import com.hzitxx.hitao.rpc.GatewayApiDefineService;
+import com.hzitxx.hitao.service.IGatewayApiDefineService;
 import com.hzitxx.hitao.system.pojo.GatewayApiDefine;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,61 +13,56 @@ import org.springframework.cloud.netflix.zuul.filters.ZuulProperties.ZuulRoute;
 import org.springframework.util.StringUtils;
 
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.LinkedHashMap;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * 自定义路由器
  */
-public class CustomRouteLocator extends SimpleRouteLocator  implements RefreshableRouteLocator{
+public class CustomRouteLocator extends SimpleRouteLocator implements RefreshableRouteLocator {
 
     public final static Logger logger = LoggerFactory.getLogger(CustomRouteLocator.class);
 
     private AtomicReference<Map<String,ZuulRoute>>
             routes = new AtomicReference<>();
 
-    @Autowired(required = false)
-    private GatewayApiDefineService gatewayApiDefineService;
+    @Autowired
+    private IGatewayApiDefineService gatewayApiDefineService;
 
     private ZuulProperties properties;
 
     public CustomRouteLocator(String servletPath, ZuulProperties properties) {
-        super(servletPath, properties);
+        super(servletPath,  properties);
         this.properties = properties;
-        logger.info("servletPath:{}", servletPath);
+
     }
-    //父类已经提供了这个方法，这里写出来只是为了说明这一个方法很重要！！！
-    //    @Override
-    //    protected void doRefresh() {
-    //        super.doRefresh();
-    //    }
+
+
 
     @Override
-    protected Map<String, ZuulProperties.ZuulRoute> locateRoutes() {
+    protected Map<String, ZuulRoute> locateRoutes() {
         LinkedHashMap<String, ZuulProperties.ZuulRoute> routesMap = new LinkedHashMap<>();
         //从application.properties中加载路由信息
-        //routesMap.putAll(super.locateRoutes());
+        routesMap.putAll(super.locateRoutes());
         //从db中加载路由信息
         routesMap.putAll(locateRoutesFromDB());
-//        LinkedHashMap<String, ZuulProperties.ZuulRoute> values = new LinkedHashMap<>();
-//        for (Map.Entry<String, ZuulProperties.ZuulRoute> entry : routesMap.entrySet()) {
-//            String path = entry.getKey();
-//            // Prepend with slash if not already present.
-//            if (!path.startsWith("/")) {
-//                path = "/" + path;
-//            }
-//            if (StringUtils.hasText(this.properties.getPrefix())) {
-//                path = this.properties.getPrefix() + path;
-//                if (!path.startsWith("/")) {
-//                    path = "/" + path;
-//                }
-//            }
-//            values.put(path, entry.getValue());
-//        }
-       // return values;
-        return routesMap;
+        LinkedHashMap<String, ZuulProperties.ZuulRoute> values = new LinkedHashMap<>();
+        for (Map.Entry<String, ZuulRoute> entry : routesMap.entrySet()) {
+            String path = entry.getKey();
+            if (!path.startsWith("/")) {
+                path = "/" + path;
+            }
+            if (StringUtils.hasText(this.properties.getPrefix())) {
+                path = this.properties.getPrefix() + path;
+                if (!path.startsWith("/")) {
+                    path = "/" + path;
+                }
+            }
+            values.put(path, entry.getValue());
+        }
+        return values;
     }
 
     /**
@@ -75,12 +70,13 @@ public class CustomRouteLocator extends SimpleRouteLocator  implements Refreshab
      *
      * @return
      */
-    private Map<String, ZuulProperties.ZuulRoute> locateRoutesFromDB() {
+    private Map<String, ZuulRoute> locateRoutesFromDB() {
         // 准备一个map集合存放路由信息
-        Map<String, ZuulProperties.ZuulRoute> routes = new HashMap<>();
+        Map<String, ZuulRoute> routes = new LinkedHashMap<>();
+        Map<String,Object> map = new HashMap<>();
+        map.put("enabled",0);
         //从数据库中获取路由信息
-        List<GatewayApiDefine> gatewayApiDefines = gatewayApiDefineService
-               .searchGatewayApiDefine(1).getData();
+        List<GatewayApiDefine> gatewayApiDefines = gatewayApiDefineService.searchGatewayApiDefine(map).getData();
         for (GatewayApiDefine result : gatewayApiDefines) {
             if (StringUtils.isEmpty(result.getPath())) {
                 continue;
@@ -102,8 +98,7 @@ public class CustomRouteLocator extends SimpleRouteLocator  implements Refreshab
 
     @Override
     public void refresh() {
-        System.out.println("刷新路由！");
-        //super.doRefresh();
+        super.doRefresh();
     }
 
 

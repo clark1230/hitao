@@ -1,4 +1,4 @@
-package com.hzitxx.hitao.vo.shopGoods;
+package com.hzitxx.hitao.vo.shopgoods;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;

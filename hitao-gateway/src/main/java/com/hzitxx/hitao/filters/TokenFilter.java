@@ -6,23 +6,16 @@ import com.hzitxx.hitao.jwt.Audience;
 import com.hzitxx.hitao.jwt.JwtHelper;
 import com.netflix.zuul.ZuulFilter;
 import com.netflix.zuul.context.RequestContext;
-import com.netflix.zuul.http.HttpServletRequestWrapper;
-import com.netflix.zuul.http.ServletInputStreamWrapper;
 import io.jsonwebtoken.Claims;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StreamUtils;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
-import javax.servlet.ServletInputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,13 +47,13 @@ public class TokenFilter extends ZuulFilter {
 
     @Override
     public Object run() {
-//        System.out.println("token过滤器.......");
         RequestContext requestContext = RequestContext.getCurrentContext();
         final HttpServletResponse response = requestContext.getResponse();
         final HttpServletRequest request = requestContext.getRequest();
         requestContext.getResponse().setContentType("applicationn/json;charset=utf-8");
         String url = request.getRequestURI();
-        if (nonUrl != null && nonUrl.contains(url)) { //这些请求地址不需要token!
+
+        if (nonUrl != null && nonUrl.contains(url) || url.contains("v2")) { //这些请求地址不需要token!
            return  null;
         } else {
             //获取token

@@ -17,6 +17,7 @@ import java.util.Properties;
 @EnableEurekaClient
 @MapperScan("com.hzitxx.hitao.mapper.*")
 @EnableFeignClients
+//@ImportResource(locations = "classpath:druid-bean.xml")
 public class HitaoSystem{
     public static void main(String[] args) {
         SpringApplication.run(HitaoSystem.class,args);

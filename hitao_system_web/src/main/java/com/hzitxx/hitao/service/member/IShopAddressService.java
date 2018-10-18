@@ -38,7 +38,7 @@ public interface IShopAddressService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopAddress> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopAddress>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据

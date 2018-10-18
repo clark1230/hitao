@@ -14,3 +14,13 @@ eureka:
     service-url:
       defaultZone: http://localhost:8001/eureka/
 
+savepath: D:/hitao_images2/
+
+# 阿里云oss文件上传配置
+# oss.endpoint=oss-cn-shenzhen.aliyuncs.com
+# oss.accessKeyId=LTAIa2gt5ypc31f6
+# accessKeySecret=md6fT59gxuFg5EZ9l7KVv3Xa347Ora
+oss:
+  endpoint: oss-cn-shenzhen.aliyuncs.com
+  accessKeyId: LTAIa2gt5ypc31f6
+  accessKeySecret: md6fT59gxuFg5EZ9l7KVv3Xa347Ora

@@ -9,8 +9,13 @@ public enum ResponseCode {
     ERROR(1,"ERROR"),
     NEED_LOGIN(10,"NEED_LOGIN"),
     ILLEGAL_ARGUMENT(2,"ILLEGAL_ARGUMENT");
-
+    /**
+     * 响应码
+     */
     private final int code;
+    /**
+     * 描述
+     */
     private final String desc;
 
 

@@ -175,42 +175,40 @@
     </select>
     <!--基础查询条件-->
     <sql id="shopRoleBaseWhereSql">
-        <if test="map!=null">
-            <where>
-                <if test="map.roleId !=null">
-                    AND role_id = #{map.roleId}
-                </if>
-                <if test="map.roleName !=null">
-                    AND role_name = #{map.roleName}
-                </if>
-                <if test="map.roleDescription !=null">
-                    AND role_description = #{map.roleDescription}
-                </if>
-                <if test="map.createdTime !=null">
-                    AND created_time = #{map.createdTime}
-                </if>
-                <if test="map.createdBy !=null">
-                    AND created_by = #{map.createdBy}
-                </if>
-                <if test="map.updatedTime !=null">
-                    AND updated_time = #{map.updatedTime}
-                </if>
-                <if test="map.updatedBy !=null">
-                    AND updated_by = #{map.updatedBy}
-                </if>
-            </where>
-        </if>
+        <where>
+            <if test="roleId !=null">
+                AND role_id = #{roleId}
+            </if>
+            <if test="roleName !=null">
+                AND role_name = #{roleName}
+            </if>
+            <if test="roleDescription !=null">
+                AND role_description = #{roleDescription}
+            </if>
+            <if test="createdTime !=null">
+                AND created_time = #{createdTime}
+            </if>
+            <if test="createdBy !=null">
+                AND created_by = #{createdBy}
+            </if>
+            <if test="updatedTime !=null">
+                AND updated_time = #{updatedTime}
+            </if>
+            <if test="updatedBy !=null">
+                AND updated_by = #{updatedBy}
+            </if>
+        </where>
     </sql>
 
          <!-- 通用查询映射结果 -->
     <resultMap id="shopRoleMap" type="com.hzitxx.hitao.entity.ShopRole">
-            <id column="role_id" property="roleId"/>
-            <result column="role_name" property="roleName"/>
-            <result column="role_description" property="roleDescription"/>
-            <result column="created_time" property="createdTime"/>
-            <result column="created_by" property="createdBy"/>
-            <result column="updated_time" property="updatedTime"/>
-            <result column="updated_by" property="updatedBy"/>
+        <id column="role_id" property="roleId"/>
+        <result column="role_name" property="roleName"/>
+        <result column="role_description" property="roleDescription"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
      </resultMap>
     
     <resultMap id="adminRoleMap" type="com.hzitxx.hitao.vo.AdminRoleVO">

@@ -1,6 +1,7 @@
 package com.hzitxx.hitao.controller.permission;
 
 
+import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.entity.ShopRole;
 import com.hzitxx.hitao.util.LayuiEntity;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,11 +33,10 @@ public class ShopRoleController  {
      */
 //    @ApiOperation(value = "获取角色信息",notes = "获取角色信息")
     @GetMapping(value="shopRoleAjax")
-    public LayuiEntity<ShopRole> shopRoleAjax(@RequestParam(value = "page",defaultValue = "1") int page,
-                                              @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
+    public ServerResponse<LayuiEntity<ShopRole>> shopRoleAjax(@RequestParam(value = "page",defaultValue = "1") int page,
+                                       @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
         Map<String,Object>  map = new HashMap<>();
-        LayuiEntity<ShopRole> layuiEntity = shopRoleService.page(page,limit,map);
-        return layuiEntity;
+        return shopRoleService.page(page,limit,map);
     }
 
     /**

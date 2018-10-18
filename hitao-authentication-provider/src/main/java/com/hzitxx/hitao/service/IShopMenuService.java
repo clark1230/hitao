@@ -4,9 +4,7 @@ package com.hzitxx.hitao.service;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.system.pojo.permission.ShopMenu;
 import com.hzitxx.hitao.utils.LayuiEntity;
-import com.hzitxx.hitao.vo.ShopMenuVO;
 
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -41,7 +39,7 @@ public interface IShopMenuService  {
      * @param map
      * @return
      */
-    ServerResponse<LayuiEntity<ShopMenuVO>> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopMenu>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据
@@ -50,5 +48,7 @@ public interface IShopMenuService  {
     ServerResponse findOne(Integer mId);
 
     ServerResponse menuData();
+
+
 
 }

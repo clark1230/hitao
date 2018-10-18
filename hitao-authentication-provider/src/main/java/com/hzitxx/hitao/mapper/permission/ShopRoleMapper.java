@@ -31,8 +31,8 @@ public interface ShopRoleMapper{
 
     ShopRole findOne(Integer roleId);
                             
-    List<ShopRole> searchShopRole(@Param("map") Map<String, Object> map);
+    List<ShopRole> searchShopRole(Map<String, Object> map);
 
 
-    List<AdminRoleVO> searchAdminRole(@Param("map") Map<String, Object> map);
+    List<AdminRoleVO> searchAdminRole(Map<String, Object> map);
 }

@@ -32,7 +32,7 @@ public class ShopGoodsController {
      */
     @GetMapping("/goods/details")
     public Object details(@RequestParam("goodsId")Integer goodsId,
-                          @RequestParam("memberId") Integer memberId){
+                          @RequestParam(value = "memberId",defaultValue = "0") Integer memberId){
         return this.goodsService.findOne(goodsId,memberId);
     }
 

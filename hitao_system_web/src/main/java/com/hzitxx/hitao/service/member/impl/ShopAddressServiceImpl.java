@@ -95,7 +95,7 @@ public class ShopAddressServiceImpl implements IShopAddressService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopAddress> page(int page,int limit,Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopAddress>> page(int page,int limit,Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopAddress>  obj=mapper.searchShopAddress(map);
         PageInfo<ShopAddress> pageInfo=new PageInfo<>(obj);
@@ -104,7 +104,7 @@ public class ShopAddressServiceImpl implements IShopAddressService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**

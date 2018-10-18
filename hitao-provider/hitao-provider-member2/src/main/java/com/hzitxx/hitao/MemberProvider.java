@@ -1,6 +1,8 @@
 package com.hzitxx.hitao;
 
 import com.github.pagehelper.PageHelper;
+import org.dozer.DozerBeanMapper;
+import org.dozer.Mapper;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,6 +39,15 @@ public class MemberProvider {
         //properties.setProperty("params", "pageNum=page;pageSize=limit;orderBy=orderBy");
         pageHelper.setProperties(properties);
         return pageHelper;
+    }
+
+    /**
+     * ioc容器管理 javabean映射工具 dozer 中Mapper实例
+     * @return
+     */
+    @Bean
+    public Mapper mapper(){
+        return new DozerBeanMapper();
     }
 
 }

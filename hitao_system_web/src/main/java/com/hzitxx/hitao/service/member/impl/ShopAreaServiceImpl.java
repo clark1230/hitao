@@ -98,7 +98,7 @@ public class ShopAreaServiceImpl implements IShopAreaService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopArea> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopArea>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopArea>  obj=mapper.searchShopArea(map);
         PageInfo<ShopArea> pageInfo=new PageInfo<>(obj);
@@ -107,7 +107,7 @@ public class ShopAreaServiceImpl implements IShopAreaService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**

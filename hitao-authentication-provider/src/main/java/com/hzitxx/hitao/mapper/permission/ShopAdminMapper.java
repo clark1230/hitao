@@ -31,7 +31,7 @@ public interface ShopAdminMapper {
 
     ShopAdmin findOne(Integer adminId);
                                         
-    List<ShopAdminVO> searchShopAdmin(@Param("map") Map<String, Object> map);
+    List<ShopAdminVO> searchShopAdmin(Map<String, Object> map);
 
     /**
      * 系统登陆

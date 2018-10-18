@@ -1,7 +1,7 @@
 package com.hzitxx.hitao.rpc;
 
+import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.system.pojo.GatewayApiDefine;
-import com.hzitxx.hitao.utils.ServerResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;

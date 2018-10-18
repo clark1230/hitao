@@ -242,62 +242,60 @@
     </select>
     <!--基础查询条件-->
     <sql id="shopMenuBaseWhereSql">
-        <if test="map!=null">
-            <where>
-                <if test="map.id !=null">
-                    AND id = #{map.id}
-                </if>
-                <if test="map.name !=null">
-                    AND name = #{map.name}
-                </if>
-                <if test="map.url !=null">
-                    AND url = #{map.url}
-                </if>
-                <if test="map.parentId !=null">
-                    AND parent_id = #{map.parentId}
-                </if>
-                <if test="map.sort !=null">
-                    AND sort = #{map.sort}
-                </if>
-                <if test="map.level !=null">
-                    AND level = #{map.level}
-                </if>
-                <if test="map.path !=null">
-                    AND path = #{map.path}
-                </if>
-                <if test="map.description !=null">
-                    AND description = #{map.description}
-                </if>
-                <if test="map.createdBy !=null">
-                    AND created_by = #{map.createdBy}
-                </if>
-                <if test="map.createdTime !=null">
-                    AND created_time = #{map.createdTime}
-                </if>
-                <if test="map.updatedBy !=null">
-                    AND updated_by = #{map.updatedBy}
-                </if>
-                <if test="map.updatedTime !=null">
-                    AND updated_time = #{map.updatedTime}
-                </if>
-            </where>
-        </if>
+        <where>
+            <if test="id !=null">
+                AND id = #{id}
+            </if>
+            <if test="name !=null">
+                AND name = #{name}
+            </if>
+            <if test="url !=null">
+                AND url = #{url}
+            </if>
+            <if test="parentId !=null">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="sort !=null">
+                AND sort = #{sort}
+            </if>
+            <if test="level !=null">
+                AND level = #{level}
+            </if>
+            <if test="map.path !=null">
+                AND path = #{map.path}
+            </if>
+            <if test="description !=null">
+                AND description = #{description}
+            </if>
+            <if test="createdBy !=null">
+                AND created_by = #{createdBy}
+            </if>
+            <if test="map.createdTime !=null">
+                AND created_time = #{map.createdTime}
+            </if>
+            <if test="updatedBy !=null">
+                AND updated_by = #{updatedBy}
+            </if>
+            <if test="updatedTime !=null">
+                AND updated_time = #{updatedTime}
+            </if>
+        </where>
     </sql>
 
     <!-- 通用查询映射结果 -->
     <resultMap id="shopMenuMap" type="com.hzitxx.hitao.system.pojo.permission.ShopMenu">
-            <id column="id" property="id"/>
-            <result column="name" property="name"/>
-            <result column="url" property="url"/>
-            <result column="parent_id" property="parentId"/>
-            <result column="sort" property="sort"/>
-            <result column="level" property="level"/>
-            <result column="path" property="path"/>
-            <result column="description" property="description"/>
-            <result column="created_by" property="createdBy"/>
-            <result column="created_time" property="createdTime"/>
-            <result column="updated_by" property="updatedBy"/>
-            <result column="updated_time" property="updatedTime"/>
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="sort" property="sort"/>
+        <result column="level" property="level"/>
+        <result column="path" property="path"/>
+        <result column="description" property="description"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
      </resultMap>
     <resultMap id="shopMenuVOMap" type="com.hzitxx.hitao.vo.ShopMenuVO">
         <id column="id" property="id"/>

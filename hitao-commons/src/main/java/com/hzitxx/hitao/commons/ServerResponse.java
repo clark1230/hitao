@@ -11,6 +11,7 @@ import java.io.Serializable;
 public class ServerResponse<T> implements Serializable {
 
     private int status;
+
     private String msg;
     private T data;
 
@@ -20,6 +21,7 @@ public class ServerResponse<T> implements Serializable {
     public ServerResponse(int status){
         this.status = status;
     }
+
     public ServerResponse(int status,T data){
         this.status = status;
         this.data = data;
@@ -38,16 +40,35 @@ public class ServerResponse<T> implements Serializable {
 
 
     //使之不在json序列化结果当中
+
+    /**
+     * 处理是否成功
+     * @return
+     */
     public boolean isSuccess(){
         return this.status == ResponseCode.SUCCESS.getCode();
     }
 
+    /**
+     * 系统响应状态码
+     * @return
+     */
     public int getStatus(){
         return status;
     }
+
+    /**
+     * 响应数据
+     * @return
+     */
     public T getData(){
         return data;
     }
+
+    /**
+     * 响应消息
+     * @return
+     */
     public String getMsg(){
         return msg;
     }

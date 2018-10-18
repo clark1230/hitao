@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.permission.ShopAdminRoleMapper">
+    <!--shop_admin_role表中的列-->
+    <sql id="shopAdminRoleBaseColumn">
+         id,
+         admin_id,
+         role_id
+    </sql>
+
+    <!--添加-->
+    <insert id="addShopAdminRole" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdminRole">
+        INSERT INTO shop_admin_role(
+            <include refid="shopAdminRoleBaseColumn"/>
+        ) VALUES(
+                #{id},
+                #{adminId},
+                #{roleId}
+        )
+    </insert>
+
+    <insert id="addShopAdminRoleSelective" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdminRole">
+        insert into shop_admin_role
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="adminId != null">
+                admin_id,
+            </if>
+            <if test="roleId != null">
+                role_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id},
+            </if>
+            <if test="adminId != null">
+                #{adminId},
+            </if>
+            <if test="roleId != null">
+                #{roleId},
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_admin_role WHERE
+        id = #{id}
+    </delete>
+
+    <!--根据管理员编号删除数据-->
+    <delete id="deleteByAdminId" parameterType="integer">
+        DELETE FROM  shop_admin_role WHERE
+        admin_id = #{adminId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_admin_role WHERE id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdminRole">
+        UPDATE shop_admin_role
+        <set>
+          id=#{id},
+          admin_id=#{adminId},
+          role_id=#{roleId}
+        </set>
+        WHERE
+           id = #{id}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdminRole">
+        UPDATE shop_admin_role
+        <set>
+    <if test="id != null">
+          id = #{id},
+    </if>
+    <if test="adminId != null">
+          admin_id = #{adminId},
+    </if>
+    <if test="roleId != null">
+          role_id = #{roleId},
+    </if>
+    </set>
+        WHERE
+      id = #{id}
+    </update>
+
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopAdminRoleMap" parameterType="integer">
+        select
+        <include refid="shopAdminRoleBaseColumn"/>
+        from
+            shop_admin_role
+        WHERE
+          id = #{id}
+    </select>
+
+    <!--查询数据-->
+    <select id="searchShopAdminRole" parameterType="map" resultMap="shopAdminRoleMap">
+        SELECT
+        <include refid="shopAdminRoleBaseColumn"/>
+        FROM shop_admin_role
+        <include refid="shopAdminRoleBaseWhereSql"/>
+    </select>
+
+    <!--基础查询条件-->
+    <sql id="shopAdminRoleBaseWhereSql">
+        <where>
+            <if test="id !=null">
+                AND id = #{id}
+            </if>
+            <if test="adminId !=null">
+                AND admin_id = #{adminId}
+            </if>
+            <if test="roleId !=null">
+                AND role_id = #{roleId}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="shopAdminRoleMap" type="com.hzitxx.hitao.system.pojo.permission.ShopAdminRole">
+        <id column="id" property="id"/>
+        <result column="admin_id" property="adminId"/>
+        <result column="role_id" property="roleId"/>
+     </resultMap>
+</mapper>

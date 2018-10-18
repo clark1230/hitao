@@ -15,7 +15,11 @@
          created_by,
          created_time,
          updated_by,
-         updated_time
+         updated_time,
+         redirect,
+         alwaysShow,
+         component,
+         meta
     </sql>
 
     <!--添加-->
@@ -23,18 +27,22 @@
         INSERT INTO shop_menu(
             <include refid="shopMenuBaseColumn"/>
         ) VALUES(
-                #{id},
-                #{name},
-                #{url},
-                #{parentId},
-                #{sort},
-                #{level},
-                #{path},
-                #{description},
-                #{createdBy},
-                #{createdTime},
-                #{updatedBy},
-                #{updatedTime}
+            #{id},
+            #{name},
+            #{url},
+            #{parentId},
+            #{sort},
+            #{level},
+            #{path},
+            #{description},
+            #{createdBy},
+            #{createdTime},
+            #{updatedBy},
+            #{updatedTime},
+            #{redirect},
+            #{alwaysShow},
+            #{component},
+            #{meta}
         )
     </insert>
 
@@ -77,6 +85,18 @@
             <if test="updatedTime != null">
                 updated_time,
             </if>
+            <if test="redirect != null">
+                redirect,
+            </if>
+            <if test="alwaysShow != null">
+                alwaysShow,
+            </if>
+            <if test="component != null">
+                component,
+            </if>
+            <if test="meta != null">
+                meta
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -115,6 +135,18 @@
             <if test="updatedTime != null">
                 #{updatedTime},
             </if>
+            <if test="redirect != null">
+                #{redirect},
+            </if>
+            <if test="alwaysShow != null">
+                #{alwaysShow},
+            </if>
+            <if test="component != null">
+                #{component},
+            </if>
+            <if test="meta != null">
+                #{meta}
+            </if>
         </trim>
     </insert>
     <!--根据id删除数据-->
@@ -146,7 +178,11 @@
           created_by=#{createdBy},
           created_time=#{createdTime},
           updated_by=#{updatedBy},
-          updated_time=#{updatedTime}
+          updated_time=#{updatedTime},
+          redirect=#{redirect},
+          alwaysShow=#{alwaysShow},
+          component=#{component},
+          meta=#{meta}
         </set>
         WHERE
            id = #{id}
@@ -190,6 +226,18 @@
     </if>
     <if test="updatedTime != null">
           updated_time = #{updatedTime},
+    </if>
+    <if test="redirect != null">
+            redirect = #{redirect},
+    </if>
+    <if test="alwaysShow != null">
+        alwaysShow = #{alwaysShow},
+    </if>
+    <if test="component != null">
+        component = #{component},
+    </if>
+    <if test="meta != null">
+        meta = #{meta}
     </if>
     </set>
         WHERE
@@ -271,23 +319,39 @@
                 <if test="map.updatedTime !=null">
                     AND updated_time = #{map.updatedTime}
                 </if>
+                <if test="map.redirect !=null">
+                    AND redirect = #{map.redirect}
+                </if>
+                <if test="map.alwaysShow !=null">
+                    AND alwaysShow = #{map.alwaysShow}
+                </if>
+                <if test="map.component !=null">
+                    AND component = #{map.component}
+                </if>
+                <if test="map.meta !=null">
+                    AND meta = #{map.meta}
+                </if>
             </where>
         </if>
     </sql>
 
     <!-- 通用查询映射结果 -->
     <resultMap id="shopMenuMap" type="com.hzitxx.hitao.system.pojo.permission.ShopMenu">
-            <id column="id" property="id"/>
-            <result column="name" property="name"/>
-            <result column="url" property="url"/>
-            <result column="parent_id" property="parentId"/>
-            <result column="sort" property="sort"/>
-            <result column="level" property="level"/>
-            <result column="path" property="path"/>
-            <result column="description" property="description"/>
-            <result column="created_by" property="createdBy"/>
-            <result column="created_time" property="createdTime"/>
-            <result column="updated_by" property="updatedBy"/>
-            <result column="updated_time" property="updatedTime"/>
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="url" property="url"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="sort" property="sort"/>
+        <result column="level" property="level"/>
+        <result column="path" property="path"/>
+        <result column="description" property="description"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_by" property="updatedBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="redirect" property="redirect"/>
+        <result column="alwaysShow" property="alwaysShow"/>
+        <result column="component" property="component"/>
+        <result column="meta" property="meta"/>
      </resultMap>
 </mapper>

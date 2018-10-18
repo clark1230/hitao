@@ -15,6 +15,7 @@ import java.util.Map;
  * 动态路由控制器
  */
 @RestController
+//@RequestMapping("/gateway")
 public class RefreshRouteController {
 
     @Autowired

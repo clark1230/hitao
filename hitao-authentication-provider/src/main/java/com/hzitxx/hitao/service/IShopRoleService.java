@@ -31,7 +31,7 @@ public interface IShopRoleService  {
 
     ServerResponse updateSelectiveById(ShopRole shopRole);
 
-    List<ShopRole> searchShopRole(Map<String, Object> map);
+    ServerResponse<List<ShopRole>> searchShopRole(Map<String, Object> map);
 
     /**
      * 数据查询分页
@@ -40,12 +40,20 @@ public interface IShopRoleService  {
      * @param map
      * @return
      */
-    LayuiEntity<AdminRoleVO> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<AdminRoleVO>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据
      *
      */
     ServerResponse findOne(Integer roleId);
+
+    /**
+     * 角色授权
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    ServerResponse<String> grantPermssion(Integer roleId,Integer[] permissionIds);
 
 }

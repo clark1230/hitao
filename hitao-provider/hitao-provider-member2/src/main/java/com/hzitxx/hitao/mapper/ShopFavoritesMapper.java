@@ -24,6 +24,13 @@ public interface ShopFavoritesMapper{
                             
     int deleteByIds(String[] ids);
 
+    /**
+     * 根据商品编号和会员编号删除信息
+     * @param map
+     * @return
+     */
+    int deleteByGoodsIdAndMemberId(Map<String,Object> map);
+
     int updateById(ShopFavorites shopFavorites);
 
     int updateSelectiveById(ShopFavorites shopFavorites);

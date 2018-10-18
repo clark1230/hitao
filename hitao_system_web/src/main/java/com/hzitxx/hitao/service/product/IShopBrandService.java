@@ -3,7 +3,9 @@ package com.hzitxx.hitao.service.product;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.system.pojo.product.ShopBrand;
 import com.hzitxx.hitao.util.LayuiEntity;
+import com.hzitxx.hitao.vo.shopcategory.ShopGoodsCategoryVO;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,6 +41,7 @@ public interface IShopBrandService  {
      * @return
      */
     ServerResponse<LayuiEntity<ShopBrand>> page(int page, int limit, Map<String, Object> map);
+
 
     /**
      * 根据编号查询数据

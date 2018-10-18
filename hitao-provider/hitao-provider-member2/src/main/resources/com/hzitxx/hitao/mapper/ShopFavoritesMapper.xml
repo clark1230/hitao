@@ -30,6 +30,7 @@
                 #{favTime}
         )
     </insert>
+
     <insert id="addShopFavoritesSelective" parameterType="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
         insert into shop_favorites
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -98,6 +99,12 @@
             #{idItem}
           </foreach>
     </delete>
+
+    <!--根据会员编号和商品编号删除收藏商品-->
+    <delete id="deleteByGoodsIdAndMemberId" parameterType="map">
+      DELETE FROM  shop_favorites WHERE goods_id = #{goodsId} and member_id = #{memberId}
+    </delete>
+
     <!--根据id修改数据-->
     <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
         UPDATE shop_favorites
@@ -194,15 +201,15 @@
         </if>
     </sql>
 
-         <!-- 通用查询映射结果 -->
+    <!-- 通用查询映射结果 -->
     <resultMap id="shopFavoritesMap" type="com.hzitxx.hitao.system.pojo.product.ShopFavorites">
-            <id column="fav_id" property="favId"/>
-            <result column="member_id" property="memberId"/>
-            <result column="goods_id" property="goodsId"/>
-            <result column="fav_type" property="favType"/>
-            <result column="goods_name" property="goodsName"/>
-            <result column="goods_jingle" property="goodsJingle"/>
-            <result column="main_image" property="mainImage"/>
-            <result column="fav_time" property="favTime"/>
+        <id column="fav_id" property="favId"/>
+        <result column="member_id" property="memberId"/>
+        <result column="goods_id" property="goodsId"/>
+        <result column="fav_type" property="favType"/>
+        <result column="goods_name" property="goodsName"/>
+        <result column="goods_jingle" property="goodsJingle"/>
+        <result column="main_image" property="mainImage"/>
+        <result column="fav_time" property="favTime"/>
      </resultMap>
 </mapper>

@@ -5,7 +5,9 @@ import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.entity.ShopRole;
 import com.hzitxx.hitao.mapper.permission.ShopRoleMapper;
+import com.hzitxx.hitao.mapper.permission.ShopRoleMenuMapper;
 import com.hzitxx.hitao.service.IShopRoleService;
+import com.hzitxx.hitao.system.pojo.permission.ShopRoleMenu;
 import com.hzitxx.hitao.utils.LayuiEntity;
 import com.hzitxx.hitao.vo.AdminRoleVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,13 +30,17 @@ public class ShopRoleServiceImpl implements IShopRoleService {
     @Autowired(required = false)
     private ShopRoleMapper mapper;
 
+    @Autowired
+    private ShopRoleMenuMapper shopRoleMenuMapper;
+
+
     @Override
     public ServerResponse addShopRole(ShopRole shopRole){
         int result = mapper.addShopRole(shopRole);
         if(result != 1){
             return ServerResponse.createByErrorMessage("角色信息添加失败!");
         }
-        return ServerResponse.createBySuccessMessage("角色信息修改失败!");
+        return ServerResponse.createBySuccessMessage("角色信息添加成功!");
     }
 
     @Override
@@ -83,8 +89,12 @@ public class ShopRoleServiceImpl implements IShopRoleService {
     }
 
     @Override
-    public  List<ShopRole> searchShopRole(Map<String, Object> map){
-        return mapper.searchShopRole(map);
+    public  ServerResponse<List<ShopRole>> searchShopRole(Map<String, Object> map){
+        List<ShopRole> shopRoleList =  this.mapper.searchShopRole(map);
+        if(shopRoleList == null || shopRoleList.size() == 0){
+            return ServerResponse.createByErrorMessage("获取角色信息失败!");
+        }
+        return ServerResponse.createBySuccess("角色信息",shopRoleList);
     }
 
     /**
@@ -95,7 +105,7 @@ public class ShopRoleServiceImpl implements IShopRoleService {
      * @return
      */
     @Override
-    public LayuiEntity<AdminRoleVO> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<AdminRoleVO>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<AdminRoleVO>  obj=mapper.searchAdminRole(map);
         PageInfo<AdminRoleVO> pageInfo=new PageInfo<>(obj);
@@ -104,7 +114,7 @@ public class ShopRoleServiceImpl implements IShopRoleService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**
@@ -120,5 +130,28 @@ public class ShopRoleServiceImpl implements IShopRoleService {
         }
         return ServerResponse.createBySuccess(shopRole);
      }
+
+    /**
+     * 角色授权
+     * @param roleId
+     * @param permissionIds
+     * @return
+     */
+    @Override
+    public ServerResponse<String> grantPermssion(Integer roleId, Integer[] permissionIds) {
+        try{
+            if(permissionIds != null){
+                this.shopRoleMenuMapper.deleteByRoleId(roleId);
+                for(Integer permissionId: permissionIds){
+                    this.shopRoleMenuMapper.addShopRoleMenuSelective(new ShopRoleMenu(roleId,permissionId));
+                }
+            }
+            return ServerResponse.createBySuccessMessage("授权成功!");
+        }catch (Exception e){
+            return ServerResponse.createByErrorMessage("授权失败!");
+        }
+    }
+
+
 }
 

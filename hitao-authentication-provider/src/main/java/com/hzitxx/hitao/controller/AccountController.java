@@ -6,9 +6,9 @@ import com.hzitxx.hitao.jwt.Audience;
 import com.hzitxx.hitao.jwt.JwtHelper;
 import com.hzitxx.hitao.service.IShopAdminService;
 import com.hzitxx.hitao.system.pojo.permission.ShopAdmin;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 /**
@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/account")
+@Api(value = "账号Controller",tags = "{后台系统登陆接口}")
 public class AccountController {
 
     @Autowired(required = false)
@@ -28,9 +29,9 @@ public class AccountController {
      * 处理登陆请求
      * @return
      */
+    @ApiOperation(value = "系统登陆",tags = "login", notes = "处理后台系统登陆,格式:{\"adminName\":\"用户名\",\"adminPassword\":\"密码\"}")
     @PostMapping("/login")
-    public ServerResponse login(@Validated @RequestBody ShopAdmin shopAdmin,
-                                BindingResult bindingResult){
+    public ServerResponse login(@RequestBody  ShopAdmin shopAdmin){
         ShopAdmin shopAdmin2 = this.shopAdminService.login(shopAdmin.getAdminName());
         if(shopAdmin2 == null){
             return ServerResponse.createByErrorMessage("用户名或者密码错误!");
@@ -48,7 +49,7 @@ public class AccountController {
                 JSONObject jsonObject = new JSONObject();
                 jsonObject.put("token",jwtToken);
                 shopAdmin2.setAdminPassword(null);
-                jsonObject.put("shopAdmin",shopAdmin2);
+                //jsonObject.put("shopAdmin",shopAdmin2);
                 return  ServerResponse.createBySuccess(jsonObject);
             }
         }
@@ -58,6 +59,7 @@ public class AccountController {
      * 系统注销
      * @return
      */
+    @ApiOperation(value = "系统注销", notes = "处理后台系统注销")
     @GetMapping("/logout")
     public ServerResponse logout(@RequestHeader("token")String token){
         return this.shopAdminService.logout(JwtHelper.getUserId(token,audience.getBase64Secret()));

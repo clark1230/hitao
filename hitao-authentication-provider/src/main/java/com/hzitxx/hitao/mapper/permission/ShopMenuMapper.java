@@ -1,8 +1,6 @@
 package com.hzitxx.hitao.mapper.permission;
 
 import com.hzitxx.hitao.system.pojo.permission.ShopMenu;
-import com.hzitxx.hitao.vo.ShopMenuVO;
-import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 import java.util.Map;
@@ -31,7 +29,7 @@ public interface ShopMenuMapper{
 
     ShopMenu findOne(Integer mId);
                                 
-    List<ShopMenuVO> searchShopMenu(@Param("map") Map<String, Object> map);
+    List<ShopMenu> searchShopMenu(Map<String, Object> map);
 
     /**
      * 根据父级编号查询数据

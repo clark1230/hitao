@@ -2,7 +2,7 @@ package com.hzitxx.hitao.system.pojo.permission;
 
 import lombok.Data;
 
-import  java.io.Serializable;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -16,6 +16,7 @@ import java.util.List;
  * @since 2018-04-20
  */
 @Data
+//@JsonInclude(JsonInclude.Include.NON_EMPTY)
 public class ShopMenu implements Serializable {
     private static final long serialVersionUID = 1L;
     /**
@@ -66,6 +67,23 @@ public class ShopMenu implements Serializable {
      * 修改时间
      */
     private Date updatedTime;
+
+    /**
+     * 重定向
+     */
+    private String redirect;
+    /**
+     * 是否展示,0:false 1:true
+     */
+    private Integer alwaysShow;
+    /**
+     * 组件
+     */
+    private String component;
+    /**
+     * 元数据 json格式存储
+     */
+    private String meta;
 
     private List<ShopMenu> children = new ArrayList<>();
 

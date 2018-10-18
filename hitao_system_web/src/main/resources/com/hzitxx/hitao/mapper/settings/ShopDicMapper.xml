@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.settings.ShopDicMapper">
+    <!--shop_dic表中的列-->
+    <sql id="shopDicBaseColumn">
+        dic_id,
+        name,
+        code,
+        parent_id,
+        status,
+        created_time,
+        created_by,
+        updated_time,
+        updated_by
+    </sql>
+
+    <!--添加-->
+    <insert id="addShopDic" parameterType="com.hzitxx.hitao.system.pojo.ShopDic">
+        INSERT INTO shop_dic(
+        <include refid="shopDicBaseColumn"/>
+        ) VALUES(
+        #{dicId},
+        #{name},
+        #{code},
+        #{parentId},
+        #{status},
+        #{createdTime},
+        #{createdBy},
+        #{updatedTime},
+        #{updatedBy}
+        )
+    </insert>
+
+    <insert id="addShopDicSelective" parameterType="com.hzitxx.hitao.system.pojo.ShopDic">
+        insert into shop_dic
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="dicId != null">
+                dic_id,
+            </if>
+            <if test="name != null">
+                name,
+            </if>
+            <if test="code != null">
+                code,
+            </if>
+            <if test="parentId != null">
+                parent_id,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="createdBy != null">
+                created_by,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+            <if test="updatedBy != null">
+                updated_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="dicId != null">
+                #{dicId},
+            </if>
+            <if test="name != null">
+                #{name},
+            </if>
+            <if test="code != null">
+                #{code},
+            </if>
+            <if test="parentId != null">
+                #{parentId},
+            </if>
+            <if test="status != null">
+                #{status},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="createdBy != null">
+                #{createdBy},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+            <if test="updatedBy != null">
+                #{updatedBy},
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.ShopDic">
+        UPDATE shop_dic
+        <set>
+            dic_id=#{dicId},
+            name=#{name},
+            code=#{code},
+            parent_id=#{parentId},
+            status=#{status},
+            created_time=#{createdTime},
+            created_by=#{createdBy},
+            updated_time=#{updatedTime},
+            updated_by=#{updatedBy}
+        </set>
+        WHERE
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.ShopDic">
+        UPDATE shop_dic
+        <set>
+            <if test="dicId != null">
+                dic_id = #{dicId},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="code != null">
+                code = #{code},
+            </if>
+            <if test="parentId != null">
+                parent_id = #{parentId},
+            </if>
+            <if test="status != null">
+                status = #{status},
+            </if>
+            <if test="createdTime != null">
+                created_time = #{createdTime},
+            </if>
+            <if test="createdBy != null">
+                created_by = #{createdBy},
+            </if>
+            <if test="updatedTime != null">
+                updated_time = #{updatedTime},
+            </if>
+            <if test="updatedBy != null">
+                updated_by = #{updatedBy},
+            </if>
+        </set>
+        WHERE
+        dic_id = #{dicId}
+    </update>
+
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopDicMap" parameterType="integer">
+        select
+        <include refid="shopDicBaseColumn"/>
+        from
+        shop_dic
+        WHERE
+        dic_id = #{dicId}
+    </select>
+
+    <!--查询数据-->
+    <select id="searchShopDic" parameterType="map" resultMap="shopDicMap">
+        SELECT
+        <include refid="shopDicBaseColumn"/>
+        FROM shop_dic
+        <include refid="shopDicBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopDicBaseWhereSql">
+        <where>
+            <if test="dicId !=null">
+                AND dic_id = #{dicId}
+            </if>
+            <if test="name !=null">
+                AND name = #{name}
+            </if>
+            <if test="code !=null">
+                AND code = #{code}
+            </if>
+            <if test="parentId !=null">
+                AND parent_id = #{parentId}
+            </if>
+            <if test="status !=null">
+                AND status = #{status}
+            </if>
+            <if test="createdTime !=null">
+                AND created_time = #{createdTime}
+            </if>
+            <if test="createdBy !=null">
+                AND created_by = #{createdBy}
+            </if>
+            <if test="updatedTime !=null">
+                AND updated_time = #{updatedTime}
+            </if>
+            <if test="updatedBy !=null">
+                AND updated_by = #{updatedBy}
+            </if>
+        </where>
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="shopDicMap" type="com.hzitxx.hitao.system.pojo.ShopDic">
+        <result column="dic_id" property="dicId"/>
+        <result column="name" property="name"/>
+        <result column="code" property="code"/>
+        <result column="parent_id" property="parentId"/>
+        <result column="status" property="status"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="created_by" property="createdBy"/>
+        <result column="updated_time" property="updatedTime"/>
+        <result column="updated_by" property="updatedBy"/>
+    </resultMap>
+</mapper>

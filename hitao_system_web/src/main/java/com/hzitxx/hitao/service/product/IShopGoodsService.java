@@ -1,7 +1,7 @@
 package com.hzitxx.hitao.service.product;
 
 import com.hzitxx.hitao.commons.ServerResponse;
-import com.hzitxx.hitao.vo.shopGoods.ShopGoodsVO;
+import com.hzitxx.hitao.vo.shopgoods.ShopGoodsVO;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.util.LayuiEntity;
 

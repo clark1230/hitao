@@ -97,7 +97,7 @@ public class ShopAdminServiceImpl implements IShopAdminService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopAdmin> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopAdmin>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopAdmin>  obj=mapper.searchShopAdmin(map);
         PageInfo<ShopAdmin> pageInfo=new PageInfo<>(obj);
@@ -106,7 +106,7 @@ public class ShopAdminServiceImpl implements IShopAdminService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**

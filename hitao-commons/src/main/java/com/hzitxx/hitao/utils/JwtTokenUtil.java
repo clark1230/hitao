@@ -40,6 +40,7 @@ public class JwtTokenUtil {
         String token = JWT.create().withHeader(header)
                 .withClaim("username",username)
                 .withClaim("email",email)
+                .withClaim("userid",email)
                 .withIssuedAt(new Date(currentTime))  //签发时间
                 .withExpiresAt(new Date(expireTime))  ////过期时间
                 .withJWTId("df046d05-8948-4c08-8506-988cc72e057e")  //唯一的身份，主要作为一次性token，从而避免重放攻击

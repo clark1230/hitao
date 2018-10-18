@@ -4,8 +4,10 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.mapper.permission.ShopAdminMapper;
+import com.hzitxx.hitao.mapper.permission.ShopAdminRoleMapper;
 import com.hzitxx.hitao.service.IShopAdminService;
 import com.hzitxx.hitao.system.pojo.permission.ShopAdmin;
+import com.hzitxx.hitao.system.pojo.permission.ShopAdminRole;
 import com.hzitxx.hitao.utils.LayuiEntity;
 import com.hzitxx.hitao.vo.ShopAdminVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,8 +16,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -30,6 +34,9 @@ public class ShopAdminServiceImpl implements IShopAdminService {
 
     @Autowired(required = false)
     private ShopAdminMapper mapper;
+
+    @Autowired
+    private ShopAdminRoleMapper adminRoleMapper;
 
     @Override
     public ServerResponse addShopAdmin(ShopAdmin shopAdmin){
@@ -106,7 +113,7 @@ public class ShopAdminServiceImpl implements IShopAdminService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopAdminVO> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopAdminVO>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopAdminVO>  obj=mapper.searchShopAdmin(map);
         PageInfo<ShopAdminVO> pageInfo=new PageInfo<>(obj);
@@ -115,7 +122,7 @@ public class ShopAdminServiceImpl implements IShopAdminService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**
@@ -154,7 +161,6 @@ public class ShopAdminServiceImpl implements IShopAdminService {
         if(shopAdmin != null){
             //修改状态
             shopAdmin.setLoginStatus(1);
-
             this.mapper.updateById(shopAdmin);
             return  shopAdmin;
         }
@@ -209,6 +215,51 @@ public class ShopAdminServiceImpl implements IShopAdminService {
             return ServerResponse.createByErrorMessage("系统注销失败!");
         }
         return ServerResponse.createBySuccessMessage("系统注销成功!");
+    }
+
+    /**
+     * 为用户授予角色
+     * @param adminIds
+     * @param roleIds
+     * @return
+     */
+    @Transactional
+    @Override
+    public ServerResponse<String> grantRole(Integer[] adminIds, Integer[] roleIds) {
+        try{
+            if(adminIds != null){
+                for(Integer adminId: adminIds){
+                    // 新增之前删除数据
+                    this.adminRoleMapper.deleteByAdminId(adminId);
+                    for(Integer roleId: roleIds){
+                        this.adminRoleMapper.addShopAdminRole(new ShopAdminRole(adminId,roleId));
+                    }
+                }
+            }
+            return ServerResponse.createBySuccessMessage("角色授予成功!");
+        }catch (Exception e){
+            throw new RuntimeException("角色授予失败!");
+            //return ServerResponse.createByErrorMessage("角色授予失败!");
+        }
+
+    }
+
+    /**
+     * 根据管理员编号查询角色编号信息
+     * @param adminId
+     * @return
+     */
+    @Override
+    public ServerResponse<List<Integer>> findRoleByAdminId(Integer adminId) {
+        List<ShopAdminRole> shopAdminRoleList = this.adminRoleMapper.searchShopAdminRole(new HashMap<String,Object>(){{
+            put("adminId",adminId);
+        }});
+        if(shopAdminRoleList == null || shopAdminRoleList.size() == 0){
+            return ServerResponse.createByErrorMessage("查询失败!");
+        }
+        return ServerResponse.createBySuccess("角色信息",shopAdminRoleList.stream()
+                .map(ShopAdminRole::getRoleId)
+                .collect(Collectors.toList()));
     }
 }
 

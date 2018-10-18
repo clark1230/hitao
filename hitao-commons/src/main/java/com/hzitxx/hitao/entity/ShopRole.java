@@ -40,6 +40,10 @@ public class ShopRole implements Serializable {
      */
     private Integer updatedBy;
 
+    public ShopRole() {
+    }
+
+
     public Integer getRoleId() {
         return roleId;
     }

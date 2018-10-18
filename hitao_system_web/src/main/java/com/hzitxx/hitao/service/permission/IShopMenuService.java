@@ -40,7 +40,7 @@ public interface IShopMenuService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopMenu> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopMenu>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据

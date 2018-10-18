@@ -2,11 +2,10 @@ package com.hzitxx.hitao.controller.product;
 
 
 import com.hzitxx.hitao.commons.ServerResponse;
-import com.hzitxx.hitao.entity.ShopGoodsContent;
 import com.hzitxx.hitao.service.product.IShopGoodsService;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.util.LayuiEntity;
-import com.hzitxx.hitao.vo.shopGoods.ShopGoodsVO;
+import com.hzitxx.hitao.vo.shopgoods.ShopGoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -48,9 +47,7 @@ public class ShopGoodsController  {
      * @return
      */
     @PostMapping(value = "save")
-    public ServerResponse save(@RequestBody ShopGoodsVO shopGoods,
-                             //  @RequestBody ShopGoodsAttr shopGoodsAttr,
-                               ShopGoodsContent shopGoodsContent){
+    public ServerResponse save(@RequestBody ShopGoodsVO shopGoods){
        return shopGoodsService.addShopGoodsSelective(shopGoods);
     }
 

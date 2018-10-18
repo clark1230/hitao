@@ -2,7 +2,7 @@ package com.hzitxx.hitao.mapper.permission;
 
 
 import com.hzitxx.hitao.system.pojo.permission.ShopPermissionRoute;
-import org.apache.ibatis.annotations.Param;
+
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +30,7 @@ public interface ShopPermissionRouteMapper{
 
     ShopPermissionRoute findOne(Integer routeId);
                         
-    List<ShopPermissionRoute> searchShopPermissionRoute(@Param("map") Map<String, Object> map);
+    List<ShopPermissionRoute> searchShopPermissionRoute(Map<String, Object> map);
 
     /**
      * 根据父级编号查询数据

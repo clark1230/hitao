@@ -6,6 +6,8 @@ import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.service.product.IShopGoodsAttrTemplateService;
 import com.hzitxx.hitao.system.pojo.product.ShopGoodsAttrTemplate;
 import com.hzitxx.hitao.vo.AttrTemp;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
  * @author xianyaoji
  * @since 2018-07-07
  */
+@Api(value = "属性模板Controller",tags = "{属性模板接口}")
 @RestController
 @RequestMapping("/shopGoodsAttrTemplate")
 public class ShopGoodsAttrTemplateController  {
@@ -31,6 +34,7 @@ public class ShopGoodsAttrTemplateController  {
      * @param attrTemp
      * @return
      */
+    @ApiOperation(value = "保存属性模板",tags = "save", notes = "保存属性模板信息")
     @PostMapping("/save")
     public ServerResponse save(@RequestBody AttrTemp attrTemp){
         ShopGoodsAttrTemplate template = new ShopGoodsAttrTemplate();
@@ -39,14 +43,15 @@ public class ShopGoodsAttrTemplateController  {
         return  shopGoodsAttrTemplateService.addShopGoodsAttrTemplateSelective(template);
     }
     /**
-     * 根据系统用户编号获取系统用户信息
+     *
      * @param adminId
      * @return
      */
+   /* @ApiOperation(value = "获取属性模板",tags = "findOne", notes = "根据编号获取属性模板信息")
     @GetMapping("/findOne")
     public ServerResponse findOne(Integer adminId){
         return this.shopGoodsAttrTemplateService.findOne(adminId);
-    }
+    }*/
 
     /**
      * 处理修改数据表单提交
@@ -72,6 +77,7 @@ public class ShopGoodsAttrTemplateController  {
      * @param catId
      * @return
      */
+    @ApiOperation(value = "查询类目信息",tags = "findAttr", notes = "根据类目编号查询类目信息")
     @GetMapping("/findAttr")
     public ServerResponse findAttr(@RequestParam Integer catId){
         return shopGoodsAttrTemplateService.findByCatId(catId);

@@ -1,6 +1,7 @@
 package com.hzitxx.hitao.controller;
 
 import com.hzitxx.hitao.commons.ServerResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -12,7 +13,8 @@ import java.util.UUID;
 
 @RestController
 public class MemberInfoController {
-
+    @Value("${savepath}")
+    private String path;
     /**
      * 上传会员头像
      * @param avatar
@@ -25,8 +27,8 @@ public class MemberInfoController {
         }
         try{
             String fileName = UUID.randomUUID().toString()+avatar.getOriginalFilename();
-            avatar.transferTo(new File("D:/hitao_images2/"+fileName));
-            return ServerResponse.createBySuccess("http://localhost:8096/static/"+fileName);
+            avatar.transferTo(new File(path+fileName));
+            return ServerResponse.createBySuccess("文件上传成功!",fileName);
         }catch (IOException e){
             e.printStackTrace();
             return  ServerResponse.createByErrorMessage("文件上传失败!");

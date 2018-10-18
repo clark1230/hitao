@@ -38,7 +38,7 @@ public interface IShopAreaService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopArea> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopArea>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据

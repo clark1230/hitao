@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.market.ShopArticleClassMapper">
+    <!--shop_article_class表中的列-->
+    <sql id="shopArticleClassBaseColumn">
+         ac_id,
+         ac_code,
+         ac_name,
+         ac_parent_id,
+         ac_sort,
+         is_del,
+         ac_status,
+         created_time,
+         updated_time
+    </sql>
+
+    <!--添加-->
+    <insert id="addShopArticleClass" parameterType="com.hzitxx.hitao.system.pojo.market.ShopArticleClass">
+        INSERT INTO shop_article_class(
+            <include refid="shopArticleClassBaseColumn"/>
+        ) VALUES(
+                #{acId},
+                #{acCode},
+                #{acName},
+                #{acParentId},
+                #{acSort},
+                #{isDel},
+                #{acStatus},
+                #{createdTime},
+                #{updatedTime}
+        )
+    </insert>
+
+    <insert id="addShopArticleClassSelective" parameterType="com.hzitxx.hitao.system.pojo.market.ShopArticleClass">
+        insert into shop_article_class
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="acId != null">
+                ac_id,
+            </if>
+            <if test="acCode != null">
+                ac_code,
+            </if>
+            <if test="acName != null">
+                ac_name,
+            </if>
+            <if test="acParentId != null">
+                ac_parent_id,
+            </if>
+            <if test="acSort != null">
+                ac_sort,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="acStatus != null">
+                ac_status,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="acId != null">
+                #{acId},
+            </if>
+            <if test="acCode != null">
+                #{acCode},
+            </if>
+            <if test="acName != null">
+                #{acName},
+            </if>
+            <if test="acParentId != null">
+                #{acParentId},
+            </if>
+            <if test="acSort != null">
+                #{acSort},
+            </if>
+            <if test="isDel != null">
+                #{isDel},
+            </if>
+            <if test="acStatus != null">
+                #{acStatus},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_article_class WHERE
+        ac_id = #{acId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_article_class WHERE ac_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.market.ShopArticleClass">
+        UPDATE shop_article_class
+        <set>
+          ac_id=#{acId},
+          ac_code=#{acCode},
+          ac_name=#{acName},
+          ac_parent_id=#{acParentId},
+          ac_sort=#{acSort},
+          is_del=#{isDel},
+          ac_status=#{acStatus},
+          created_time=#{createdTime},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           ac_id = #{acId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.market.ShopArticleClass">
+        UPDATE shop_article_class
+        <set>
+    <if test="acId != null">
+          ac_id = #{acId},
+    </if>
+    <if test="acCode != null">
+          ac_code = #{acCode},
+    </if>
+    <if test="acName != null">
+          ac_name = #{acName},
+    </if>
+    <if test="acParentId != null">
+          ac_parent_id = #{acParentId},
+    </if>
+    <if test="acSort != null">
+          ac_sort = #{acSort},
+    </if>
+    <if test="isDel != null">
+          is_del = #{isDel},
+    </if>
+    <if test="acStatus != null">
+          ac_status = #{acStatus},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      ac_id = #{acId}
+    </update>
+
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopArticleClassMap" parameterType="integer">
+        select
+        <include refid="shopArticleClassBaseColumn"/>
+        from
+            shop_article_class
+        WHERE
+          ac_id = #{acId}
+    </select>
+
+    <!--查询数据-->
+    <select id="searchShopArticleClass" parameterType="map" resultMap="shopArticleClassMap">
+        SELECT
+        <include refid="shopArticleClassBaseColumn"/>
+        FROM shop_article_class
+        <include refid="shopArticleClassBaseWhereSql"/>
+    </select>
+
+    <!--基础查询条件-->
+    <sql id="shopArticleClassBaseWhereSql">
+        <if test="map!=null">
+            <where>
+                <if test="acId !=null">
+                    AND ac_id = #{map.acId}
+                </if>
+                <if test="acCode !=null">
+                    AND ac_code = #{map.acCode}
+                </if>
+                <if test="acName !=null">
+                    AND ac_name = #{map.acName}
+                </if>
+                <if test="acParentId !=null">
+                    AND ac_parent_id = #{map.acParentId}
+                </if>
+                <if test="acSort !=null">
+                    AND ac_sort = #{map.acSort}
+                </if>
+                <if test="isDel !=null">
+                    AND is_del = #{map.isDel}
+                </if>
+                <if test="acStatus !=null">
+                    AND ac_status = #{map.acStatus}
+                </if>
+                <if test="createdTime !=null">
+                    AND created_time = #{map.createdTime}
+                </if>
+                <if test="updatedTime !=null">
+                    AND updated_time = #{map.updatedTime}
+                </if>
+            </where>
+        </if>
+    </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="shopArticleClassMap" type="com.hzitxx.hitao.system.pojo.market.ShopArticleClass">
+        <id column="ac_id" property="acId"/>
+        <result column="ac_code" property="acCode"/>
+        <result column="ac_name" property="acName"/>
+        <result column="ac_parent_id" property="acParentId"/>
+        <result column="ac_sort" property="acSort"/>
+        <result column="is_del" property="isDel"/>
+        <result column="ac_status" property="acStatus"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>

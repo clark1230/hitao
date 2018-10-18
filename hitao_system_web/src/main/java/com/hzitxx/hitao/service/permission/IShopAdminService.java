@@ -39,7 +39,7 @@ public interface IShopAdminService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopAdmin> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopAdmin>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据

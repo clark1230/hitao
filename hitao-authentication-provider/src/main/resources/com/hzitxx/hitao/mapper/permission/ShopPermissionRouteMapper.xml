@@ -161,31 +161,29 @@
     </select>
     <!--基础查询条件-->
     <sql id="shopPermissionRouteBaseWhereSql">
-        <if test="map!=null">
-            <where>
-                <if test="map.routeId !=null">
-                    AND route_id = #{map.routeId}
-                </if>
-                <if test="map.parentId !=null">
-                    AND parent_id = #{map.parenId}
-                </if>
-                <if test="map.path !=null">
-                    AND path = #{map.path}
-                </if>
-                <if test="map.component !=null">
-                    AND component = #{map.component}
-                </if>
-                <if test="map.name !=null">
-                    AND name = #{map.name}
-                </if>
-                <if test="map.redirect !=null">
-                    AND redirect = #{map.redirect}
-                </if>
-                <if test="map.meta !=null">
-                    AND meta = #{map.meta}
-                </if>
-            </where>
-        </if>
+        <where>
+            <if test="routeId !=null">
+                AND route_id = #{routeId}
+            </if>
+            <if test="parentId !=null">
+                AND parent_id = #{parenId}
+            </if>
+            <if test="path !=null">
+                AND path = #{path}
+            </if>
+            <if test="component !=null">
+                AND component = #{component}
+            </if>
+            <if test="name !=null">
+                AND name = #{name}
+            </if>
+            <if test="redirect !=null">
+                AND redirect = #{redirect}
+            </if>
+            <if test="meta !=null">
+                AND meta = #{meta}
+            </if>
+        </where>
     </sql>
 
     <!-- 通用查询映射结果 -->

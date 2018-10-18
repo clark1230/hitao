@@ -209,16 +209,16 @@
         </if>
     </sql>
 
-         <!-- 通用查询映射结果 -->
+    <!-- 通用查询映射结果 -->
     <resultMap id="shopAreaMap" type="com.hzitxx.hitao.system.pojo.member.ShopArea">
-            <id column="area_id" property="areaId"/>
-            <result column="area_name" property="areaName"/>
-            <result column="area_parent_id" property="areaParentId"/>
-            <result column="area_sort" property="areaSort"/>
-            <result column="post_code" property="postCode"/>
-            <result column="area_deep" property="areaDeep"/>
-            <result column="is_del" property="isDel"/>
-            <result column="created_time" property="createdTime"/>
-            <result column="updated_time" property="updatedTime"/>
+        <id column="area_id" property="areaId"/>
+        <result column="area_name" property="areaName"/>
+        <result column="area_parent_id" property="areaParentId"/>
+        <result column="area_sort" property="areaSort"/>
+        <result column="post_code" property="postCode"/>
+        <result column="area_deep" property="areaDeep"/>
+        <result column="is_del" property="isDel"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
      </resultMap>
 </mapper>

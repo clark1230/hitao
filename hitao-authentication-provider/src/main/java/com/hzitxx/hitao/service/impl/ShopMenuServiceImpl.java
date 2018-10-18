@@ -7,10 +7,12 @@ import com.hzitxx.hitao.mapper.permission.ShopMenuMapper;
 import com.hzitxx.hitao.service.IShopMenuService;
 import com.hzitxx.hitao.system.pojo.permission.ShopMenu;
 import com.hzitxx.hitao.utils.LayuiEntity;
-import com.hzitxx.hitao.vo.ShopMenuVO;
+import com.hzitxx.hitao.vo.shopmenu.ShopMenuVO;
+import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,16 +28,19 @@ import java.util.Map;
 public class ShopMenuServiceImpl implements IShopMenuService {
 
     @Autowired(required = false)
-    private ShopMenuMapper mapper;
+    private ShopMenuMapper shopMenuMapper;
+
+    @Autowired
+    private Mapper mapper;
 
     @Override
     public int addShopMenu(ShopMenu shopMenu){
-        return mapper.addShopMenu(shopMenu);
+        return shopMenuMapper.addShopMenu(shopMenu);
     }
 
     @Override
     public ServerResponse addShopMenuSelective(ShopMenu shopMenu){
-        int result = this.mapper.addShopMenuSelective(shopMenu);
+        int result = this.shopMenuMapper.addShopMenuSelective(shopMenu);
         if(result !=1){
             return ServerResponse.createByErrorMessage("权限信息添加失败!");
         }
@@ -44,7 +49,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
 
     @Override
     public ServerResponse deleteById(int mId){
-        int result = this.mapper.deleteById(mId);
+        int result = this.shopMenuMapper.deleteById(mId);
         if(result != 1){
             return ServerResponse.createByErrorMessage("删除失败!");
         }
@@ -53,7 +58,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
 
     @Override
     public ServerResponse deleteByIds(String[]ids){
-        int result = this.mapper.deleteByIds(ids);
+        int result = this.shopMenuMapper.deleteByIds(ids);
         if(result == 0){
             return ServerResponse.createByErrorMessage("批量删除失败!");
         }
@@ -62,7 +67,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
 
     @Override
     public  ServerResponse updateById(ShopMenu shopMenu){
-        int result = this.mapper.updateById(shopMenu);
+        int result = this.shopMenuMapper.updateById(shopMenu);
         if(result != 1){
             return ServerResponse.createByErrorMessage("编辑权限信息失败!");
         }
@@ -71,7 +76,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
 
     @Override
     public  ServerResponse updateSelectiveById(ShopMenu shopMenu){
-        int result = this.mapper.updateSelectiveById(shopMenu);
+        int result = this.shopMenuMapper.updateSelectiveById(shopMenu);
         if(result != 1){
             return ServerResponse.createByErrorMessage("编辑权限信息失败!");
         }
@@ -80,7 +85,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
 
 //    @Override
 //    public  List<ShopMenuVO> searchShopMenu(Map<String, Object> map){
-//        return mapper.searchShopMenu(map);
+//        return shopMenuMapper.searchShopMenu(map);
 //    }
 
     /**
@@ -91,11 +96,11 @@ public class ShopMenuServiceImpl implements IShopMenuService {
      * @return
      */
     @Override
-    public ServerResponse<LayuiEntity<ShopMenuVO>> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopMenu>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
-        List<ShopMenuVO>  obj=mapper.searchShopMenu(map);
-        PageInfo<ShopMenuVO> pageInfo=new PageInfo<>(obj);
-        LayuiEntity<ShopMenuVO> layuiEntity=new LayuiEntity<>();
+        List<ShopMenu>  obj= shopMenuMapper.searchShopMenu(map);
+        PageInfo<ShopMenu> pageInfo=new PageInfo<ShopMenu>(obj);
+        LayuiEntity<ShopMenu> layuiEntity=new LayuiEntity<>();
         layuiEntity.setCode(0);
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
@@ -111,7 +116,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
      */
     @Override
     public ServerResponse findOne(Integer mId){
-        ShopMenu shopMenu = this.mapper.findOne(mId);
+        ShopMenu shopMenu = this.shopMenuMapper.findOne(mId);
         if(shopMenu == null){
             return ServerResponse.createByErrorMessage("获取数据失败!");
         }
@@ -124,26 +129,40 @@ public class ShopMenuServiceImpl implements IShopMenuService {
      */
     @Override
     public ServerResponse menuData() {
-        List<ShopMenu> shopMenuList = this.mapper.searchByParentId(0);
+        List<ShopMenu> shopMenuList = this.shopMenuMapper.searchByParentId(0);
+        List<ShopMenuVO> shopMenuVOList = this.converList(shopMenuList,new ArrayList<ShopMenuVO>());
         if(shopMenuList != null && shopMenuList.size() >0){
-            for(ShopMenu sm: shopMenuList){
-                List<ShopMenu> sub2 = this.mapper.searchByParentId(sm.getId());
-                sm.setChildren(sub2);
+            for(ShopMenuVO sm: shopMenuVOList){
+                List<ShopMenu> sub2 = this.shopMenuMapper.searchByParentId(sm.getId());
+                List<ShopMenuVO> subVo2 = this.converList(sub2,new ArrayList<ShopMenuVO>());
+                sm.setChildren(subVo2);
                 if(sub2 != null && sub2.size() >0){
-                    for(ShopMenu sm2: sub2){
-                        List<ShopMenu> sub3 = this.mapper.searchByParentId(sm2.getId());
-                        sm2.setChildren(sub3);
+                    for(ShopMenuVO sm2: subVo2){
+                        List<ShopMenu> sub3 = this.shopMenuMapper.searchByParentId(sm2.getId());
+                        List<ShopMenuVO> subVo3 = this.converList(sub3,new ArrayList<ShopMenuVO>());
+                        sm2.setChildren(subVo3);
                         if(sub3!= null && sub3.size() >0 ){
-                            for(ShopMenu sm3 : sub3){
-                                List<ShopMenu> sub4 = this.mapper.searchByParentId(sm3.getId());
-                                sm3.setChildren(sub4);
+                            for(ShopMenuVO sm3 : subVo3){
+                                List<ShopMenu> sub4 = this.shopMenuMapper.searchByParentId(sm3.getId());
+                                sm3.setChildren(this.converList(sub4,new ArrayList<ShopMenuVO>()));
                             }
                         }
                     }
                 }
             }
         }
-        return ServerResponse.createBySuccess(shopMenuList);
+        return ServerResponse.createBySuccess(shopMenuVOList);
+    }
+
+
+
+    public List<ShopMenuVO> converList(List<ShopMenu> sourceList,List<ShopMenuVO>targetList){
+        if(sourceList!= null){
+            for(ShopMenu shopMenu: sourceList){
+                targetList.add(mapper.map(shopMenu,ShopMenuVO.class));
+            }
+        }
+        return targetList;
     }
 
 

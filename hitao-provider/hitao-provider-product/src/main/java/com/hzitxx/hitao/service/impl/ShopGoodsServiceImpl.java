@@ -74,7 +74,7 @@ public class ShopGoodsServiceImpl implements ShopGoodsService {
         if (memberId != null && !Integer.valueOf(0).equals(memberId)) {
             shopFavorites = this.shopFavoritesService.checkFavorites(memberId,goodsId).getData();
         }
-        detailVo.setIsFavorites((shopFavorites==null)?0:1);
+        detailVo.setIsFavorites((shopFavorites==null)? 0:1);
         if(shopGoods == null){
             return ServerResponse.createByErrorMessage("查询商品信息失败!");
         }

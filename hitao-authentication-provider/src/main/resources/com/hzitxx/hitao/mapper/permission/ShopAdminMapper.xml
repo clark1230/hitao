@@ -21,7 +21,6 @@
          updated_time
     </sql>
 
-
     <!--添加-->
     <insert id="addShopAdmin" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
         INSERT INTO shop_admin(
@@ -44,6 +43,7 @@
                 #{updatedTime}
         )
     </insert>
+
     <insert id="addShopAdminSelective" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
         insert into shop_admin
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -141,6 +141,7 @@
             </if>
         </trim>
     </insert>
+
     <!--根据id删除数据-->
     <delete id="deleteById" parameterType="integer">
         DELETE FROM  shop_admin WHERE
@@ -154,6 +155,7 @@
             #{idItem}
           </foreach>
     </delete>
+
     <!--根据id修改数据-->
     <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.permission.ShopAdmin">
         UPDATE shop_admin
@@ -230,6 +232,7 @@
         WHERE
       admin_id = #{adminId}
     </update>
+
     <!--根据id查询一条数据-->
     <select id="findOne" resultMap="shopAdminMap" parameterType="integer">
         select
@@ -248,6 +251,7 @@
         WHERE
         admin_name = #{adminName}
     </select>
+
     <!--查询数据-->
     <select id="searchShopAdmin" parameterType="map" resultMap="showAdminVOMap">
         SELECT
@@ -265,6 +269,12 @@
             shop_admin upd
         ON
             adm.`updated_by` = upd.`admin_id`
+        <where>
+            <if test="map !=null and map.adminName!=null">
+              adm.admin_name like concat(#{map.adminName},'%')
+            </if>
+
+        </where>
     </select>
 
     <!--系统登陆-->
@@ -287,55 +297,53 @@
     </select>
     <!--基础查询条件-->
     <sql id="shopAdminBaseWhereSql">
-        <if test="map!=null">
-            <where>
-                <if test="map.adminId !=null">
-                    AND admin_id = #{map.adminId}
-                </if>
-                <if test="map.adminName !=null">
-                    AND admin_name = #{map.adminName}
-                </if>
-                <if test="map.adminPassword !=null">
-                    AND admin_password = #{map.adminPassword}
-                </if>
-                <if test="map.adminLoginNum !=null">
-                    AND admin_login_num = #{map.adminLoginNum}
-                </if>
-                <if test="map.loginIp !=null">
-                    AND login_ip = #{map.loginIp}
-                </if>
-                <if test="map.loginStatus !=null">
-                    AND login_status = #{map.loginStatus}
-                </if>
-                <if test="map.email !=null">
-                    AND email = #{map.email}
-                </if>
-                <if test="map.isDel !=null">
-                    AND is_del = #{map.isDel}
-                </if>
-                <if test="map.loginTime !=null">
-                    AND login_time = #{map.loginTime}
-                </if>
-                <if test="map.actionList !=null">
-                    AND action_list = #{map.actionList}
-                </if>
-                <if test="map.navList !=null">
-                    AND nav_list = #{map.navList}
-                </if>
-                <if test="map.createdBy !=null">
-                    AND created_by = #{map.createdBy}
-                </if>
-                <if test="map.createdTime !=null">
-                    AND created_time = #{map.createdTime}
-                </if>
-                <if test="map.updatedBy !=null">
-                    AND updated_by = #{map.updatedBy}
-                </if>
-                <if test="map.updatedTime !=null">
-                    AND updated_time = #{map.updatedTime}
-                </if>
-            </where>
-        </if>
+        <where>
+            <if test="adminId !=null">
+                AND admin_id = #{adminId}
+            </if>
+            <if test="adminName !=null">
+                AND admin_name  like concat(#{adminName},'%')
+            </if>
+            <if test="adminPassword !=null">
+                AND admin_password = #{adminPassword}
+            </if>
+            <if test="adminLoginNum !=null">
+                AND admin_login_num = #{adminLoginNum}
+            </if>
+            <if test="loginIp !=null">
+                AND login_ip = #{loginIp}
+            </if>
+            <if test="loginStatus !=null">
+                AND login_status = #{loginStatus}
+            </if>
+            <if test="email !=null">
+                AND email = #{email}
+            </if>
+            <if test="isDel !=null">
+                AND is_del = #{isDel}
+            </if>
+            <if test="loginTime !=null">
+                AND login_time = #{loginTime}
+            </if>
+            <if test="actionList !=null">
+                AND action_list = #{actionList}
+            </if>
+            <if test="navList !=null">
+                AND nav_list = #{navList}
+            </if>
+            <if test="createdBy !=null">
+                AND created_by = #{createdBy}
+            </if>
+            <if test="createdTime !=null">
+                AND created_time = #{createdTime}
+            </if>
+            <if test="updatedBy !=null">
+                AND updated_by = #{updatedBy}
+            </if>
+            <if test="updatedTime !=null">
+                AND updated_time = #{updatedTime}
+            </if>
+        </where>
     </sql>
 
     <!-- 通用查询映射结果 -->

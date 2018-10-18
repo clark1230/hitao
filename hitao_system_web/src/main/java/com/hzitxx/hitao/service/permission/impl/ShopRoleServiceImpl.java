@@ -95,7 +95,7 @@ public class ShopRoleServiceImpl implements IShopRoleService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopRole> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopRole>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopRole>  obj=mapper.searchShopRole(map);
         PageInfo<ShopRole> pageInfo=new PageInfo<>(obj);
@@ -104,7 +104,7 @@ public class ShopRoleServiceImpl implements IShopRoleService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
     /**

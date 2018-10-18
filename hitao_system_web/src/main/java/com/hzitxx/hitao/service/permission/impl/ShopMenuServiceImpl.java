@@ -70,7 +70,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
      * @return
      */
     @Override
-    public LayuiEntity<ShopMenu> page(int page, int limit, Map<String, Object> map){
+    public ServerResponse<LayuiEntity<ShopMenu>> page(int page, int limit, Map<String, Object> map){
         PageHelper.startPage(page,limit);
         List<ShopMenu>  obj=mapper.searchShopMenu(map);
         PageInfo<ShopMenu> pageInfo=new PageInfo<>(obj);
@@ -79,7 +79,7 @@ public class ShopMenuServiceImpl implements IShopMenuService {
         layuiEntity.setMsg("数据");
         layuiEntity.setCount(pageInfo.getTotal());
         layuiEntity.setData(pageInfo.getList());
-        return layuiEntity;
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 
 

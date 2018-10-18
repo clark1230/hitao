@@ -4,8 +4,6 @@ import com.alibaba.fastjson.JSON;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
-import com.hzitxx.hitao.vo.shopGoods.ShopGoodsCateVO;
-import com.hzitxx.hitao.vo.shopGoods.ShopGoodsVO;
 import com.hzitxx.hitao.mapper.product.ShopGoodsAttrMapper;
 import com.hzitxx.hitao.mapper.product.ShopGoodsContentMapper;
 import com.hzitxx.hitao.mapper.product.ShopGoodsMapper;
@@ -14,6 +12,8 @@ import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.system.pojo.product.ShopGoodsAttr;
 import com.hzitxx.hitao.system.pojo.product.ShopGoodsContent;
 import com.hzitxx.hitao.util.LayuiEntity;
+import com.hzitxx.hitao.vo.shopgoods.ShopGoodsCateVO;
+import com.hzitxx.hitao.vo.shopgoods.ShopGoodsVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -204,11 +204,12 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         ShopGoodsVO shopGoodsVO = new ShopGoodsVO();
         BeanUtils.copyProperties(shopGoods,shopGoodsVO);
         // json反序列化
-        shopGoodsVO.setAttrValue(JSON.parseArray(shopGoodsAttr.getAttrValue(), ShopGoodsCateVO.class));
-        shopGoodsVO.setContent(shopGoodsContent.getContent());
+        if(shopGoodsAttr!= null){
+            shopGoodsVO.setAttrValue(JSON.parseArray(shopGoodsAttr.getAttrValue(), ShopGoodsCateVO.class));
 
-        if(shopGoods == null){
-            return ServerResponse.createByErrorMessage("该数据不存在!");
+        }
+        if(shopGoodsContent!= null){
+            shopGoodsVO.setContent(shopGoodsContent.getContent());
         }
         return ServerResponse.createBySuccess(shopGoodsVO);
      }

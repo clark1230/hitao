@@ -6,6 +6,7 @@ import com.hzitxx.hitao.utils.LayuiEntity;
 import com.hzitxx.hitao.vo.ShopAdminVO;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -40,7 +41,7 @@ public interface IShopAdminService  {
      * @param map
      * @return
      */
-    LayuiEntity<ShopAdminVO> page(int page, int limit, Map<String, Object> map);
+    ServerResponse<LayuiEntity<ShopAdminVO>> page(int page, int limit, Map<String, Object> map);
 
     /**
      * 根据编号查询数据
@@ -82,4 +83,19 @@ public interface IShopAdminService  {
      * @return
      */
     ServerResponse logout(Integer adminId);
+
+    /**
+     * 为用户授予角色
+     * @param adminIds
+     * @param roleIds
+     * @return
+     */
+    ServerResponse<String> grantRole(Integer[] adminIds,Integer[] roleIds);
+
+    /**
+     * 根据管理员编号查询角色编号
+     * @param adminId
+     * @return
+     */
+    ServerResponse<List<Integer>> findRoleByAdminId(Integer adminId);
 }

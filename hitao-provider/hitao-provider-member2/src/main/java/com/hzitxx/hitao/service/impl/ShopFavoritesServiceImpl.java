@@ -70,6 +70,7 @@ public class ShopFavoritesServiceImpl implements IShopFavoritesService {
             if(favorites != null){
                 return ServerResponse.createByErrorMessage("该商品已被收藏!");
             }else{
+                // 获取商品信息
                 ShopGoods shopGoods =  this.shopGoodsService.findById(shopFavorites.getGoodsId()).getData();
                 BeanUtils.copyProperties(shopGoods,shopFavorites);
                 shopFavorites.setFavTime(new Date());
@@ -81,7 +82,11 @@ public class ShopFavoritesServiceImpl implements IShopFavoritesService {
             }
 
         }else{
-            result = this.mapper.deleteById(shopFavorites.getFavId());
+            System.out.println(shopFavorites);
+            Map<String,Object> map = new HashMap<>();
+            map.put("goodsId",shopFavorites.getGoodsId());
+            map.put("memberId",shopFavorites.getMemberId());
+            result = this.mapper.deleteByGoodsIdAndMemberId(map);
             if(result !=1){
                 return  ServerResponse.createByErrorMessage("取消收藏失败!");
             }
