@@ -24,7 +24,7 @@ import java.util.Map;
 @Service
 public class ShopArticleClassServiceImpl implements IShopArticleClassService {
 
-    @Autowired
+    @Autowired(required = false)
     private ShopArticleClassMapper shopArticleClassMapper;
 
     @Override
@@ -57,7 +57,7 @@ public class ShopArticleClassServiceImpl implements IShopArticleClassService {
     @Override
     public ServerResponse deleteByIds(String[]ids){
         int result = this.shopArticleClassMapper.deleteByIds(ids);
-        if(result != 0){
+        if(result == 0){
             return ServerResponse.createByErrorMessage("批量删除失败!");
         }
         return ServerResponse.createBySuccessMessage("批量删除成功!");

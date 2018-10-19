@@ -82,6 +82,8 @@ public class ShopGoodsVO {
      */
     private String content;
 
+    private Integer isDel;
+
     @Override
     public String toString() {
         return "ShopGoodsVO{" +

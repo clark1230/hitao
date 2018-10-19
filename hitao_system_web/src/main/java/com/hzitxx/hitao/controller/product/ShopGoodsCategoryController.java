@@ -7,6 +7,7 @@ import com.hzitxx.hitao.util.LayuiEntity;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -33,8 +34,13 @@ public class ShopGoodsCategoryController {
     @GetMapping(value="shopGoodsCategoryAjax")
     @ResponseBody
     public ServerResponse<LayuiEntity<ShopGoodsCategory>> shopGoodsCategoryAjax(@RequestParam(value = "page",defaultValue = "1") int page,
-                                                                @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
+                                                                @RequestParam(value = "limit",defaultValue = "20") int  limit,
+                                                                                String catName){
+
         Map<String,Object>  map = new HashMap<>();
+        if(!StringUtils.isEmpty(catName)) {
+            map.put("catName",catName);
+        }
         return shopGoodsCategoryService.page(page,limit,map);
     }
 

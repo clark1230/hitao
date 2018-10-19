@@ -9,6 +9,7 @@
     <artifactId>hitao_cloud</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <!--模块-->
     <modules>
         <module>hitao-provider-api</module>
         <module>hitao-registry</module>
@@ -16,6 +17,9 @@
         <module>hitao-provider/hitao-provider-product</module>
         <module>hitao-provider/hitao-provider-member2</module>
         <module>hitao-provider/hitao-base-provider</module>
+        <module>hitao-provider/hitao-authentication-provider</module>
+        <module>hitao-provider/hitao-order-provider</module>
+        <module>hitao-provider/hitao-search-provider</module>
         <module>hitao-gateway</module>
         <module>hitao-config</module>
         <module>hitao-bus</module>
@@ -23,12 +27,7 @@
         <module>hitao-fileservice</module>
         <module>hitao_system_web</module>
         <module>hitao-monitor</module>
-        <module>hitao-message-app</module>
-        <module>hitao-search</module>
-        <module>hitao-authentication-provider</module>
-        <module>hitao-order-provider</module>
-        <module>hitao-gateway3</module>
-
+        <module>hitao-task</module>
     </modules>
 
     <parent>

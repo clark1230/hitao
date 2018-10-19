@@ -125,19 +125,14 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
     @Transactional
     @Override
     public  ServerResponse updateSelectiveById(ShopGoodsVO shopGoodsVO){
-
         int goodsId = shopGoodsVO.getGoodsId();
         ShopGoods shopGoods = new ShopGoods();
         BeanUtils.copyProperties(shopGoods,shopGoodsVO);
         shopGoods.setUpdatedTime(new Date());
-
-
         ShopGoodsAttr shopGoodsAttr = new ShopGoodsAttr();
         shopGoodsAttr.setGoodsId(goodsId);
         shopGoodsAttr.setAttrValue(JSON.toJSONString(shopGoodsVO.getAttrValue()));
         shopGoodsAttr.setUpdatedTiime(new Date());
-
-
         ShopGoodsContent shopGoodsContent = new ShopGoodsContent();
         shopGoodsContent.setGoodsId(goodsId);
         shopGoodsContent.setContent(shopGoodsVO.getContent());
@@ -213,5 +208,28 @@ public class ShopGoodsServiceImpl implements IShopGoodsService {
         }
         return ServerResponse.createBySuccess(shopGoodsVO);
      }
+
+    /**
+     * 商品上架或者下架
+     * @param shopGoods
+     * @return
+     */
+    @Override
+    public ServerResponse onSalceOrShelves(ShopGoods shopGoods) {
+        int result = this.mapper.updateSelectiveById(shopGoods);
+        if(result != 1) {
+            if(shopGoods.getIsDel().equals(1)) {
+                return  ServerResponse.createByErrorMessage("商品下架失败！");
+            }else if(shopGoods.getIsDel().equals(0)) {
+                return  ServerResponse.createByErrorMessage("商品上架失败!");
+            }
+            return ServerResponse.createByErrorMessage("操作错误!");
+        }else {
+            if(shopGoods.getIsDel().equals(1)) {
+                return ServerResponse.createBySuccessMessage("商品下架成功!");
+            }
+            return ServerResponse.createBySuccessMessage("商品上架成功!");
+        }
+    }
 }
 

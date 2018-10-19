@@ -416,7 +416,7 @@
                     AND goods_id = #{map.goodsId}
                 </if>
                 <if test="map.goodsName !=null">
-                    AND goods_name = #{map.goodsName}
+                    AND goods_name like concat(#{map.goodsName},'%')
                 </if>
                 <if test="map.goodsJingle !=null">
                     AND goods_jingle = #{map.goodsJingle}

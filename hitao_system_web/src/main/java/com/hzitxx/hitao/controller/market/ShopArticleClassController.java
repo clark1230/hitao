@@ -31,7 +31,6 @@ public class ShopArticleClassController  {
      * @return
      */
     @GetMapping(value="/showData")
-    @ResponseBody
     public ServerResponse<LayuiEntity<ShopArticleClass>> shopArticleClassAjax(@RequestParam(value = "page",defaultValue = "1") int page,
                                                                               @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
         Map<String,Object>  map = new HashMap<>();
@@ -76,8 +75,8 @@ public class ShopArticleClassController  {
     * @return
     */
     @GetMapping("/removeBatch")
-    public ServerResponse removeBatch(String[] ids){
-       return shopArticleClassService.deleteByIds(ids);
+    public ServerResponse removeBatch(String[] acIds){
+       return shopArticleClassService.deleteByIds(acIds);
     }
 
     /**

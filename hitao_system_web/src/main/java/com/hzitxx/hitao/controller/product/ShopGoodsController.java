@@ -7,6 +7,7 @@ import com.hzitxx.hitao.system.pojo.product.ShopGoods;
 import com.hzitxx.hitao.util.LayuiEntity;
 import com.hzitxx.hitao.vo.shopgoods.ShopGoodsVO;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -33,8 +34,12 @@ public class ShopGoodsController  {
      */
     @GetMapping(value="shopGoodsAjax")
     public ServerResponse<LayuiEntity<ShopGoods>> shopGoodsAjax(@RequestParam(value = "page",defaultValue = "1") int page,
-                                                @RequestParam(value = "limit",defaultValue = "20") int  limit, String value){
+                                                @RequestParam(value = "limit",defaultValue = "20")
+                                                        int  limit, String goodsName){
         Map<String,Object>  map = new HashMap<>();
+        if(!StringUtils.isEmpty(goodsName)) {
+            map.put("goodsName",goodsName);
+        }
         return shopGoodsService.page(page,limit,map);
 
     }
@@ -81,4 +86,12 @@ public class ShopGoodsController  {
         return this.shopGoodsService.findOne(goodsId);
     }
 
+    /**
+     * 商品上架或者下架
+     * @return
+     */
+    @GetMapping("/onSalceOrShelves")
+    public ServerResponse onSalceOrShelves(ShopGoods shopGoods) {
+        return this.shopGoodsService.onSalceOrShelves(shopGoods);
+    }
 }

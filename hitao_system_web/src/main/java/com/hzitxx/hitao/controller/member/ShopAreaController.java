@@ -105,4 +105,14 @@ public class ShopAreaController  {
         }};
         return this.shopAreaService.searchShopArea(paramsMap);
     }
+
+    /**
+     * 逻辑删除区域信息
+     * @param shopArea
+     * @return
+     */
+    @GetMapping("/removeShopArea")
+    public ServerResponse removeShopArea(ShopArea shopArea){
+        return this.shopAreaService.updateSelectiveById(shopArea);
+    }
 }

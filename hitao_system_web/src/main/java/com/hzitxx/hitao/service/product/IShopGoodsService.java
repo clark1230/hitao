@@ -47,4 +47,11 @@ public interface IShopGoodsService  {
      */
     ServerResponse findOne(Integer goodsId);
 
+    /**
+     * 商品上架或者下架
+     * @param shopGoods
+     * @return
+     */
+    ServerResponse onSalceOrShelves(ShopGoods shopGoods);
+
 }

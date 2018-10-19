@@ -1,0 +1,462 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hzitxx.hitao.mapper.order.ShopOrderMapper">
+    <!--shop_order表中的列-->
+    <sql id="shopOrderBaseColumn">
+         order_id,
+         order_sn,
+         pay_sn,
+         buyer_id,
+         buyer_name,
+         buyer_email,
+         add_time,
+         payment_code,
+         payment_time,
+         finnshed_time,
+         goods_amount,
+         order_amount,
+         pd_amount,
+         shipping_fee,
+         evaluation_state,
+         order_state,
+         refund_state,
+         lock_state,
+         refund_amount,
+         delay_time,
+         shipping_code,
+         is_del,
+         created_time,
+         updated_time
+    </sql>
+
+
+    <!--添加-->
+    <insert id="addShopOrder" parameterType="com.hzitxx.hitao.system.pojo.order.ShopOrder">
+        INSERT INTO shop_order(
+            <include refid="shopOrderBaseColumn"/>
+        ) VALUES(
+                #{orderId},
+                #{orderSn},
+                #{paySn},
+                #{buyerId},
+                #{buyerName},
+                #{buyerEmail},
+                #{addTime},
+                #{paymentCode},
+                #{paymentTime},
+                #{finnshedTime},
+                #{goodsAmount},
+                #{orderAmount},
+                #{pdAmount},
+                #{shippingFee},
+                #{evaluationState},
+                #{orderState},
+                #{refundState},
+                #{lockState},
+                #{refundAmount},
+                #{delayTime},
+                #{shippingCode},
+                #{isDel},
+                #{createdTime},
+                #{updatedTime}
+        )
+    </insert>
+    <insert id="addShopOrderSelective" parameterType="com.hzitxx.hitao.system.pojo.order.ShopOrder">
+        insert into shop_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                order_id,
+            </if>
+            <if test="orderSn != null">
+                order_sn,
+            </if>
+            <if test="paySn != null">
+                pay_sn,
+            </if>
+            <if test="buyerId != null">
+                buyer_id,
+            </if>
+            <if test="buyerName != null">
+                buyer_name,
+            </if>
+            <if test="buyerEmail != null">
+                buyer_email,
+            </if>
+            <if test="addTime != null">
+                add_time,
+            </if>
+            <if test="paymentCode != null">
+                payment_code,
+            </if>
+            <if test="paymentTime != null">
+                payment_time,
+            </if>
+            <if test="finnshedTime != null">
+                finnshed_time,
+            </if>
+            <if test="goodsAmount != null">
+                goods_amount,
+            </if>
+            <if test="orderAmount != null">
+                order_amount,
+            </if>
+            <if test="pdAmount != null">
+                pd_amount,
+            </if>
+            <if test="shippingFee != null">
+                shipping_fee,
+            </if>
+            <if test="evaluationState != null">
+                evaluation_state,
+            </if>
+            <if test="orderState != null">
+                order_state,
+            </if>
+            <if test="refundState != null">
+                refund_state,
+            </if>
+            <if test="lockState != null">
+                lock_state,
+            </if>
+            <if test="refundAmount != null">
+                refund_amount,
+            </if>
+            <if test="delayTime != null">
+                delay_time,
+            </if>
+            <if test="shippingCode != null">
+                shipping_code,
+            </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
+            <if test="createdTime != null">
+                created_time,
+            </if>
+            <if test="updatedTime != null">
+                updated_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="orderId != null">
+                #{orderId},
+            </if>
+            <if test="orderSn != null">
+                #{orderSn},
+            </if>
+            <if test="paySn != null">
+                #{paySn},
+            </if>
+            <if test="buyerId != null">
+                #{buyerId},
+            </if>
+            <if test="buyerName != null">
+                #{buyerName},
+            </if>
+            <if test="buyerEmail != null">
+                #{buyerEmail},
+            </if>
+            <if test="addTime != null">
+                #{addTime},
+            </if>
+            <if test="paymentCode != null">
+                #{paymentCode},
+            </if>
+            <if test="paymentTime != null">
+                #{paymentTime},
+            </if>
+            <if test="finnshedTime != null">
+                #{finnshedTime},
+            </if>
+            <if test="goodsAmount != null">
+                #{goodsAmount},
+            </if>
+            <if test="orderAmount != null">
+                #{orderAmount},
+            </if>
+            <if test="pdAmount != null">
+                #{pdAmount},
+            </if>
+            <if test="shippingFee != null">
+                #{shippingFee},
+            </if>
+            <if test="evaluationState != null">
+                #{evaluationState},
+            </if>
+            <if test="orderState != null">
+                #{orderState},
+            </if>
+            <if test="refundState != null">
+                #{refundState},
+            </if>
+            <if test="lockState != null">
+                #{lockState},
+            </if>
+            <if test="refundAmount != null">
+                #{refundAmount},
+            </if>
+            <if test="delayTime != null">
+                #{delayTime},
+            </if>
+            <if test="shippingCode != null">
+                #{shippingCode},
+            </if>
+            <if test="isDel != null">
+                #{isDel},
+            </if>
+            <if test="createdTime != null">
+                #{createdTime},
+            </if>
+            <if test="updatedTime != null">
+                #{updatedTime},
+            </if>
+        </trim>
+    </insert>
+    <!--根据id删除数据-->
+    <delete id="deleteById" parameterType="integer">
+        DELETE FROM  shop_order WHERE
+        order_id = #{orderId}
+    </delete>
+
+    <!--根据id批量删除数据-->
+    <delete id="deleteByIds" parameterType="java.lang.String">
+          delete FROM  shop_order WHERE order_id in
+          <foreach item="idItem" collection="array" open="(" separator="," close=")">
+            #{idItem}
+          </foreach>
+    </delete>
+    <!--根据id修改数据-->
+    <update id="updateById" parameterType="com.hzitxx.hitao.system.pojo.order.ShopOrder">
+        UPDATE shop_order
+        <set>
+          order_id=#{orderId},
+          order_sn=#{orderSn},
+          pay_sn=#{paySn},
+          buyer_id=#{buyerId},
+          buyer_name=#{buyerName},
+          buyer_email=#{buyerEmail},
+          add_time=#{addTime},
+          payment_code=#{paymentCode},
+          payment_time=#{paymentTime},
+          finnshed_time=#{finnshedTime},
+          goods_amount=#{goodsAmount},
+          order_amount=#{orderAmount},
+          pd_amount=#{pdAmount},
+          shipping_fee=#{shippingFee},
+          evaluation_state=#{evaluationState},
+          order_state=#{orderState},
+          refund_state=#{refundState},
+          lock_state=#{lockState},
+          refund_amount=#{refundAmount},
+          delay_time=#{delayTime},
+          shipping_code=#{shippingCode},
+          is_del=#{isDel},
+          created_time=#{createdTime},
+          updated_time=#{updatedTime}
+        </set>
+        WHERE
+           order_id = #{orderId}
+    </update>
+
+    <update id="updateSelectiveById" parameterType="com.hzitxx.hitao.system.pojo.order.ShopOrder">
+        UPDATE shop_order
+        <set>
+    <if test="orderId != null">
+          order_id = #{orderId},
+    </if>
+    <if test="orderSn != null">
+          order_sn = #{orderSn},
+    </if>
+    <if test="paySn != null">
+          pay_sn = #{paySn},
+    </if>
+    <if test="buyerId != null">
+          buyer_id = #{buyerId},
+    </if>
+    <if test="buyerName != null">
+          buyer_name = #{buyerName},
+    </if>
+    <if test="buyerEmail != null">
+          buyer_email = #{buyerEmail},
+    </if>
+    <if test="addTime != null">
+          add_time = #{addTime},
+    </if>
+    <if test="paymentCode != null">
+          payment_code = #{paymentCode},
+    </if>
+    <if test="paymentTime != null">
+          payment_time = #{paymentTime},
+    </if>
+    <if test="finnshedTime != null">
+          finnshed_time = #{finnshedTime},
+    </if>
+    <if test="goodsAmount != null">
+          goods_amount = #{goodsAmount},
+    </if>
+    <if test="orderAmount != null">
+          order_amount = #{orderAmount},
+    </if>
+    <if test="pdAmount != null">
+          pd_amount = #{pdAmount},
+    </if>
+    <if test="shippingFee != null">
+          shipping_fee = #{shippingFee},
+    </if>
+    <if test="evaluationState != null">
+          evaluation_state = #{evaluationState},
+    </if>
+    <if test="orderState != null">
+          order_state = #{orderState},
+    </if>
+    <if test="refundState != null">
+          refund_state = #{refundState},
+    </if>
+    <if test="lockState != null">
+          lock_state = #{lockState},
+    </if>
+    <if test="refundAmount != null">
+          refund_amount = #{refundAmount},
+    </if>
+    <if test="delayTime != null">
+          delay_time = #{delayTime},
+    </if>
+    <if test="shippingCode != null">
+          shipping_code = #{shippingCode},
+    </if>
+    <if test="isDel != null">
+          is_del = #{isDel},
+    </if>
+    <if test="createdTime != null">
+          created_time = #{createdTime},
+    </if>
+    <if test="updatedTime != null">
+          updated_time = #{updatedTime},
+    </if>
+    </set>
+        WHERE
+      order_id = #{orderId}
+    </update>
+    <!--根据id查询一条数据-->
+    <select id="findOne" resultMap="shopOrderMap" parameterType="integer">
+        select
+        <include refid="shopOrderBaseColumn"/>
+        from
+            shop_order
+        WHERE
+          order_id = #{orderId}
+    </select>
+    <!--查询数据-->
+    <select id="searchShopOrder" parameterType="map" resultMap="shopOrderMap">
+        SELECT
+        <include refid="shopOrderBaseColumn"/>
+        FROM shop_order
+        <include refid="shopOrderBaseWhereSql"/>
+    </select>
+    <!--基础查询条件-->
+    <sql id="shopOrderBaseWhereSql">
+        <where>
+            <if test="orderId !=null">
+                AND order_id = #{orderId}
+            </if>
+            <if test="orderSn !=null">
+                AND order_sn = #{orderSn}
+            </if>
+            <if test="paySn !=null">
+                AND pay_sn = #{paySn}
+            </if>
+            <if test="buyerId !=null">
+                AND buyer_id = #{buyerId}
+            </if>
+            <if test="buyerName !=null">
+                AND buyer_name = #{buyerName}
+            </if>
+            <if test="buyerEmail !=null">
+                AND buyer_email = #{buyerEmail}
+            </if>
+            <if test="addTime !=null">
+                AND add_time = #{addTime}
+            </if>
+            <if test="paymentCode !=null">
+                AND payment_code = #{paymentCode}
+            </if>
+            <if test="paymentTime !=null">
+                AND payment_time = #{paymentTime}
+            </if>
+            <if test="finnshedTime !=null">
+                AND finnshed_time = #{finnshedTime}
+            </if>
+            <if test="goodsAmount !=null">
+                AND goods_amount = #{goodsAmount}
+            </if>
+            <if test="orderAmount !=null">
+                AND order_amount = #{orderAmount}
+            </if>
+            <if test="pdAmount !=null">
+                AND pd_amount = #{pdAmount}
+            </if>
+            <if test="shippingFee !=null">
+                AND shipping_fee = #{shippingFee}
+            </if>
+            <if test="evaluationState !=null">
+                AND evaluation_state = #{evaluationState}
+            </if>
+            <if test="orderState !=null">
+                AND order_state = #{orderState}
+            </if>
+            <if test="refundState !=null">
+                AND refund_state = #{refundState}
+            </if>
+            <if test="lockState !=null">
+                AND lock_state = #{lockState}
+            </if>
+            <if test="refundAmount !=null">
+                AND refund_amount = #{refundAmount}
+            </if>
+            <if test="delayTime !=null">
+                AND delay_time = #{delayTime}
+            </if>
+            <if test="shippingCode !=null">
+                AND shipping_code = #{shippingCode}
+            </if>
+            <if test="isDel !=null">
+                AND is_del = #{isDel}
+            </if>
+            <if test="createdTime !=null">
+                AND created_time = #{createdTime}
+            </if>
+            <if test="updatedTime !=null">
+                AND updated_time = #{updatedTime}
+            </if>
+        </where>
+    </sql>
+
+         <!-- 通用查询映射结果 -->
+    <resultMap id="shopOrderMap" type="com.hzitxx.hitao.system.pojo.order.ShopOrder">
+        <id column="order_id" property="orderId"/>
+        <result column="order_sn" property="orderSn"/>
+        <result column="pay_sn" property="paySn"/>
+        <result column="buyer_id" property="buyerId"/>
+        <result column="buyer_name" property="buyerName"/>
+        <result column="buyer_email" property="buyerEmail"/>
+        <result column="add_time" property="addTime"/>
+        <result column="payment_code" property="paymentCode"/>
+        <result column="payment_time" property="paymentTime"/>
+        <result column="finnshed_time" property="finnshedTime"/>
+        <result column="goods_amount" property="goodsAmount"/>
+        <result column="order_amount" property="orderAmount"/>
+        <result column="pd_amount" property="pdAmount"/>
+        <result column="shipping_fee" property="shippingFee"/>
+        <result column="evaluation_state" property="evaluationState"/>
+        <result column="order_state" property="orderState"/>
+        <result column="refund_state" property="refundState"/>
+        <result column="lock_state" property="lockState"/>
+        <result column="refund_amount" property="refundAmount"/>
+        <result column="delay_time" property="delayTime"/>
+        <result column="shipping_code" property="shippingCode"/>
+        <result column="is_del" property="isDel"/>
+        <result column="created_time" property="createdTime"/>
+        <result column="updated_time" property="updatedTime"/>
+     </resultMap>
+</mapper>

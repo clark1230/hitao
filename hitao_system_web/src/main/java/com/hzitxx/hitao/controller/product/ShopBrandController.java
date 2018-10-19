@@ -38,10 +38,10 @@ public class ShopBrandController  {
     @GetMapping(value="shopBrandAjax")
     public ServerResponse<LayuiEntity<ShopBrand>> shopBrandAjax(@RequestParam(value = "page",defaultValue = "1") int page,
                                                 @RequestParam(value = "limit",defaultValue = "20") int  limit,
-                                                                String value){
+                                                                String brandName){
         Map<String,Object>  map = new HashMap<>();
-        if(StringUtils.isNotBlank(value)){
-            map.put("brandName",value);
+        if(StringUtils.isNotBlank(brandName)){
+            map.put("brandName",brandName);
         }
         return shopBrandService.page(page,limit,map);
     }
