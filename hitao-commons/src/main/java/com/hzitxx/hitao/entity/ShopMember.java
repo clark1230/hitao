@@ -1,5 +1,6 @@
 package com.hzitxx.hitao.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
@@ -42,6 +43,7 @@ public class ShopMember implements Serializable {
     /**
      * 生日
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date memberBirthday;
     /**
      * 会员密码

@@ -9,9 +9,11 @@
     <artifactId>hitao_cloud</artifactId>
     <packaging>pom</packaging>
     <version>1.0-SNAPSHOT</version>
+    <properties>
+        <docker.registry>120.79.176.107:5000</docker.registry>
+    </properties>
     <!--模块-->
     <modules>
-        <module>hitao-provider-api</module>
         <module>hitao-registry</module>
         <module>hitao-provider</module>
         <module>hitao-provider/hitao-provider-product</module>
@@ -25,7 +27,7 @@
         <module>hitao-bus</module>
         <module>hitao-commons</module>
         <module>hitao-fileservice</module>
-        <module>hitao_system_web</module>
+        <module>hitao-system-web</module>
         <module>hitao-monitor</module>
         <module>hitao-task</module>
     </modules>
@@ -64,5 +66,79 @@
             </snapshots>
         </repository>
     </repositories>
+    <!--编译配置-->
+    <!--<build>-->
+        <!--<resources>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>false</filtering>-->
+            <!--</resource>-->
+            <!--<resource>-->
+                <!--<directory>src/main/resources</directory>-->
+                <!--<filtering>true</filtering>-->
+                <!--<includes>-->
+                    <!--<include>application.yml</include>-->
+                <!--</includes>-->
+            <!--</resource>-->
+        <!--</resources>-->
 
+        <!--<plugins>-->
+            <!--&lt;!&ndash;spring boot 打包插件&ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>org.springframework.boot</groupId>-->
+                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
+                <!--<configuration>-->
+                    <!--<executable>true</executable>-->
+                    <!--<fork>true</fork>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+            <!--&lt;!&ndash;docker  插件&ndash;&gt;-->
+            <!--<plugin>-->
+                <!--<groupId>com.spotify</groupId>-->
+                <!--<artifactId>docker-maven-plugin</artifactId>-->
+                <!--<version>0.4.13</version>-->
+                <!--<configuration>-->
+                    <!--<imageName>${docker.registry}/${project.groupId}/${project.artifactId}:${project.version}</imageName>-->
+                    <!--<dockerDirectory>${project.build.outputDirectory}/docker/</dockerDirectory>-->
+                    <!--<resources>-->
+                        <!--<resource>-->
+                            <!--&lt;!&ndash;<targetPath>/</targetPath> &ndash;&gt;-->
+                            <!--<directory>${project.build.directory}</directory>-->
+                            <!--<include>${project.build.finalName}.jar</include>-->
+                        <!--</resource>-->
+                    <!--</resources>-->
+                <!--</configuration>-->
+            <!--</plugin>-->
+        <!--</plugins>-->
+    <!--</build>-->
+    <!--<profiles>-->
+        <!--<profile>-->
+            <!--<id>dev</id>-->
+            <!--<properties>-->
+                <!--<activatedProperties>dev</activatedProperties>-->
+            <!--</properties>-->
+            <!--<activation>-->
+                <!--<activeByDefault>true</activeByDefault>-->
+            <!--</activation>-->
+        <!--</profile>-->
+        <!--<profile>-->
+            <!--<id>prod</id>-->
+            <!--<properties>-->
+                <!--<activatedProperties>prod</activatedProperties>-->
+            <!--</properties>-->
+        <!--</profile>-->
+    <!--</profiles>-->
+    <!--<pluginRepositories>-->
+        <!--<pluginRepository>-->
+            <!--<id>public</id>-->
+            <!--<name>aliyun nexus</name>-->
+            <!--<url>http://maven.aliyun.com/nexus/content/groups/public/</url>-->
+            <!--<releases>-->
+                <!--<enabled>true</enabled>-->
+            <!--</releases>-->
+            <!--<snapshots>-->
+                <!--<enabled>false</enabled>-->
+            <!--</snapshots>-->
+        <!--</pluginRepository>-->
+    <!--</pluginRepositories>-->
 </project>

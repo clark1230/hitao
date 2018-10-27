@@ -122,7 +122,6 @@
         <version>2.7.0</version>
         </dependency>
         <!--swagger 文档生成 end-->
-
     </dependencies>
 
     <build>

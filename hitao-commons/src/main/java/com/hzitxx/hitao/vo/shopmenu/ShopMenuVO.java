@@ -34,8 +34,10 @@ public class ShopMenuVO implements Serializable {
      * 父级ID
      */
     private Integer parentId;
-
-
+    /**
+     * 是否删除  0:不进行 逻辑删除  1:进行逻辑删除
+     */
+    private Integer isDel;
     private List<ShopMenuVO> children = new ArrayList<>();
 
     @Override

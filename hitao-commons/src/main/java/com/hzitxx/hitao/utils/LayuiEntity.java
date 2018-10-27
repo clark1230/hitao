@@ -17,6 +17,14 @@ public class LayuiEntity<T> {
     private long count;
     private List<T> data;
 
+    public LayuiEntity() {
+    }
+
+    public LayuiEntity( List<T> data,long count) {
+        this.count = count;
+        this.data = data;
+    }
+
     public int getCode() {
         return code;
     }

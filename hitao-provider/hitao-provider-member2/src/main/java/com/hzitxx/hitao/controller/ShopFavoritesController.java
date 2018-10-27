@@ -2,12 +2,16 @@ package com.hzitxx.hitao.controller;
 
 
 import com.hzitxx.hitao.commons.ServerResponse;
+import com.hzitxx.hitao.service.IShopFavoritesService;
 import com.hzitxx.hitao.system.pojo.product.ShopFavorites;
+import com.hzitxx.hitao.utils.LayuiEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import com.hzitxx.hitao.service.IShopFavoritesService;
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * <p>
  * 买家收藏表 前端控制器
@@ -18,9 +22,25 @@ import com.hzitxx.hitao.service.IShopFavoritesService;
 @RestController
 @RequestMapping("/shopFavorites")
 public class ShopFavoritesController  {
+
     @Autowired
     private IShopFavoritesService shopFavoritesService;
 
+    /**
+     * 获取分页数据
+     * @param page
+     * @param limit
+     * @param memberId
+     * @return
+     */
+    @GetMapping("/list")
+    public ServerResponse<LayuiEntity<ShopFavorites>> page(@RequestParam(value = "page",defaultValue = "1")Integer page,
+                                                           @RequestParam(value = "limit",defaultValue = "10") Integer limit,
+                                                           @RequestParam(value = "memberId") Integer memberId) {
+        Map<String,Object> map = new HashMap<>();
+        map.put("memberId",memberId);
+        return shopFavoritesService.page(page,limit,map);
+    }
     /**
      * 处理添加表单
      * @param
@@ -62,11 +82,25 @@ public class ShopFavoritesController  {
         return shopFavoritesService.findOne(favId);
     }
 
+    /**
+     * 检查收藏信息
+     * @param memberId
+     * @param goodsId
+     * @return
+     */
     @GetMapping("/checkFavorites")
     public ServerResponse<ShopFavorites> checkFavorites( @RequestParam("memberId")Integer memberId,
                                                          @RequestParam("goodsId")Integer goodsId){
         return this.shopFavoritesService.checkFavorites(memberId,goodsId);
     }
 
-
+    /**
+     * 删除收藏信息
+     * @param favId
+     * @return
+     */
+    @GetMapping("/deleteShopFavorites")
+    public ServerResponse deleteShopFavorites(@RequestParam("favId") Integer favId) {
+        return this.shopFavoritesService.deleteById(favId);
+    }
 }

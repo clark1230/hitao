@@ -16,8 +16,6 @@ import java.util.UUID;
  */
 @RestController
 public class MemberInfoController {
-    @Value("${savepath}")
-    private String path;
 
     /**
      * 文件上传数据中心

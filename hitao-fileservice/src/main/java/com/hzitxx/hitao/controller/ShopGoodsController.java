@@ -1,42 +1,92 @@
 package com.hzitxx.hitao.controller;
 
+import com.aliyun.oss.OSSClient;
 import com.hzitxx.hitao.commons.ServerResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("fileupload")
+@RequestMapping("/shopGoods")
 public class ShopGoodsController {
-    @Value("${server.port}")
-    private int port;
 
-    @Value("${savepath}")
-    private String path;
+    /**
+     * 文件上传数据中心
+     */
+    @Value("${oss.endpoint}")
+    private String endPoint;
+    /**
+     * oss账号
+     */
+    @Value("${oss.accessKeyId}")
+    private String accessKeyId;
 
-    @Value("${eureka.instance.hostname}")
-    private String hostname;
+    /**
+     * oss密码
+     */
+    @Value("${oss.accessKeySecret}")
+    private String accessKeySecret;
     /**
      * 上传商品主图
      * @return
      */
     @PostMapping("/uploadShopGoodsImage")
-    public  Object uploadShopGoodsImage(MultipartFile file){
-        if(file == null){
-            return ServerResponse.createByErrorMessage("文件上传失败!");
+    public  Object uploadShopGoodsImage(MultipartFile goodsImages){
+        System.out.println(goodsImages);
+        if(goodsImages== null){
+            return ServerResponse.createByErrorMessage("会员头像上传失败!");
         }
-        try{
-            String fileName = UUID.randomUUID().toString()+file.getOriginalFilename();
-            file.transferTo(new File(path+ fileName));
-            return ServerResponse.createBySuccess("文件上传成功!",fileName);
-        }catch (IOException e){
-            return  ServerResponse.createByErrorMessage("文件上传失败!");
+        String fileName = null;
+        try {
+            OSSClient client = new OSSClient("http://"+endPoint,
+                    accessKeyId,
+                    accessKeySecret);
+            // 上传文件
+            fileName = UUID.randomUUID().toString()+ goodsImages.getOriginalFilename();
+            client.putObject("hitao-images",fileName,goodsImages.getInputStream());
+            String url = "https://bucketName.endPoint/fileName";
+            url =url.replace("bucketName","hitao-images");
+            url =url.replace("endPoint",endPoint);
+            url = url.replace("fileName",fileName);
+            return ServerResponse.createBySuccess("商品图片上传成功!",url);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ServerResponse.createByErrorMessage("商品图片上传失败！");
+        }
+    }
+
+    /**
+     * 上传商品内容图片
+     * @param uploadContentImage
+     * @return
+     */
+    @PostMapping("/uploadContentImage")
+    public Object  uploadContentImage(@RequestParam("uploadContentImage") MultipartFile uploadContentImage) {
+        if(uploadContentImage== null){
+            return ServerResponse.createByErrorMessage("会员头像上传失败!");
+        }
+        String fileName = null;
+        try {
+            OSSClient client = new OSSClient("http://"+endPoint,
+                    accessKeyId,
+                    accessKeySecret);
+            // 上传文件
+            fileName = UUID.randomUUID().toString()+ uploadContentImage.getOriginalFilename();
+            client.putObject("hitao-images",fileName,uploadContentImage.getInputStream());
+            String url = "https://bucketName.endPoint/fileName";
+            url =url.replace("bucketName","hitao-images");
+            url =url.replace("endPoint",endPoint);
+            url = url.replace("fileName",fileName);
+            return ServerResponse.createBySuccess("商品内容图片上传成功!",url);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return ServerResponse.createByErrorMessage("商品内容图片上传失败！");
         }
     }
 }

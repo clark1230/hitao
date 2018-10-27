@@ -68,6 +68,8 @@ public class ShopMenu implements Serializable {
      */
     private Date updatedTime;
 
+    private Integer isDel;
+
     /**
      * 重定向
      */

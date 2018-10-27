@@ -14,7 +14,6 @@ eureka:
     service-url:
       defaultZone: http://localhost:8001/eureka/
 
-savepath: D:/hitao_images2/
 
 # 阿里云oss文件上传配置
 # oss.endpoint=oss-cn-shenzhen.aliyuncs.com

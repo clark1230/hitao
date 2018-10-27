@@ -1,5 +1,7 @@
 package com.hzitxx.hitao.system.pojo.member;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -36,6 +38,7 @@ public class ShopMember implements Serializable {
     /**
      * 生日
      */
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date memberBirthday;
     /**
      * 会员密码

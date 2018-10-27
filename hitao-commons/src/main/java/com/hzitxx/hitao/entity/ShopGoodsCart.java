@@ -37,6 +37,62 @@ public class ShopGoodsCart implements Serializable{
      */
     private BigDecimal totalFee;
 
+    public int getGoodsId() {
+        return goodsId;
+    }
+
+    public void setGoodsId(int goodsId) {
+        this.goodsId = goodsId;
+    }
+
+    public String getGoodsName() {
+        return goodsName;
+    }
+
+    public void setGoodsName(String goodsName) {
+        this.goodsName = goodsName;
+    }
+
+    public String getGoodsJingle() {
+        return goodsJingle;
+    }
+
+    public void setGoodsJingle(String goodsJingle) {
+        this.goodsJingle = goodsJingle;
+    }
+
+    public BigDecimal getGoodsPrice() {
+        return goodsPrice;
+    }
+
+    public void setGoodsPrice(BigDecimal goodsPrice) {
+        this.goodsPrice = goodsPrice;
+    }
+
+    public int getNumber() {
+        return number;
+    }
+
+    public void setNumber(int number) {
+        this.number = number;
+    }
+
+    public String getMainImage() {
+        return mainImage;
+    }
+
+    public void setMainImage(String mainImage) {
+        this.mainImage = mainImage;
+    }
+
+    public BigDecimal getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(BigDecimal totalFee) {
+        this.totalFee = totalFee;
+    }
+
     @Override
     public String toString() {
         return "ShopGoodsCart{" +

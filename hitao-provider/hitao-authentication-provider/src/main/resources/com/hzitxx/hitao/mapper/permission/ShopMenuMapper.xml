@@ -15,7 +15,8 @@
          created_by,
          created_time,
          updated_by,
-         updated_time
+         updated_time,
+         is_del
     </sql>
 
     <!--添加-->
@@ -34,7 +35,8 @@
                 #{createdBy},
                 #{createdTime},
                 #{updatedBy},
-                #{updatedTime}
+                #{updatedTime},
+                #{isDel}
         )
     </insert>
 
@@ -77,6 +79,9 @@
             <if test="updatedTime != null">
                 updated_time,
             </if>
+            <if test="isDel != null">
+                is_del,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -115,6 +120,9 @@
             <if test="updatedTime != null">
                 #{updatedTime},
             </if>
+            <if test="isDel != null">
+                #{isDel},
+            </if>
         </trim>
     </insert>
     <!--根据id删除数据-->
@@ -147,6 +155,7 @@
           created_time=#{createdTime},
           updated_by=#{updatedBy},
           updated_time=#{updatedTime}
+          is_del=#{isDel}
         </set>
         WHERE
            id = #{id}
@@ -191,6 +200,9 @@
     <if test="updatedTime != null">
           updated_time = #{updatedTime},
     </if>
+    <if test="isDel != null">
+        is_del = #{isDel},
+    </if>
     </set>
         WHERE
       id = #{id}
@@ -211,7 +223,7 @@
         SELECT
         men.id,men.name,men.url,men.parent_id,men.sort,men.level,men.path,
         men.description,cre.`admin_name` AS created_by,
-        men.created_time, upd.`admin_name` AS updated_by, men.updated_time
+        men.created_time, upd.`admin_name` AS updated_by, men.updated_time,men.is_del
         FROM
         shop_menu men
         LEFT JOIN
@@ -279,6 +291,9 @@
             <if test="updatedTime !=null">
                 AND updated_time = #{updatedTime}
             </if>
+            <if test="isDel !=null">
+                AND is_del = #{isDel}
+            </if>
         </where>
     </sql>
 
@@ -296,6 +311,7 @@
         <result column="created_time" property="createdTime"/>
         <result column="updated_by" property="updatedBy"/>
         <result column="updated_time" property="updatedTime"/>
+        <result column="is_del" property="isDel"/>
      </resultMap>
     <resultMap id="shopMenuVOMap" type="com.hzitxx.hitao.vo.ShopMenuVO">
         <id column="id" property="id"/>
@@ -310,5 +326,6 @@
         <result column="created_time" property="createdTime"/>
         <result column="updated_by" property="updatedBy"/>
         <result column="updated_time" property="updatedTime"/>
+        <result column="is_del" property="isDel"/>
     </resultMap>
 </mapper>

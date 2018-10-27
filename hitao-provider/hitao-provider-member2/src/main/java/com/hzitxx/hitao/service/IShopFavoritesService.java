@@ -2,6 +2,7 @@ package com.hzitxx.hitao.service;
 
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.system.pojo.product.ShopFavorites;
+import com.hzitxx.hitao.utils.LayuiEntity;
 
 import java.util.List;
 import java.util.Map;
@@ -47,4 +48,12 @@ public interface IShopFavoritesService  {
      */
     ServerResponse<ShopFavorites> checkFavorites(Integer memberId,Integer goodsId);
 
+    /**
+     * 获取分页数据
+     * @param page 页数
+     * @param limit  条数
+     * @param map  查询条件
+     * @return
+     */
+    ServerResponse<LayuiEntity<ShopFavorites>> page(Integer page, Integer limit,Map<String,Object> map);
 }

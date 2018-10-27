@@ -62,6 +62,7 @@ public class AccountController {
     @ApiOperation(value = "系统注销", notes = "处理后台系统注销")
     @GetMapping("/logout")
     public ServerResponse logout(@RequestHeader("token")String token){
-        return this.shopAdminService.logout(JwtHelper.getUserId(token,audience.getBase64Secret()));
+        return this.shopAdminService.logout(JwtHelper.getUserId(token,
+                audience.getBase64Secret()));
     }
 }

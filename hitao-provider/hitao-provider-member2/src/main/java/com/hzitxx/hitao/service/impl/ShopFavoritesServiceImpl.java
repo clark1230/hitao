@@ -1,11 +1,14 @@
 package com.hzitxx.hitao.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hzitxx.hitao.commons.ServerResponse;
 import com.hzitxx.hitao.mapper.ShopFavoritesMapper;
 import com.hzitxx.hitao.rpc.ShopGoodsService;
 import com.hzitxx.hitao.service.IShopFavoritesService;
 import com.hzitxx.hitao.system.pojo.product.ShopFavorites;
 import com.hzitxx.hitao.system.pojo.product.ShopGoods;
+import com.hzitxx.hitao.utils.LayuiEntity;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -196,6 +199,24 @@ public class ShopFavoritesServiceImpl implements IShopFavoritesService {
             return  ServerResponse.createByErrorMessage("检查失败!!");
         }
         return ServerResponse.createBySuccess(shopFavorites.get(0));
+    }
+
+    /**
+     * 获取分页数据
+     * @param page 页数
+     * @param limit 条数
+     * @return ServerResponse
+     */
+    @Override
+    public ServerResponse<LayuiEntity<ShopFavorites>> page(Integer page,
+                                                           Integer limit,
+                                                           Map<String,Object> map) {
+        PageHelper.startPage(page,limit);
+        List<ShopFavorites> shopFavorites = this.mapper.searchShopFavorites(map);
+        PageInfo<ShopFavorites> pageInfo = new PageInfo<>(shopFavorites);
+        LayuiEntity<ShopFavorites> layuiEntity = new LayuiEntity<>(pageInfo.getList(),
+                pageInfo.getTotal());
+        return ServerResponse.createBySuccess(layuiEntity);
     }
 }
 

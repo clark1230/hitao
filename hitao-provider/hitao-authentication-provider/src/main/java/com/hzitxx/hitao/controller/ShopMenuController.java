@@ -107,4 +107,14 @@ public class ShopMenuController {
     public ServerResponse removeBatch(String[] ids){
         return this.shopMenuService.deleteByIds(ids);
     }
+
+    /**
+     * 逻辑删除权限信息
+     * @param shopMenu
+     * @return
+     */
+    @GetMapping("/delete")
+    public ServerResponse delete(ShopMenu shopMenu){
+        return this.shopMenuService.updateSelectiveById(shopMenu);
+    }
 }

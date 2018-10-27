@@ -16,7 +16,7 @@ public interface CartDao {
     /**
      * 删除购物车信息
      * @param memberId
-     * @param goodsId
+     * @param goodsIds
      * @return
      */
     boolean deleteCart(int memberId,Long[] goodsIds);

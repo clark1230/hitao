@@ -7,7 +7,11 @@ import java.util.List;
 public class ShopGoodsCategoryVo {
 
     private int value; //类目
+
     private String label;//类目名称
+
+    private Integer isDel;//是否删除
+
     private List<ShopGoodsCategoryVo> children;  //子类目
 
     public int getValue() {
